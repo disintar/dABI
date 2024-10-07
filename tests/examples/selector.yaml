@@ -1,0 +1,12 @@
+selector:
+  by_methods: true
+
+---
+
+selector:
+  by_code:
+    - hash: "4E4B39225F7E06D274CE590D74CB68CBCC7E679AB6D4548FA44DC37FCF9C35FD"
+    - hash: "004b39225f7e06d274ce590d74cb68cbcc7e679ab6d4548fa44dc37fcf9c3500"
+    - hash: "AEs5Il9+BtJ0zlkNdMtoy8x+Z5q21FSPpE3Df8+cNQA="
+      metadata:
+        link: "https://github.com/..."

@@ -1,0 +1,10 @@
+tlb:
+   version: tlb/v0
+   file_path: "test.tlb"
+   object: "AWithTwoBits"
+
+---
+
+tlb:
+  inline: "message#3f5476ca value:# = CoolMessage;"
+

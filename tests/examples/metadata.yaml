@@ -1,0 +1,11 @@
+metadata:
+  name: "Test"
+
+---
+metadata:
+  name: "Test"
+  description: |
+    Test description lolkek
+
+  link: "https://ya.ru/"
+
