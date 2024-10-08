@@ -1,0 +1,63 @@
+name: Run Tests and Generate Diff Comment
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test-and-diff:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Checkout the repository
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    # Set up Python environment
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+
+    # Install dependencies
+    - name: Install Dependencies
+      run: |
+        pip install -r requirements.txt
+
+    # Run tests (using pytest)
+    - name: Run Tests
+      run: |
+        pytest
+
+    - name: Run Build Script
+      run: |
+        python build.py > final.json
+        cat final.json
+
+    # Generate the diff using diff.py
+    - name: Generate Diff using diff.py
+      run: |
+        wget https://raw.githubusercontent.com/disintar/dABI/refs/heads/releases/dabi_latest.json
+        python diff.py dabi_latest.json final.json > diff_output.txt
+
+    # Read the diff output content
+    - name: Read Diff Content
+      id: diff_content
+      run: |
+        DIFF_CONTENT=$(cat diff_output.txt)
+        echo "DIFF_CONTENT<<EOF" >> $GITHUB_ENV
+        echo "$DIFF_CONTENT" >> $GITHUB_ENV
+        echo "EOF" >> $GITHUB_ENV
+
+    # Comment the diff content on the pull request
+    - name: Post Diff Comment on PR
+      uses: marocchino/sticky-pull-request-comment@v2
+      with:
+        header: "### 📝 Diff Output:"
+        message: |
+          ```
+          ${{ env.DIFF_CONTENT }}
+          ```
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

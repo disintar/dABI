@@ -104,6 +104,10 @@ jobs:
           cp "${{ env.VERSIONED_FOLDER }}/final.min.json" dabi_latest.min.json
           cp "${{ env.VERSIONED_FOLDER }}/final.json.gz" dabi_latest.json.gz
 
+          mv "${{ env.VERSIONED_FOLDER }}/final.json" ${{ env.VERSIONED_FOLDER }}/${{ env.VERSIONED_FOLDER }}.json
+          mv "${{ env.VERSIONED_FOLDER }}/final.min.json" ${{ env.VERSIONED_FOLDER }}/${{ env.VERSIONED_FOLDER }}.min.json
+          mv "${{ env.VERSIONED_FOLDER }}/final.json.gz" ${{ env.VERSIONED_FOLDER }}/${{ env.VERSIONED_FOLDER }}.json.gz
+
       # Generate diff between old_latest.json and latest.json using diff.py
       - name: Generate Diff between Old and Latest JSON
         run: |
@@ -147,14 +151,14 @@ jobs:
           body: |
             ## 📝 JSON dABI Release
             
-            - Original: [dabi_v${{ env.TIMESTAMP }}/final.json](https://raw.githubusercontent.com/disintar/dABI/refs/heads/releases/${{ env.VERSIONED_FOLDER }}/final.json)
-            - Minified: [dabi_v${{ env.TIMESTAMP }}/final.min.json](https://raw.githubusercontent.com/disintar/dABI/refs/heads/releases/${{ env.VERSIONED_FOLDER }}/final.min.json)
-            - Gzipped: [dabi_v${{ env.TIMESTAMP }}/final.json.gz](https://raw.githubusercontent.com/disintar/dABI/refs/heads/releases/${{ env.VERSIONED_FOLDER }}/final.json.gz)
+            - Original: [${{ env.VERSIONED_FOLDER }}.json](https://raw.githubusercontent.com/disintar/dABI/refs/heads/releases/${{ env.VERSIONED_FOLDER }}/${{ env.VERSIONED_FOLDER }}.json)
+            - Minified: [${{ env.VERSIONED_FOLDER }}.min.json](https://raw.githubusercontent.com/disintar/dABI/refs/heads/releases/${{ env.VERSIONED_FOLDER }}/${{ env.VERSIONED_FOLDER }}.min.json)
+            - Gzipped: [${{ env.VERSIONED_FOLDER }}.json.gz](https://raw.githubusercontent.com/disintar/dABI/refs/heads/releases/${{ env.VERSIONED_FOLDER }}/${{ env.VERSIONED_FOLDER }}.json.gz)
             
             ${{ env.DIFF_CONTENT }}
 
           files: |
-            ${{ env.VERSIONED_FOLDER }}/final.json
-            ${{ env.VERSIONED_FOLDER }}/final.min.json
-            ${{ env.VERSIONED_FOLDER }}/final.json.gz
+            ${{ env.VERSIONED_FOLDER }}/${{ env.VERSIONED_FOLDER }}.json
+            ${{ env.VERSIONED_FOLDER }}/${{ env.VERSIONED_FOLDER }}.min.json
+            ${{ env.VERSIONED_FOLDER }}/${{ env.VERSIONED_FOLDER }}.json.gz
             diff_output.txt
