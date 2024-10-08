@@ -9,6 +9,7 @@ from dabi.builtins.subtypes.metadata import MetadataSubtype
 from dabi.builtins.subtypes.base import dABISubtype
 from dabi.builtins.subtypes.tvm_types import TVMTypeSubtype
 from dabi.builtins.types.base import dABIType
+from dabi.settings import supported_versions
 
 
 class MethodsSubtype(dABISubtype):
@@ -36,7 +37,7 @@ class MethodsSubtype(dABISubtype):
             if not self.allow_sub_getters:
                 raise ValueError("MethodsSubtype: too deep depth for type: GetMethod")
 
-            self.full_get_method = GetMethodType(self.context, allow_sub_getters=False)
+            self.full_get_method = GetMethodType(self.context, allow_sub_getters=False, anon_getter=self.anon_getter)
             self.full_get_method.parse(data)
 
         elif 'method_name' in data:
@@ -113,25 +114,22 @@ class MethodsSubtype(dABISubtype):
 
 
 class GetMethodType(dABIType):
-    def __init__(self, context, allow_sub_getters=True):
+    def __init__(self, context, allow_sub_getters=True, anon_getter=None):
         super().__init__(context)
         self.labels = LabelsSubtype(context)
         self.metadata = MetadataSubtype(context)
         self.methods: List[MethodsSubtype] = []
         self.allow_sub_getters = allow_sub_getters
         self.anon_names = 0
-
-    def anon_getter(self):
-        tmp = self.anon_names
-        self.anon_names += 1
-        return tmp
+        self.unique_names = set()
+        self.anon_getter = anon_getter
 
     def parse(self, data: dict):
         if not isinstance(data, dict):
             raise ValueError('GetMethodType: data must be a dict')
 
         assert data['type'] == "GetMethod"
-        assert data['apiVersion'] == 'dabi/v0', "GetMethodType API version must be v0"
+        assert data['apiVersion'] in supported_versions, "GetMethodType API version must be supported"
 
         if 'labels' in data:
             self.labels.parse(data['labels'])

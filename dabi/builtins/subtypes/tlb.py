@@ -3,17 +3,16 @@ import os.path
 from dabi.builtins.subtypes.base import dABISubtype
 from tonpy.tlb_gen.py import add_tlb
 
+from dabi.settings import supported_versions
 
-# {'tlb': {'version': 'tlb/v0', 'file_path': '', 'object': ''}}
-# {'tlb': {'inline': 'message#3f5476ca value:# = CoolMessage;'}}
 
 class TLBSubtype(dABISubtype):
-    version = "tlb/v0"
     is_inline = False
     file_path = ''
     object = ''
     inline = ''
 
+    tlb_version = "tlb/v0"
     tlb_id = ''
     tlb_object = ''
 
@@ -23,8 +22,12 @@ class TLBSubtype(dABISubtype):
 
         if 'version' in data:
             if isinstance(data['version'], str):
-                if data.get('version') == 'tlb':
-                    self.tlb_id = data['id']
+                if data.get('version') in supported_versions:
+                    self.tlb_version = data['version']
+                else:
+                    raise ValueError('TLBSubtype: version must be supported')
+            else:
+                raise ValueError('TLBSubtype: version must be a string')
 
         self.is_inline = 'inline' in data
 
@@ -84,5 +87,5 @@ class TLBSubtype(dABISubtype):
     def to_dict(self):
         return {
             'id': self.tlb_id,
-            'object': self.tlb_object,
+            'object': self.tlb_object
         }

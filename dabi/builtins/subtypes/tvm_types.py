@@ -6,7 +6,6 @@ import re
 from collections import OrderedDict
 
 
-
 class TVMTypeSubtype(dABISubtype):
     def __init__(self, context, anon_getter):
         super().__init__(context)
@@ -65,15 +64,16 @@ class TVMTypeSubtype(dABISubtype):
         if self.labels.data is None:
             self.labels.data = {}
 
-        if 'name' not in self.labels.data:
-            self.labels.data['name'] = f'anon_{self.anon_getter()}'
+        if self.labels.data is None or 'name' not in self.labels.data:
+            if self.labels.data is None:
+                self.labels.data = {}
+
+            self.labels.data['name'] = self.anon_getter(None)
         else:
             pattern = r'^[A-Za-z_][A-Za-z0-9_]*$'
             if re.match(pattern, self.labels.data['name']) is None:
                 raise ValueError("TVMTypeSubtype: name must match pattern '{}'".format(pattern))
-
-            if 'anon_' in self.labels.data['name']:
-                raise ValueError("TVMTypeSubtype: name must not contain anon_")
+            self.anon_getter(self.labels.data['name'])
 
         if 'required' in data:
             if not isinstance(data['required'], str) and not isinstance(data['required'], int):

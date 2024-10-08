@@ -36,6 +36,7 @@ template keyword or defined in inline mode
 
 `state` section allow you to define how data of smart contract will be parsed
 
+Each smart contract must have unique `label` with `name` on regex: `^[A-Za-z_][A-Za-z0-9_]*$`
 Example ABI:
 
 ```yaml
@@ -45,6 +46,7 @@ metadata:
   name: "My cool smart contract"
   description: "Completely not useless"
 labels:
+  name: my_contract
   dton_parse_prefix: parsed_smart_
 spec:
   get_methods:
@@ -52,7 +54,7 @@ spec:
       result:
         - type: Int
           required: 0x100
-    - {{ get_method("my_getter.yaml") }}
+    - {{ get_method("my_getter.yaml", indent=6) }}
   selector:
     by_methods: true
   state:

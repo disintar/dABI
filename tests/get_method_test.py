@@ -8,7 +8,8 @@ def test_get_method():
         methods = list(yaml.safe_load_all(stream))
         context.update_subcontext()
 
-        get_method = GetMethodType(context)
+        tmp = SmartContractType(context)
+        get_method = GetMethodType(context, anon_getter=tmp.anon_getter)
         get_method.parse(methods[0])
         assert get_method.to_dict() == [{'labels': {},
                                          'metadata': {'description': '', 'link': '', 'name': ''},
@@ -39,7 +40,8 @@ def test_get_method():
                                          'result_strict_type_check': True}]
         context.update_subcontext()
 
-        get_method = GetMethodType(context)
+        tmp = SmartContractType(context)
+        get_method = GetMethodType(context, anon_getter=tmp.anon_getter)
         get_method.parse(methods[1])
         assert get_method.to_dict() == [{'labels': {'dton_parse_prefix': 'parsed_cool_'},
                                          'metadata': {'description': 'Get my cool data from this methods',
@@ -54,8 +56,9 @@ def test_get_method():
                                                          {'labels': {'name': 'anon_1'},
                                                           'metadata': {'description': '', 'link': '', 'name': ''},
                                                           'required': None,
-                                                          'tlb': {'id': '546DDE1FA200A9995CDD473F0D2E31BB85ECDC1A9EF2809BAD5DBB4EA70F390A',
-                                                                  'object': 'TestB'},
+                                                          'tlb': {
+                                                              'id': '546DDE1FA200A9995CDD473F0D2E31BB85ECDC1A9EF2809BAD5DBB4EA70F390A',
+                                                              'object': 'TestB'},
                                                           'type': 'Slice'},
                                                          {'items': [{'labels': {'name': 'anon_3'},
                                                                      'metadata': {'description': '',
@@ -68,8 +71,9 @@ def test_get_method():
                                                                                   'link': '',
                                                                                   'name': ''},
                                                                      'required': None,
-                                                                     'tlb': {'id': '546DDE1FA200A9995CDD473F0D2E31BB85ECDC1A9EF2809BAD5DBB4EA70F390A',
-                                                                             'object': 'TestC'},
+                                                                     'tlb': {
+                                                                         'id': '546DDE1FA200A9995CDD473F0D2E31BB85ECDC1A9EF2809BAD5DBB4EA70F390A',
+                                                                         'object': 'TestC'},
                                                                      'type': 'Slice'},
                                                                     {'items': [{'labels': {'name': 'anon_6'},
                                                                                 'metadata': {'description': '',
@@ -126,7 +130,7 @@ def test_get_method():
                                          'method_args_hash': '080FB7C908744FDC42C99B777511A890B04242167D30CD0F3EC4A3A542E1EB79',
                                          'method_id': 105222,
                                          'method_name': 'test',
-                                         'method_result': [{'labels': {'field': 'test_int', 'name': 'anon_0'},
+                                         'method_result': [{'labels': {'field': 'test_int', 'name': 'anon_10'},
                                                             'metadata': {'description': '', 'link': '', 'name': ''},
                                                             'required': None,
                                                             'type': 'Int'}],
