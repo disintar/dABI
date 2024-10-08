@@ -80,18 +80,17 @@ jobs:
           TIMESTAMP=${{ env.TIMESTAMP }}
           VERSIONED_FOLDER="dabi_v${TIMESTAMP}"
           mkdir -p $VERSIONED_FOLDER
-          
-          cat final.json
-          
+          echo "VERSIONED_FOLDER=$VERSIONED_FOLDER" >> $GITHUB_ENV
+      
           # Minify the final.json
           python -c 'import json; data = json.load(open("final.json")); json.dump(data, open(f"{VERSIONED_FOLDER}/final.min.json", "w"), separators=(",", ":"))'
-          
+      
           # Compress the original final.json using gzip
           gzip -c final.json > "${VERSIONED_FOLDER}/final.json.gz"
-          
+      
           # Move the original JSON to the versioned folder
           mv final.json "${VERSIONED_FOLDER}/final.json"
-          
+      
           # Copy the minified and original json to the latest version
           cp "${VERSIONED_FOLDER}/final.json" dabi_latest.json
           cp "${VERSIONED_FOLDER}/final.min.json" dabi_latest.min.json
@@ -169,3 +168,8 @@ jobs:
             ```
             ${{ env.DIFF_CONTENT }}
             ```
+          files: |
+            ${{ env.VERSIONED_FOLDER }}/final.json
+            ${{ env.VERSIONED_FOLDER }}/final.min.json
+            ${{ env.VERSIONED_FOLDER }}/final.json.gz
+            diff_output.txt
