@@ -1,4 +1,4 @@
-name: Build and Release JSON
+name: dABI_Releaser
 
 on:
   push:
