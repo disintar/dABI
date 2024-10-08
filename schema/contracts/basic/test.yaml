@@ -1,0 +1,16 @@
+apiVersion: dabi/v0
+type: SmartContract
+metadata:
+  name: "Test"
+labels:
+  name: test
+  dton_parse_prefix: test_
+spec:
+  get_methods:
+    - method_name: test
+      result:
+        - type: Int
+          labels:
+            name: test
+  selector:
+    by_methods: true
