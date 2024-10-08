@@ -109,7 +109,7 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add dabi_latest.json dabi_latest.min.json dabi_latest.json.gz diff_output.txt
-          git add "${VERSIONED_FOLDER}"
+          git add "${{ env.VERSIONED_FOLDER }}"
           git commit -m "Update latest and versioned JSON files for dabi_v${TIMESTAMP}"
           git push origin json-files-branch
 
