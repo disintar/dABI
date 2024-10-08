@@ -3,8 +3,7 @@ name: Build and Release JSON
 on:
   push:
     branches:
-      - main
-  workflow_dispatch:
+      - master
 
 jobs:
   test-and-build:
