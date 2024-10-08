@@ -10,104 +10,119 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    # Checkout the repository
-    - name: Checkout Repository
-      uses: actions/checkout@v3
-    
-    # Set up Python environment
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.12'
+      # Checkout the repository
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
-    # Install dependencies
-    - name: Install Dependencies
-      run: |
-        pip install -r requirements.txt
-    
-    # Run pytest to ensure the code is passing
-    - name: Run Pytest
-      run: |
-        pytest
-    
-    # Run build.py to generate the final JSON file and save artifact with run ID
-    - name: Run Build Script
-      run: |
-        python build.py > final.json
-    
-    # Upload the final.json as an artifact using GitHub run_id
-    - name: Upload Final JSON as Artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: final-json-${{ github.run_id }}
-        path: final.json
+      # Set up Python environment
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      # Install dependencies
+      - name: Install Dependencies
+        run: |
+          pip install -r requirements.txt
+
+      # Run pytest to ensure the code is passing
+      - name: Run Pytest
+        run: |
+          pytest
+
+      # Run build.py to generate the final JSON file and save artifact with run ID
+      - name: Run Build Script
+        run: |
+          python build.py > final.json
+
+      # Upload the final.json as an artifact using GitHub run_id
+      - name: Upload Final JSON as Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: final-json-${{ github.run_id }}
+          path: final.json
 
   commit-json-to-branch:
     runs-on: ubuntu-latest
     needs: test-and-build
 
     steps:
-    # Checkout the repository and target branch
-    - name: Checkout Repository
-      uses: actions/checkout@v3
-      with:
-        ref: json-files-branch # Checkout the specific branch where JSON files will be committed
+      # Checkout the repository and target branch
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          ref: json-files-branch # Checkout the specific branch where JSON files will be committed
 
-    # Download the artifact with the final JSON file using the run ID
-    - name: Download Final JSON Artifact
-      uses: actions/download-artifact@v3
-      with:
-        name: final-json-${{ github.run_id }}
-        path: .
+      # Download the artifact with the final JSON file using the run ID
+      - name: Download Final JSON Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: final-json-${{ github.run_id }}
+          path: .
 
-    # Set up Python environment
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.12'
+      # Set up Python environment
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
 
-    # Create versioned and latest json files using UNIX timestamp
-    - name: Create versioned and latest JSON files
-      run: |
-        # Create versioned filename with UNIX timestamp
-        TIMESTAMP=$(date +%s)
-        VERSIONED_FILENAME="dabi_v${TIMESTAMP}.json"
-        cp final.json $VERSIONED_FILENAME
+      # Create versioned and latest json files using UNIX timestamp
+      - name: Create versioned and latest JSON files
+        run: |
+          # Create versioned filename with UNIX timestamp
+          TIMESTAMP=$(date +%s)
+          VERSIONED_FILENAME="dabi_v${TIMESTAMP}.json"
+          cp final.json $VERSIONED_FILENAME
+          
+          # Save the latest.json file
+          cp final.json dabi_latest.json
 
-        # Save the latest.json file
-        cp final.json dabi_latest.json
-
-    # Commit and push the versioned and latest JSON files to the specified branch
-    - name: Commit and Push JSON Files to Branch
-      run: |
-        git config --global user.name 'github-actions[bot]'
-        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        git add dabi_latest.json $VERSIONED_FILENAME
-        git commit -m "Update dabi_latest.json and versioned JSON file with UNIX timestamp"
-        git push origin json-files-branch
+      # Commit and push the versioned and latest JSON files to the specified branch
+      - name: Commit and Push JSON Files to Branch
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add dabi_latest.json $VERSIONED_FILENAME
+          git commit -m "Update dabi_latest.json and versioned JSON file with UNIX timestamp"
+          git push origin json-files-branch
 
   release:
     runs-on: ubuntu-latest
     needs: test-and-build
 
     steps:
-    # Checkout the repository
-    - name: Checkout Repository
-      uses: actions/checkout@v3
+      # Checkout the repository
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
-    # Download the artifact with the final JSON file using the run ID
-    - name: Download Final JSON Artifact
-      uses: actions/download-artifact@v3
-      with:
-        name: final-json-${{ github.run_id }}
-        path: .
+      # Download the artifact with the final JSON file using the run ID
+      - name: Download Final JSON Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: final-json-${{ github.run_id }}
+          path: .
 
-    # Create a GitHub release and attach the final and versioned JSON files
-    - name: Create GitHub Release
-      uses: softprops/action-gh-release@v1
-      with:
-        files: |
-          final.json
-          dabi_v*.json
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Get the current UNIX timestamp for versioning
+      - name: Generate UNIX Timestamp
+        id: timestamp
+        run: |
+          echo "TIMESTAMP=$(date +%s)" >> $GITHUB_ENV
+
+      # Create a GitHub release with the UNIX timestamp as the tag version
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: "v${{ env.TIMESTAMP }}"
+          release_name: "Release v${{ env.TIMESTAMP }} 🚀🎉"
+          body: |
+            ## 📝 JSON Files are Ready!
+            - Here's the latest JSON output from the build: `final.json`
+            - Versioned file: `dabi_v${{ env.TIMESTAMP }}.json`
+            - Latest version file: `dabi_latest.json`
+            
+            Thanks for using our product! 😎🔧
+          files: |
+            final.json
+            dabi_v${{ env.TIMESTAMP }}.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
