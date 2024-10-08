@@ -1,0 +1,19 @@
+### Smart Contracts Changes
+
+| Change Type | Name | Description | Link |
+| ----------- | ---- | ----------- | ---- |
+| Added 📈 | Default royalty get methods | No name | No description | No link |
+
+
+
+### Method Names Changes
+
+| Change Type | Name | Description | Link |
+| ----------- | ---- | ----------- | ---- |
+| Added 📈 | royalty_params |  |  | No link |
+
+### Supported Smart Contracts
+
+| Name | Description | Selector Type | Methods |
+| ---- | ----------- | ------------- | ------- |
+
