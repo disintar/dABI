@@ -93,6 +93,8 @@ jobs:
           # Move the original JSON to the versioned folder
           mv final.json "${{ env.VERSIONED_FOLDER }}/final.json"
           
+          cp dabi_latest.json old_latest.json
+          
           # Copy the minified and original json to the latest version
           cp "${{ env.VERSIONED_FOLDER }}/final.json" dabi_latest.json
           cp "${{ env.VERSIONED_FOLDER }}/final.min.json" dabi_latest.min.json
@@ -103,7 +105,8 @@ jobs:
         run: |
           # Ensure old_latest.json exists to avoid errors
           if [ ! -f old_latest.json ]; then touch old_latest.json; fi
-          python diff.py old_latest.json dabi_latest.json > diff_output.txt
+          ls
+          python3.12 diff.py old_latest.json dabi_latest.json > diff_output.txt
 
       # Commit and push the versioned and latest JSON files to the specified branch
       - name: Commit and Push JSON Files to Branch
