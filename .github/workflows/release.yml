@@ -83,8 +83,8 @@ jobs:
           echo "VERSIONED_FOLDER=$VERSIONED_FOLDER" >> $GITHUB_ENV
       
           # Minify the final.json
-          python -c 'import json; data = json.load(open("final.json")); json.dump(data, open(f"{VERSIONED_FOLDER}/final.min.json", "w"), separators=(",", ":"))'
-      
+          python -c "import json; data = json.load(open('final.json')); json.dump(data, open('${{ env.VERSIONED_FOLDER }}/final.min.json', 'w'), separators=(',', ':'))"
+          
           # Compress the original final.json using gzip
           gzip -c final.json > "${VERSIONED_FOLDER}/final.json.gz"
       
