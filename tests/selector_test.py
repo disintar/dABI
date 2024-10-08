@@ -1,7 +1,7 @@
-from tests.test_base import *
+from test_base import *
 
 def test_selector():
-    with open('examples/selector.yaml', 'r') as stream:
+    with open('tests/examples/selector.yaml', 'r') as stream:
         selectors = list(yaml.safe_load_all(stream))
         context.update_subcontext()
 

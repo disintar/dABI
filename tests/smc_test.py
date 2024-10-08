@@ -1,11 +1,11 @@
 from pprint import pprint
 
 from dabi.builtins.context import load_smart_contract_template
-from tests.test_base import *
+from test_base import *
 
 
 def test_get_method():
-    with open('examples/smc.yaml', 'r') as stream:
+    with open('tests/examples/smc.yaml', 'r') as stream:
         data = load_smart_contract_template(root=context.root, smc_yaml=stream.read())
         smcs = list(yaml.safe_load_all(data))
         context.update_subcontext()

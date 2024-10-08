@@ -1,10 +1,10 @@
 from pprint import pprint
 
-from tests.test_base import *
+from test_base import *
 
 
 def test_get_method():
-    with open('examples/get_methods.yaml', 'r') as stream:
+    with open('tests/examples/get_methods.yaml', 'r') as stream:
         methods = list(yaml.safe_load_all(stream))
         context.update_subcontext()
 

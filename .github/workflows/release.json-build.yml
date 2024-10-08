@@ -1,0 +1,78 @@
+name: Build and Release JSON
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  test-and-build:
+    runs-on: Linux
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+
+    - name: Install Dependencies
+      run: |
+        pip install -r requirements.txt
+
+    - name: Run Pytest
+      run: |
+        pytest
+
+    - name: Run Build Script
+      run: |
+        python3.12 build.py > final.json
+
+    - name: Upload Final JSON as Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: final.json
+        path: final.json
+
+  release:
+    runs-on: ubuntu-latest
+    needs: test-and-build
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+
+    - name: Create versioned and latest JSON files
+      run: |
+        # Create versioned filename with current datetime
+        TIMESTAMP=$(date +'%Y%m%d_%H%M%S')
+        VERSIONED_FILENAME="final_${TIMESTAMP}.json"
+        cp final.json $VERSIONED_FILENAME
+
+        # Save the latest.json file
+        cp final.json latest.json
+
+    - name: Commit and Push JSON Files
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        git add latest.json $VERSIONED_FILENAME
+        git commit -m "Update latest and versioned JSON files"
+        git push
+
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          final.json
+          $VERSIONED_FILENAME
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

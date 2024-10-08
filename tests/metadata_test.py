@@ -1,8 +1,8 @@
-from tests.test_base import *
+from test_base import *
 
 
 def test_metadata():
-    with open('examples/metadata.yaml', 'r') as stream:
+    with open('tests/examples/metadata.yaml', 'r') as stream:
         meatadatas = list(yaml.safe_load_all(stream))
         context.update_subcontext()
 
