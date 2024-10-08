@@ -2,6 +2,7 @@ apiVersion: dabi/v0
 type: SmartContract
 metadata:
   name: "Test"
+  description: "Want fancy GH comment"
 labels:
   name: test
   dton_parse_prefix: test_
