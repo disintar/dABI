@@ -3,7 +3,7 @@ name: Run Tests and Generate Diff Comment
 on:
   pull_request:
     branches:
-      - main
+      - master
 
 jobs:
   test-and-diff:
