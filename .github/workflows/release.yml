@@ -75,8 +75,12 @@ jobs:
           
           # Create versioned folder
           TIMESTAMP=${{ env.TIMESTAMP }}
+
+      - name: Generate Version Folder
+        run: |
           VERSIONED_FOLDER="dabi_v$TIMESTAMP"
           echo "VERSIONED_FOLDER=$VERSIONED_FOLDER" >> $GITHUB_ENV
+          echo "$VERSIONED_FOLDER"
 
       # Minify and compress the JSON file
       - name: Minify and Compress JSON
