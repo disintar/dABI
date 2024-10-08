@@ -2,7 +2,7 @@
 
 | Change Type | Name | Description | Link |
 | ----------- | ---- | ----------- | ---- |
-| Added 📈 | Default royalty get methods | No name | No description | No link |
+| No changes | 😊 | | |
 
 
 
@@ -10,10 +10,11 @@
 
 | Change Type | Name | Description | Link |
 | ----------- | ---- | ----------- | ---- |
-| Added 📈 | royalty_params |  |  | No link |
+| No changes | 😊 | | |
 
 ### Supported Smart Contracts
 
 | Name | Description | Selector Type | Methods |
 | ---- | ----------- | ------------- | ------- |
+| Default royalty get methods |  | by_methods | royalty_params |
 
