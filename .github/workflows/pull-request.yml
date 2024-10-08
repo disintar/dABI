@@ -56,8 +56,7 @@ jobs:
       with:
         header: "### 📝 Diff Output:"
         message: |
-          ```
           ${{ env.DIFF_CONTENT }}
-          ```
+
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
