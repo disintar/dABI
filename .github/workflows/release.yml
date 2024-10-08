@@ -64,31 +64,63 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.12'
+          python-version: '3.x'
 
-      # Create versioned and latest json files using UNIX timestamp
-      - name: Create versioned and latest JSON files
+      # Generate UNIX timestamp
+      - name: Generate UNIX Timestamp
+        id: timestamp
         run: |
-          # Create versioned filename with UNIX timestamp
-          TIMESTAMP=$(date +%s)
-          VERSIONED_FILENAME="dabi_v${TIMESTAMP}.json"
-          cp final.json $VERSIONED_FILENAME
+          echo "TIMESTAMP=$(date +%s)" >> $GITHUB_ENV
+
+      # Minify and compress the JSON file
+      - name: Minify and Compress JSON
+        run: |
+          # Create versioned folder
+          TIMESTAMP=${{ env.TIMESTAMP }}
+          VERSIONED_FOLDER="dabi_v${TIMESTAMP}"
+          mkdir -p $VERSIONED_FOLDER
           
-          # Save the latest.json file
-          cp final.json dabi_latest.json
+          # Minify the final.json
+          python -c 'import json; data = json.load(open("final.json")); json.dump(data, open(f"{VERSIONED_FOLDER}/final.min.json", "w"), separators=(",", ":"))'
+          
+          # Compress the original final.json using gzip
+          gzip -c final.json > "${VERSIONED_FOLDER}/final.json.gz"
+          
+          # Move the original JSON to the versioned folder
+          mv final.json "${VERSIONED_FOLDER}/final.json"
+          
+          # Copy the minified and original json to the latest version
+          cp "${VERSIONED_FOLDER}/final.json" dabi_latest.json
+          cp "${VERSIONED_FOLDER}/final.min.json" dabi_latest.min.json
+          cp "${VERSIONED_FOLDER}/final.json.gz" dabi_latest.json.gz
+
+      # Generate diff between old_latest.json and latest.json using diff.py
+      - name: Generate Diff between Old and Latest JSON
+        run: |
+          # Ensure old_latest.json exists to avoid errors
+          if [ ! -f old_latest.json ]; then touch old_latest.json; fi
+          python diff.py old_latest.json dabi_latest.json > diff_output.txt
 
       # Commit and push the versioned and latest JSON files to the specified branch
       - name: Commit and Push JSON Files to Branch
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add dabi_latest.json $VERSIONED_FILENAME
-          git commit -m "Update dabi_latest.json and versioned JSON file with UNIX timestamp"
+          git add dabi_latest.json dabi_latest.min.json dabi_latest.json.gz diff_output.txt
+          git add "${VERSIONED_FOLDER}"
+          git commit -m "Update latest and versioned JSON files for dabi_v${TIMESTAMP}"
           git push origin json-files-branch
+
+      # Upload the diff file as an artifact
+      - name: Upload Diff as Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: diff-output-${{ github.run_id }}
+          path: diff_output.txt
 
   release:
     runs-on: ubuntu-latest
-    needs: test-and-build
+    needs: commit-json-to-branch
 
     steps:
       # Checkout the repository
@@ -102,13 +134,23 @@ jobs:
           name: final-json-${{ github.run_id }}
           path: .
 
-      # Get the current UNIX timestamp for versioning
-      - name: Generate UNIX Timestamp
-        id: timestamp
-        run: |
-          echo "TIMESTAMP=$(date +%s)" >> $GITHUB_ENV
+      # Download the diff artifact with the diff output
+      - name: Download Diff Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: diff-output-${{ github.run_id }}
+          path: .
 
-      # Create a GitHub release with the UNIX timestamp as the tag version
+      # Use the diff_output.txt content for release notes
+      - name: Read Diff Content
+        id: diff_content
+        run: |
+          DIFF_CONTENT=$(cat diff_output.txt)
+          echo "DIFF_CONTENT<<EOF" >> $GITHUB_ENV
+          echo "$DIFF_CONTENT" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      # Create a GitHub release with the UNIX timestamp as the tag version and include diff content
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
@@ -116,13 +158,11 @@ jobs:
           release_name: "Release v${{ env.TIMESTAMP }} 🚀🎉"
           body: |
             ## 📝 JSON Files are Ready!
-            - Here's the latest JSON output from the build: `final.json`
-            - Versioned file: `dabi_v${{ env.TIMESTAMP }}.json`
-            - Latest version file: `dabi_latest.json`
-            
-            Thanks for using our product! 😎🔧
-          files: |
-            final.json
-            dabi_v${{ env.TIMESTAMP }}.json
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            - Here's the latest JSON output from the build.
+            - Original: `dabi_v${{ env.TIMESTAMP }}/final.json`
+            - Minified: `dabi_v${{ env.TIMESTAMP }}/final.min.json`
+            - Gzipped: `dabi_v${{ env.TIMESTAMP }}/final.json.gz`
+            - **Diff with previous version**:
+            ```
+            ${{ env.DIFF_CONTENT }}
+            ```

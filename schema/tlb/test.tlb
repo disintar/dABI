@@ -1,0 +1,6 @@
+_ {X:Type} {Y:Type} my_val:(## 32) next_val:X next_next_val:Y = A X Y;
+_ bit:(## 1) = Bit;
+_ a_with_two_bits:(A Bit Bit) = AWithTwoBits;
+
+_ = TestB;
+_ = TestC;

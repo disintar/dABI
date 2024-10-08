@@ -22,5 +22,38 @@ spec:
             address: true
           metadata:
             description: "Address to send royalty"
+    - method_name: get_cool_smc
+      result_length_strict_check: false
+      args:
+        - type: Cell
+          metadata:
+            name: Test cell
+        - type: Slice
+          tlb:
+            file_path: "test.tlb"
+            object: "TestB"
+        - type: Tuple
+          items:
+            - type: Cell
+              name: my_cell
+            - type: Slice
+              tlb:
+                file_path: "test.tlb"
+                object: "TestC"
+            - type: Tuple
+              items:
+                - type: Int
+                  name: important_int
+      result:
+        - type: Int
+          required: 0x100
+        - type: Cell
+          metadata:
+            name: Content of my NFT
+          labels:
+            field: content
+    - method_name: second_method
+      result:
+        - type: Int
   selector:
     by_methods: true
