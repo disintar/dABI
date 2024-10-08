@@ -68,30 +68,31 @@ jobs:
           python-version: '3.x'
 
       # Generate UNIX timestamp
-      - name: Generate UNIX Timestamp
+      - name: Generate UNIX Timestamp and Version
         id: timestamp
         run: |
           echo "TIMESTAMP=$(date +%s)" >> $GITHUB_ENV
+          
+          # Create versioned folder
+          TIMESTAMP=${{ env.TIMESTAMP }}
+          VERSIONED_FOLDER="dabi_v${TIMESTAMP}"
+          echo "VERSIONED_FOLDER=$VERSIONED_FOLDER" >> $GITHUB_ENV
 
       # Minify and compress the JSON file
       - name: Minify and Compress JSON
         run: |
-          # Create versioned folder
-          TIMESTAMP=${{ env.TIMESTAMP }}
-          VERSIONED_FOLDER="dabi_v${TIMESTAMP}"
-          mkdir -p $VERSIONED_FOLDER
-          chmod -R 777 $VERSIONED_FOLDER
-          echo "VERSIONED_FOLDER=$VERSIONED_FOLDER" >> $GITHUB_ENV
-      
+          mkdir -p ${{ env.VERSIONED_FOLDER }}
+          chmod -R 777 ${{ env.VERSIONED_FOLDER }}
+          
           # Minify the final.json
           python -c "import json; data = json.load(open('final.json')); json.dump(data, open('${{ env.VERSIONED_FOLDER }}/final.min.json', 'w'), separators=(',', ':'))"
           
           # Compress the original final.json using gzip
           gzip -c final.json > "${{ env.VERSIONED_FOLDER }}/final.json.gz"
-      
+          
           # Move the original JSON to the versioned folder
           mv final.json "${{ env.VERSIONED_FOLDER }}/final.json"
-      
+          
           # Copy the minified and original json to the latest version
           cp "${{ env.VERSIONED_FOLDER }}/final.json" dabi_latest.json
           cp "${{ env.VERSIONED_FOLDER }}/final.min.json" dabi_latest.min.json
