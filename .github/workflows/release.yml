@@ -34,6 +34,7 @@ jobs:
       - name: Run Build Script
         run: |
           python build.py > final.json
+          cat final.json
 
       # Upload the final.json as an artifact using GitHub run_id
       - name: Upload Final JSON as Artifact
@@ -79,6 +80,8 @@ jobs:
           TIMESTAMP=${{ env.TIMESTAMP }}
           VERSIONED_FOLDER="dabi_v${TIMESTAMP}"
           mkdir -p $VERSIONED_FOLDER
+          
+          cat final.json
           
           # Minify the final.json
           python -c 'import json; data = json.load(open("final.json")); json.dump(data, open(f"{VERSIONED_FOLDER}/final.min.json", "w"), separators=(",", ":"))'
