@@ -72,7 +72,6 @@ class TCaseType(dABIType):
     def __init__(self, context, abi):
         super().__init__(context)
 
-        raise ValueError(os.getenv('LITESERVER'))
         server = json.loads(os.getenv('LITESERVER'))
         self.client = LiteClient(host=server['ip'],
                                  port=server['port'],
