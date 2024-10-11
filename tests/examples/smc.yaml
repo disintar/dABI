@@ -1,5 +1,5 @@
 apiVersion: dabi/v0
-type: SmartContract
+type: Interface
 metadata:
   name: "My cool smart contract"
   description: "Completely not useless"

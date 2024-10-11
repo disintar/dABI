@@ -1,0 +1,14 @@
+apiVersion: dabi/v0
+type: TestCase
+smart_contract:
+  name: royalty
+  address: "EQAxises0-pgV_s572SFUZqwE-gdgXzdXVlspOT32aWIRHCR"
+  block:
+    mc_seqno: 40948230
+parsed_info:
+  get_methods:
+    royalty_params:
+      result:
+        - numerator: 5
+        - denominator: 100
+        - destination: "EQBAjaOyi2wGWlk-EDkSabqqnF-MrrwMadnwqrurKpkla9nE"

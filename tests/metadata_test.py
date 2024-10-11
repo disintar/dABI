@@ -1,4 +1,4 @@
-from test_base import *
+from tests.test_base import *
 
 
 def test_metadata():

@@ -102,9 +102,9 @@ class MethodsSubtype(dABISubtype):
             }]
 
     def calculate_hash(self):
-        json_string_args = json.dumps({'method_args': [i.to_dict(True) for i in self.method_args]},
+        json_string_args = json.dumps({'stack': [i.to_dict(True) for i in self.method_args]},
                                       separators=(',', ':'))
-        json_string_result = json.dumps({'method_result': [i.to_dict(True) for i in self.method_result]},
+        json_string_result = json.dumps({'stack': [i.to_dict(True) for i in self.method_result]},
                                         separators=(',', ':'))
 
         args_hash = hashlib.sha256(json_string_args.encode('utf-8')).hexdigest().upper()

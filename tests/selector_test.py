@@ -1,4 +1,4 @@
-from test_base import *
+from tests.test_base import *
 
 def test_selector():
     with open('tests/examples/selector.yaml', 'r') as stream:
