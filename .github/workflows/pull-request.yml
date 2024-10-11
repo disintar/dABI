@@ -27,6 +27,8 @@ jobs:
 
     # Run tests (using pytest)
     - name: Run Tests
+      env:
+        LITESERVER: ${{ secrets.LITESERVER }}
       run: |
         pytest
 
