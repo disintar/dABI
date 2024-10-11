@@ -14,11 +14,11 @@ Table of content:
 1. SubTypes
     1. [Metdata]()
     2. [Labels]()
-    3. [SmartContractSelector]()
+    3. [InterfaceSelector]()
     4. [TLB]()
     5. [TVM Types]()
 2. Types
-    1. [SmartContract]()
+    1. [Interface]()
     2. [GetMethod]()
 3. [Tests]()
 4. [Json Generation]()
@@ -27,7 +27,7 @@ Table of content:
 
 ----
 
-### Type: SmartContract
+### Type: Interface
 
 `get_methods` section allow you to define GetMethods. It can be imported from `schema/get_methods` with `get_method`
 template keyword or defined in inline mode
@@ -41,7 +41,7 @@ Example ABI:
 
 ```yaml
 apiVersion: dabi/v0
-type: SmartContract
+type: Interface
 metadata:
   name: "My cool smart contract"
   description: "Completely not useless"
@@ -66,8 +66,8 @@ spec:
 
 ### Type: GetMethod
 
-Each get method object MUST be linked to SmartContract to be parsed.<br/>
-You can set several same (by `method_name`) GetMethods to one `SmartContract` instance.<br/>
+Each get method object MUST be linked to Interface to be parsed.<br/>
+You can set several same (by `method_name`) GetMethods to one `Interface` instance.<br/>
 Index system will automatically determinate which of `GetMethods` to use base on:
 
 1. Result type check (if `result` present) and `result_strict_type_check` is `true` (default)
@@ -76,16 +76,14 @@ Index system will automatically determinate which of `GetMethods` to use base on
 
 For type check dABI generates `type_hash` - sha256 of sorted (as result) JSON of types.
 
-`method_args` / `method_result` uses as keys.
-
 Example:
 
 ```json
-{"method_args":[{"type":"Cell"},{"type":"Slice"},{"type":"Tuple","items":[{"type":"Int"}]}]}
+{"stack":[{"type":"Cell"},{"type":"Slice"},{"type":"Tuple","items":[{"type":"Int"}]}]}
 ```
 Will have:
 
-`1D11BE84A6C9FC477169F2E7E7D734C17CC6A096CAC6F34971D367D1E5209098` hash.
+`98BC78F7A0C43451AEBB9021F9AF162EAAB8091FE58D2B2E4BE15975362D5DFA` hash.
 
 Type is same as described in `SubType` of [TVM Types]()
 
@@ -188,7 +186,7 @@ type: GetMethod
   labels:
     my_custom_label: "test"
   ```
-- SmartContractSelector - rules for selecting accounts (smart contracts)<br/><br/>
+- InterfaceSelector - rules for selecting accounts (smart contracts)<br/><br/>
 
   Apply ABI to smart contracts with specific group of GET methods:
 
@@ -242,36 +240,31 @@ type: GetMethod
 
 ## Tests
 
+For each case in `cases` you must provide `contract` file from `schema/contracts/` which will be tested.
+
 `smart_contract` defines information about smart contract to test
+`smart_contract.name` must be equal with `type: Interface` `labels.name`
 `cases` defines result answers.
 
-For each case in `cases` you must provide `contract` file from `schema/contracts/` which will be tested.
 
 ```
 apiVersion: dabi/v0
 type: TestCase
-smart_contract: 
-  address: "..."
+smart_contract:
+  name: "my_contract"
+  address: "EQAxises0-pgV_s572SFUZqwE-gdgXzdXVlspOT32aWIRHCR"
   block:
-    workchain: -1
-    shard: ...
-    seqno: ...
-    root_hash: ...
-    file_hash: ...
-cases:
-  - contract: "contract.yaml"
-    get_methods:
-      - method_name: get_cool_smc
-        result:
-          - type: Int
-            value: 1
-          - type: Tuple
-            value:
-              - type: Int
-                value: 2
-              - type: Int
-                value: 3
+    mc_seqno: 40948230
+parsed_info:
+  get_methods:
+    method_name:
+      result:
+        - numerator: 5
+        - denominator: 100
+        - destination: "EQBAjaOyi2wGWlk-EDkSabqqnF-MrrwMadnwqrurKpkla9nE"
+        - "label.name": "value"
 ```
+
 
 Testcases needed for auto-testing on different index systems.
 

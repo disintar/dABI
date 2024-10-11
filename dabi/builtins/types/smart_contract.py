@@ -1,3 +1,5 @@
+from collections import defaultdict
+
 from dabi.builtins.subtypes.metadata import MetadataSubtype
 from dabi.builtins.subtypes.labels import LabelsSubtype
 from dabi.builtins.subtypes.selector import SelectorSubtype
@@ -8,7 +10,7 @@ import re
 from dabi.settings import supported_versions
 
 
-class SmartContractType(dABIType):
+class InterfaceType(dABIType):
     def __init__(self, context):
         super().__init__(context)
 
@@ -36,9 +38,9 @@ class SmartContractType(dABIType):
 
     def parse(self, data: dict):
         if not isinstance(data, dict):
-            raise ValueError('SmartContractType: data must be dict')
+            raise ValueError('InterfaceType: data must be dict')
 
-        assert data['apiVersion'] in supported_versions, "SmartContractType API version must be supported"
+        assert data['apiVersion'] in supported_versions, "InterfaceType API version must be supported"
 
         if 'metadata' in data:
             self.metadata.parse(data['metadata'])
@@ -47,28 +49,28 @@ class SmartContractType(dABIType):
             self.labels.parse(data['labels'])
 
         if self.labels.data is None or 'name' not in self.labels.data or not isinstance(self.labels.data['name'], str):
-            raise ValueError('SmartContractType: labels must have "name" field unique for each SMC')
+            raise ValueError('InterfaceType: labels must have "name" field unique for each SMC')
 
         pattern = r'^[A-Za-z_][A-Za-z0-9_]*$'
         if re.match(pattern, self.labels.data['name']) is None:
-            raise ValueError("SmartContractType: name must match pattern '{}'".format(pattern))
+            raise ValueError("InterfaceType: name must match pattern '{}'".format(pattern))
 
         self.context.register_smc(self.labels.data['name'])
 
         if 'spec' not in data:
-            raise ValueError('SmartContractType: spec must be presented')
+            raise ValueError('InterfaceType: spec must be presented')
 
         if not isinstance(data['spec'], dict):
-            raise ValueError('SmartContractType: spec must be dict')
+            raise ValueError('InterfaceType: spec must be dict')
 
         if 'selector' not in data['spec']:
-            raise ValueError('SmartContractType: selector must be presented')
+            raise ValueError('InterfaceType: selector must be presented')
 
         self.selector.parse(data['spec']['selector'])
 
         if 'get_methods' in data['spec']:
             if not isinstance(data['spec']['get_methods'], list):
-                raise ValueError('SmartContractType: get_methods must be presented as list')
+                raise ValueError('InterfaceType: get_methods must be presented as list')
 
             for getter in data['spec']['get_methods']:
                 tmp = MethodsSubtype(self.context,
@@ -77,15 +79,24 @@ class SmartContractType(dABIType):
                 tmp.parse(getter)
                 self.get_methods.append(tmp)
 
-    def to_dict(self):
-        getters = []
+    def to_dict(self, convert_getters=False):
+        getters = {}
 
         for getter in self.get_methods:
-            getters.extend(getter.to_dict())
+            for item in getter.to_dict():
+                if item['method_id'] not in getters:
+                    getters[item['method_id']] = []
+                getters[item['method_id']].extend(getter.to_dict())
+
+        code_hashes = []
+
+        if self.selector.selector_type == 'by_code':
+            code_hashes = self.selector.items
 
         return {
             'metadata': self.metadata.to_dict(),
             'labels': self.labels.to_dict(),
             'selector': self.selector.to_dict(),
-            'get_methods': getters
+            'get_methods': getters,
+            'code_hashes': code_hashes
         }

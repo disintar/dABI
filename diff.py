@@ -103,15 +103,15 @@ def main():
         # Load the second JSON file
         b_data = load_json(b_file)
 
-        # Compare smart contract metadata
-        added_contracts, removed_contracts = compare_smart_contracts(
-            a_data.get('smart_contracts', []), b_data.get('smart_contracts', []))
+        key = 'by_name'
+        adata = a_data.get(key, {})
+        bdata = b_data.get(key, {})
+        adata = [adata[i] for i in adata]
+        bdata = [bdata[i] for i in bdata]
 
-        # Compare get_methods method metadata
-        added_methods, removed_methods = compare_methods(
-            a_data.get('smart_contracts', []), b_data.get('smart_contracts', []))
+        added_contracts, removed_contracts = compare_smart_contracts(adata, bdata)
+        added_methods, removed_methods = compare_methods(adata, bdata)
 
-        # Generate and print markdown tables
         contracts_table = generate_markdown_table(added_contracts, removed_contracts, "Smart Contracts")
         methods_table = generate_markdown_table(added_methods, removed_methods, "Method Names")
 
@@ -119,11 +119,12 @@ def main():
         print("\n")
         print(methods_table)
 
-        contracts_table = display_contracts_info(a_data.get('smart_contracts', []))
+        contracts_table = display_contracts_info(adata)
         print(contracts_table)
     else:
-        # If only one file is provided, display actual smart contracts and methods
-        contracts_table = display_contracts_info(a_data.get('smart_contracts', []))
+        key = 'by_name'
+        data = a_data.get(key, {})
+        contracts_table = display_contracts_info([data[i] for i in data])
         print(contracts_table)
 
 
