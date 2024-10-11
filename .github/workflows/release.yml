@@ -28,7 +28,7 @@ jobs:
       # Run pytest to ensure the code is passing
       - name: Run Pytest
         env:
-          LITESERVER: ${{ secrets.LITESERVER }}
+          LITESERVER: '${{ secrets.LITESERVER }}'
         run: |
           pytest
 
