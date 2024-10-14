@@ -69,6 +69,12 @@ class dABIParser:
 
                     by_get_method_stats[method] = stat
 
+            for code_hash in parsed_i['code_hashes']:
+                if code_hash not in by_code_hash:
+                    by_code_hash[code_hash] = []
+
+                by_code_hash[code_hash].append(name_of_i)
+
         return {
             'api_version': version,
             'by_name': by_name,
