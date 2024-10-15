@@ -12,17 +12,17 @@ spec:
       result:
         - type: Int
           labels:
-            dton_type: UInt64
+            dton_type: UInt16
             name: numerator
         - type: Int
           labels:
-            dton_type: UInt64
+            dton_type: UInt16
             name: denominator
         - type: Slice
           labels:
-            name: destination
+            name: address
             address: true
           metadata:
-            description: "Address to send royalty"
+            description: "Address to send royalty to"
   selector:
     by_methods: true

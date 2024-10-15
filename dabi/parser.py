@@ -40,6 +40,15 @@ class dABIParser:
         by_name = {}
         by_get_method = {}
         by_code_hash = {}
+
+        # For fast process set empty interfaces for all code hashes
+        unique_hashes = []
+        for method in self.method_to_hash:
+            for code_hash in self.method_to_hash[method]:
+                unique_hashes.append(code_hash)
+        for uhash in set(unique_hashes):
+            by_code_hash[uhash] = []
+
         by_get_method_stats = {}
 
         for i in interfaces:
