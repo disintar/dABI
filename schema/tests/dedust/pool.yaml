@@ -4,7 +4,7 @@ smart_contract:
   name: dedust_pool
   address: "EQA-X_yo3fzzbDbJ_0bzFWKqtRuZFIRa1sJsveZJ1YpViO3r"
   block:
-    mc_seqno: 46353025
+    mc_seqno: 41143667
 parsed_info:
   get_methods:
     get_assets:
@@ -14,7 +14,7 @@ parsed_info:
     get_reserves:
       result:
         - reserve0: 6661725514960387
-        - reserve0: 34663176488034
+        - reserve1: 34663176488034
     is_stable:
       result:
         - is_stable: 0
