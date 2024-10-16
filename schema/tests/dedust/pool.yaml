@@ -1,0 +1,24 @@
+apiVersion: dabi/v0
+type: TestCase
+smart_contract:
+  name: dedust_pool
+  address: "EQA-X_yo3fzzbDbJ_0bzFWKqtRuZFIRa1sJsveZJ1YpViO3r"
+  block:
+    mc_seqno: 46353025
+parsed_info:
+  get_methods:
+    get_assets:
+      result:
+        - asset0: "te6ccuEBAQEAAwAGAAEI1mGS3A=="
+        - asset1: "te6ccuEBAQEAJABIAEMQCxE6mUtQJKFnGfaROTKOt1lZbDiiX1kCixRv7Nw2Id"
+    get_reserves:
+      result:
+        - reserve0: 6661725514960387
+        - reserve0: 34663176488034
+    is_stable:
+      result:
+        - is_stable: 0
+    get_trade_fee:
+      result:
+        - trade_fee_numerator: 10
+        - trade_fee_denominator: 10000

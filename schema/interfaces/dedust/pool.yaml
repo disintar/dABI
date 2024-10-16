@@ -1,0 +1,75 @@
+apiVersion: dabi/v0
+type: Interface
+metadata:
+  name: "DeDust Pool get methods"
+  link: "https://docs.dedust.io/reference/pool"
+labels:
+  name: dedust_pool
+  dton_parse_prefix: parsed_dedust_pool_
+spec:
+  get_methods:
+    - method_name: get_assets
+      result:
+        - type: Slice
+          labels:
+            name: asset0
+          tlb:
+            inline: "native$0000 = Asset;jetton$0001 workchain_id:int8 address:uint256 = Asset;extra_currency$0010 currency_id:int32 = Asset;"
+        - type: Slice
+          labels:
+            name: asset1
+          tlb:
+            inline: "native$0000 = Asset;jetton$0001 workchain_id:int8 address:uint256 = Asset;extra_currency$0010 currency_id:int32 = Asset;"
+    - method_name: get_reserves
+      result:
+        - type: Int
+          labels:
+            name: reserve0
+          metadata:
+            description: "reserve of asset0"
+        - type: Int
+          labels:
+            name: reserve1
+          metadata:
+            description: "reserve of asset1"
+    - method_name: is_stable
+      result:
+        - type: Int
+          labels:
+            name: is_stable
+    - method_name: get_trade_fee
+      result:
+        - type: Int
+          labels:
+            dton_type: UInt16
+            name: trade_fee_numerator
+        - type: Int
+          labels:
+            dton_type: UInt16
+            name: trade_fee_denominator
+    - method_name: estimate_swap_out
+      args:
+        - type: Slice
+          name: asset_in
+          tlb:
+            inline: "native$0000 = Asset;jetton$0001 workchain_id:int8 address:uint256 = Asset;extra_currency$0010 currency_id:int32 = Asset;"
+        - type: Int
+          name: amount_in
+      result:
+        - type: Slice
+          labels:
+            name: asset_out
+          tlb:
+            inline: "native$0000 = Asset;jetton$0001 workchain_id:int8 address:uint256 = Asset;extra_currency$0010 currency_id:int32 = Asset;"
+        - type: Int
+          labels:
+            name: amount_out
+          metadata:
+            description: "amount of asset_out"
+        - type: Int
+          labels:
+            name: trade_fee
+          metadata:
+            description: "amount of asset_in asset given as a fee."
+  selector:
+    by_methods: true
