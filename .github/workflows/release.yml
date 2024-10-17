@@ -90,6 +90,8 @@ jobs:
           mkdir -p ${{ env.VERSIONED_FOLDER }}
           chmod -R 777 ${{ env.VERSIONED_FOLDER }}
           
+          cat final.json
+          
           # Minify the final.json
           python -c "import json; data = json.load(open('final.json')); json.dump(data, open('${{ env.VERSIONED_FOLDER }}/final.min.json', 'w'), separators=(',', ':'))"
           
