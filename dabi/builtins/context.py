@@ -2,7 +2,7 @@ import hashlib
 import textwrap
 import uuid
 from typing import Optional
-from jinja2 import Environment, FileSystemLoader, Template
+from jinja2 import Environment
 import os
 import io
 
@@ -48,18 +48,27 @@ class dABIContext:
     def __init__(self):
         self.root = '.'
         self.tlb_sources = {}
+
         self.subcontext: Optional[dABISubContext] = None
         self.smcs_names = set()
 
-    def register_tlb(self, tlb: str, tlb_path: str = None, tlb_version="tlb/v0") -> str:
+    def load_block(self):
+        with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'block.tlb')) as f:
+            self.tlb_sources['block_tlb'] = f.read()
+
+    def register_tlb(self, tlb: str, tlb_path: str = None, tlb_version="tlb/v0", use_block_tlb: bool = False) -> str:
         if tlb_path is None:
             my_id = uuid.uuid4().hex
         else:
             my_id = hashlib.sha256(tlb_path.encode('utf-8')).hexdigest().upper()
 
+        if use_block_tlb and 'block_tlb' not in self.tlb_sources:
+            self.load_block()
+
         self.tlb_sources[my_id] = {
             'version': tlb_version,
-            'tlb': tlb
+            'tlb': tlb,
+            'use_block_tlb': use_block_tlb
         }
 
         return my_id

@@ -8,6 +8,7 @@ from dabi.settings import supported_versions
 
 class TLBSubtype(dABISubtype):
     is_inline = False
+    use_block_tlb = True
     file_path = ''
     object = ''
     inline = ''
@@ -15,6 +16,7 @@ class TLBSubtype(dABISubtype):
     tlb_version = "tlb/v0"
     tlb_id = ''
     tlb_object = ''
+    parse = None
 
     def parse(self, data):
         if not isinstance(data, dict):
@@ -36,6 +38,20 @@ class TLBSubtype(dABISubtype):
 
         if not self.is_inline and 'object' not in data:
             raise ValueError('Invalid TLB Subtype, define object for file_path')
+
+        self.use_block_tlb = data.get('use_block_tlb', True)
+
+        if not isinstance(self.use_block_tlb, bool):
+            raise ValueError("Can't load 'use_block_tlb', must be boolean")
+
+        self.dump_with_types = data.get('dump_with_types', False)
+
+        if not isinstance(self.use_block_tlb, bool):
+            raise ValueError("Can't load 'dump_with_types', must be boolean")
+
+        self.parse = data.get('parse', None)
+        if self.parse and not isinstance(self.parse, list):
+            raise ValueError("Can't load 'parse', must be list")
 
         if self.is_inline:
             self.inline = data.get('inline')
@@ -59,7 +75,7 @@ class TLBSubtype(dABISubtype):
 
                 self.tlb_object = data['object']
 
-            self.tlb_id = self.context.register_tlb(self.inline)
+            self.tlb_id = self.context.register_tlb(self.inline, use_block_tlb=self.use_block_tlb)
         else:
             if not isinstance(data.get('file_path'), str):
                 raise ValueError('Invalid TLB Subtype, define file_path as string')
@@ -82,10 +98,18 @@ class TLBSubtype(dABISubtype):
                     raise ValueError('Invalid TLB Subtype, defined object is not in TLB')
 
                 self.tlb_object = data['object']
-                self.tlb_id = self.context.register_tlb(tlb_data, data.get('file_path'))
+                self.tlb_id = self.context.register_tlb(tlb_data, data.get('file_path'),
+                                                        use_block_tlb=self.use_block_tlb)
 
     def to_dict(self):
-        return {
+        tmp = {
             'id': self.tlb_id,
-            'object': self.tlb_object
+            'object': self.tlb_object,
+            'use_block_tlb': self.use_block_tlb,
+            'dump_with_types': self.dump_with_types
         }
+
+        if self.parse:
+            tmp['parse'] = self.parse
+
+        return tmp

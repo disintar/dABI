@@ -3,61 +3,10 @@ import os
 import warnings
 from datetime import datetime
 
-from tonpy import MASTER_SHARD, LiteClient, BlockIdExt, BlockId, TVM, C7, Address, StackEntry
+from tonpy import MASTER_SHARD, LiteClient, BlockIdExt, BlockId, TVM, C7, Address, StackEntry, add_tlb
 
 from dabi.builtins.types.base import dABIType
 from dabi.settings import supported_versions
-
-
-def check_result_rec(test_item, received: StackEntry, expected_item, error_holder=None):
-    t = received.get_type()
-    my_error = f"{error_holder}, getter expected: {test_item}, received {received}"
-
-    if expected_item['type'] == 'Tuple':
-        if t is not StackEntry.Type.t_tuple:
-            raise AssertionError(my_error)
-
-        for expected_inner, stack_item in zip(expected_item['items'], t.get()):
-            check_result_rec(test_item, stack_item, expected_inner, error_holder)
-        return
-
-    if expected_item['labels']['name'] not in test_item:
-        raise ValueError(
-            f"{error_holder}, ABI type of getter has no test for label: {expected_item['labels']['name']}")
-
-    expected = test_item[expected_item['labels']['name']]
-
-    is_address = False
-    if 'address' in expected_item['labels'] and expected_item['labels']['address'] is True:
-        is_address = True
-        expected = Address(expected)
-
-    if t is StackEntry.Type.t_null:
-        assert expected is None or not len(expected), my_error
-    elif t is StackEntry.Type.t_cell:
-        if not is_address:
-            assert expected == received.get().get_hash(), my_error
-        else:
-            received = received.get().begin_parse().load_address()
-            assert expected == received, f"{my_error}, {received}"
-    elif t is StackEntry.Type.t_slice:
-        if not is_address:
-            assert expected == received.get().get_hash(), my_error
-        else:
-            received = received.get().load_address()
-            assert expected == received, f"{my_error}, {received}"
-    elif t is StackEntry.Type.t_int:
-        assert expected == received.get(), my_error
-    elif t is StackEntry.Type.t_builder:
-        if not is_address:
-            assert expected == received.get().get_hash(), my_error
-        else:
-            received = received.get().end_cell().begin_parse().load_address()
-            assert expected == received, f"{my_error}, {received}"
-    elif t is StackEntry.Type.t_vmcont:
-        assert expected == received.get().get_hash(), my_error
-    else:
-        raise ValueError(f"{error_holder}, Not supported type in getter: {t}")
 
 
 class TCaseType(dABIType):
@@ -80,6 +29,85 @@ class TCaseType(dABIType):
         self.parsed_info = {}
         self.abi = abi
         self.name = None
+
+    def process_tlb(self, expected, received: StackEntry, expected_item, my_error):
+        received_tlb = {}
+
+        my_item = self.abi['tlb_sources'][expected_item['tlb']['id']]['tlb']
+        if expected_item['tlb']['use_block_tlb']:
+            my_item = f"{my_item}\n\n{self.abi['tlb_sources']['block_tlb']}"
+        add_tlb(my_item, received_tlb)
+
+        to_parse = received_tlb[expected_item['tlb']['object']]()
+
+        if received.get_type() is StackEntry.Type.t_cell:
+            data = to_parse.cell_unpack(received.get())
+        elif received.get_type() is StackEntry.Type.t_slice:
+            data = to_parse.unpack(received.get(), True)
+        else:
+            item = received.get().end_cell()
+            data = to_parse.cell_unpack(item, True)
+        parsed_data = data.dump(with_types=expected_item['tlb']['dump_with_types'])
+        assert expected == parsed_data, f"{my_error}, parsed: {parsed_data}"
+
+    def check_result_rec(self, test_item, received: StackEntry, expected_item, error_holder=None):
+        t = received.get_type()
+        my_error = f"{error_holder}, getter expected: {test_item}, received {received}"
+
+        if expected_item['type'] == 'Tuple':
+            if t is not StackEntry.Type.t_tuple:
+                raise AssertionError(my_error)
+
+            for expected_inner, stack_item in zip(expected_item['items'], t.get()):
+                self.check_result_rec(test_item, stack_item, expected_inner, error_holder)
+            return
+
+        if expected_item['labels']['name'] not in test_item:
+            raise ValueError(
+                f"{error_holder}, ABI type of getter has no test for label: {expected_item['labels']['name']}")
+
+        expected = test_item[expected_item['labels']['name']]
+
+        is_address = False
+        if 'address' in expected_item['labels'] and expected_item['labels']['address'] is True:
+            is_address = True
+            expected = Address(expected)
+
+        if t is StackEntry.Type.t_null:
+            assert expected is None or not len(expected), my_error
+        elif t is StackEntry.Type.t_cell:
+            if not is_address:
+                if 'tlb' in expected_item:
+                    self.process_tlb(expected, received, expected_item, my_error)
+                else:
+                    assert expected == received.get().get_hash(), f"{my_error}, {received.get().get_hash()}"
+            else:
+                received = received.get().begin_parse().load_address()
+                assert expected == received, f"{my_error}, {received}"
+        elif t is StackEntry.Type.t_slice:
+            if not is_address:
+                if 'tlb' in expected_item:
+                    self.process_tlb(expected, received, expected_item, my_error)
+                else:
+                    assert expected == received.get().get_hash(), f"{my_error}, {received.get().get_hash()}"
+            else:
+                received = received.get().load_address()
+                assert expected == received, f"{my_error}, {received}"
+        elif t is StackEntry.Type.t_int:
+            assert expected == received.get(), f"{my_error}, {received.get()}"
+        elif t is StackEntry.Type.t_builder:
+            if not is_address:
+                if 'tlb' in expected_item:
+                    self.process_tlb(expected, received, expected_item, my_error)
+                else:
+                    assert expected == received.get().get_hash(), f"{my_error}, {received.get()}"
+            else:
+                received = received.get().end_cell().begin_parse().load_address()
+                assert expected == received, f"{my_error}, {received}"
+        elif t is StackEntry.Type.t_vmcont:
+            assert expected == received.get().get_hash(), my_error
+        else:
+            raise ValueError(f"{error_holder}, Not supported type in getter: {t}")
 
     def parse(self, data):
         if not isinstance(data, dict):
@@ -212,4 +240,4 @@ class TCaseType(dABIType):
                     assert stack_item.as_abi()['type'] == expected_item[
                         'type'], f"{error_holder}, ABI type of getter is not equal to {expected_item['type']}"
 
-                    check_result_rec(current_test, stack_item, expected_item, error_holder)
+                    self.check_result_rec(current_test, stack_item, expected_item, error_holder)

@@ -54,7 +54,7 @@ spec:
       result:
         - type: Int
           required: 0x100
-    - {{ get_method("my_getter.yaml", indent=6) }}
+    - { { get_method("my_getter.yaml", indent=6) } }
   selector:
     by_methods: true
   state:
@@ -79,8 +79,26 @@ For type check dABI generates `type_hash` - sha256 of sorted (as result) JSON of
 Example:
 
 ```json
-{"stack":[{"type":"Cell"},{"type":"Slice"},{"type":"Tuple","items":[{"type":"Int"}]}]}
+{
+  "stack": [
+    {
+      "type": "Cell"
+    },
+    {
+      "type": "Slice"
+    },
+    {
+      "type": "Tuple",
+      "items": [
+        {
+          "type": "Int"
+        }
+      ]
+    }
+  ]
+}
 ```
+
 Will have:
 
 `98BC78F7A0C43451AEBB9021F9AF162EAAB8091FE58D2B2E4BE15975362D5DFA` hash.
@@ -114,7 +132,7 @@ between ABI and TVM result.
 For `Int` type `required` is int in hex or 10 base format.
 For `Cell` / `Slice` / `Builder` `required` is hash of cell in HEX format
 
-Each `type` has special auto created `label` with `name` key. It'll be `anon_X` if you don't define it directly. 
+Each `type` has special auto created `label` with `name` key. It'll be `anon_X` if you don't define it directly.
 If you define it directly it MUST be in `^[A-Za-z_][A-Za-z0-9_]*$` regex pattern.
 
 This special `name` label uses by [dton.co](https://dton.co) as column name in combine with `dton_parse_prefix`
@@ -246,7 +264,6 @@ For each case in `cases` you must provide `contract` file from `schema/contracts
 `smart_contract.name` must be equal with `type: Interface` `labels.name`
 `cases` defines result answers.
 
-
 ```
 apiVersion: dabi/v0
 type: TestCase
@@ -264,7 +281,6 @@ parsed_info:
         - destination: "EQBAjaOyi2wGWlk-EDkSabqqnF-MrrwMadnwqrurKpkla9nE"
         - "label.name": "value"
 ```
-
 
 Testcases needed for auto-testing on different index systems.
 
@@ -302,6 +318,45 @@ This is needed for template system. All such nested cases are flatten.
 `labels.name` always present and unique for each get method result including tuple items.
 
 ### TLB subtype
+
+You can use `parse` for forcing items from json TLB to be in dton.io index:
+
+Suppose you have such TLB scheme:
+
+```
+native$0000 = Asset;
+jetton$0001 workchain:int8 address:uint256 = Asset;
+extra_currency$0010 currency_id:int32 = Asset;
+```
+
+
+To force all fields to be presented in dton.io:
+
+```
+- type: Slice
+  labels:
+    name: asset0
+  tlb:
+    version: tlb/v0
+    dump_with_types: true
+    file_path: "dedust/pool.tlb"
+    object: "Asset"
+    parse:
+      - path: "workchain"
+        labels:
+          dton_type: Int8
+      - path: "address"
+        labels:
+          dton_type: FixedString(64)
+      - path: "currency_id"
+        labels:
+          dton_type: Int32
+```
+
+You can use `dump_with_types: true` to save parsed TLB items types (see DeDust pool test file).
+
+You can use `use_block_tlb: false` for not extending your tlb schema
+with [block.tlb](https://github.com/disintar/ton/blob/dev/crypto/block/block.tlb)
 
 All TLB sources unify by unique uuid. In result json you will have `id` and `object` fields instead of TLB subtype.
 

@@ -1,0 +1,3 @@
+native$0000 = Asset;
+jetton$0001 workchain:int8 address:uint256 = Asset;
+extra_currency$0010 currency_id:int32 = Asset;

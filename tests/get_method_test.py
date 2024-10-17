@@ -39,14 +39,15 @@ def test_get_method():
                  'labels': {'name': 'anon_0'}, 'required': None},
                 {'type': 'Slice', 'metadata': {'name': '', 'description': '', 'link': ''}, 'labels': {'name': 'anon_1'},
                  'required': None,
-                 'tlb': {'id': '546DDE1FA200A9995CDD473F0D2E31BB85ECDC1A9EF2809BAD5DBB4EA70F390A', 'object': 'TestB'}},
+                 'tlb': {'id': '546DDE1FA200A9995CDD473F0D2E31BB85ECDC1A9EF2809BAD5DBB4EA70F390A', 'object': 'TestB',
+                         'use_block_tlb': True, 'dump_with_types': False}},
                 {'type': 'Tuple', 'metadata': {'name': '', 'description': '', 'link': ''}, 'labels': {'name': 'anon_2'},
                  'required': None, 'items': [{'type': 'Cell', 'metadata': {'name': '', 'description': '', 'link': ''},
                                               'labels': {'name': 'anon_3'}, 'required': None},
                                              {'type': 'Slice', 'metadata': {'name': '', 'description': '', 'link': ''},
                                               'labels': {'name': 'anon_4'}, 'required': None, 'tlb': {
                                                  'id': '546DDE1FA200A9995CDD473F0D2E31BB85ECDC1A9EF2809BAD5DBB4EA70F390A',
-                                                 'object': 'TestC'}},
+                                                 'object': 'TestC', 'use_block_tlb': True, 'dump_with_types': False}},
                                              {'type': 'Tuple', 'metadata': {'name': '', 'description': '', 'link': ''},
                                               'labels': {'name': 'anon_5'}, 'required': None, 'items': [{'type': 'Int',
                                                                                                          'metadata': {

@@ -13,9 +13,10 @@ current_file_path = os.path.dirname(os.path.abspath(__file__))
 
 
 class dABIParser:
-    def __init__(self, root: str):
+    def __init__(self, root: str, allow_empty_code=True):
         self.context = dABIContext()
         self.context.set_root(os.path.join(root, "schema"))
+        self.allow_empty_code = allow_empty_code
 
         with open(os.path.join(current_file_path, "method_to_hash.json")) as f:
             self.method_to_hash = json.load(f)
@@ -46,8 +47,10 @@ class dABIParser:
         for method in self.method_to_hash:
             for code_hash in self.method_to_hash[method]:
                 unique_hashes.append(code_hash)
-        for uhash in set(unique_hashes):
-            by_code_hash[uhash] = []
+
+        if self.allow_empty_code:
+            for uhash in set(unique_hashes):
+                by_code_hash[uhash] = []
 
         by_get_method_stats = {}
 
@@ -83,6 +86,9 @@ class dABIParser:
                     by_code_hash[code_hash] = []
 
                 by_code_hash[code_hash].append(name_of_i)
+
+        for i in by_code_hash:
+            by_code_hash[i] = list(set(by_code_hash[i]))
 
         return {
             'api_version': version,
