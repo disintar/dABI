@@ -30,7 +30,11 @@ class dABIParser:
                     with open(os.path.join(subdir, file), 'r') as stream:
                         data = load_smart_contract_template(root=self.context.root,
                                                             smc_yaml=stream.read())
-                        smcs = list(yaml.safe_load_all(data))
+                        try:
+                            smcs = list(yaml.safe_load_all(data))
+                        except Exception as e:
+                            print(data.getvalue())
+                            raise ValueError(f"Incorrect yaml file, {file}")
 
                         for smc in smcs:
                             self.context.update_subcontext()

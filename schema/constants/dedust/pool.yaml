@@ -1,0 +1,16 @@
+dedust_asset:
+  version: tlb/v0
+  dump_with_types: true
+  file_path: "dedust/pool.tlb"
+  object: "Asset"
+  use_block_tlb: false
+  parse:
+    - path: "workchain"
+      labels:
+        dton_type: Int8
+    - path: "address"
+      labels:
+        dton_type: FixedString(64)
+    - path: "currency_id"
+      labels:
+        dton_type: Int32

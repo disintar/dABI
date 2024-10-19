@@ -11,6 +11,9 @@ class LabelsSubtype(dABISubtype):
         self.data = data
 
     def to_dict(self):
+        if self.data is None:
+            return {}
+
         return self.data
 
     def __add__(self, other):

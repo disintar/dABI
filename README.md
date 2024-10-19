@@ -29,8 +29,7 @@ Table of content:
 
 ### Type: Interface
 
-`get_methods` section allow you to define GetMethods. It can be imported from `schema/get_methods` with `get_method`
-template keyword or defined in inline mode
+`get_methods` section allow you to define GetMethods.
 
 `selector` section allow you to define which accounts will be parsed with such ABI
 
@@ -140,14 +139,6 @@ This special `name` label uses by [dton.co](https://dton.co) as column name in c
 Example ABI:
 
 ```yaml
-apiVersion: dabi/v0
-type: GetMethod
-metadata:
-  name: my-cool-get-method
-  description: Get my cool data from this methods
-labels:
-  dton_parse_prefix: parsed_cool_
-spec:
   - method_name: get_cool_smc
     args:
       - type: Cell
@@ -181,11 +172,6 @@ spec:
   - method_name: second_method
     result:
       - type: Int
----
-
-apiVersion: dabi/v0
-type: GetMethod
-...
 ```
 
 ---
@@ -289,6 +275,8 @@ Testcases needed for auto-testing on different index systems.
 ## GetMethod type
 
 All `metadata` / `labels` of GetMethod object merged to `metadata` / `label` of methods with priority to method.
+
+Use `labels.skipLive: true` for skip live index of get method
 
 Each method has `method_id` with crc32 value.
 

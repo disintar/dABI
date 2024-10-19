@@ -14,41 +14,12 @@ spec:
           labels:
             name: asset0
           tlb:
-            version: tlb/v0
-            dump_with_types: true
-            file_path: "dedust/pool.tlb"
-            object: "Asset"
-            use_block_tlb: false
-            parse:
-              - path: "workchain"
-                labels:
-                  dton_type: Int8
-              - path: "address"
-                labels:
-                  dton_type: FixedString(64)
-              - path: "currency_id"
-                labels:
-                  dton_type: Int32
-
+            {{ constants("dedust_asset", indent=12) }}
         - type: Slice
           labels:
             name: asset1
           tlb:
-            version: tlb/v0
-            dump_with_types: true
-            file_path: "dedust/pool.tlb"
-            object: "Asset"
-            use_block_tlb: false
-            parse:
-              - path: "workchain"
-                labels:
-                  dton_type: Int8
-              - path: "address"
-                labels:
-                  dton_type: FixedString(64)
-              - path: "currency_id"
-                labels:
-                  dton_type: Int32
+            {{ constants("dedust_asset", indent=12) }}
 
     - method_name: get_reserves
       result:
@@ -86,10 +57,7 @@ spec:
         - type: Slice
           name: asset_in
           tlb:
-            version: tlb/v0
-            use_block_tlb: false
-            file_path: "dedust/pool.tlb"
-            object: "Asset"
+            {{ constants("dedust_asset", indent=12) }}
         - type: Int
           name: amount_in
       result:
@@ -97,11 +65,7 @@ spec:
           labels:
             name: asset_out
           tlb:
-            version: tlb/v0
-            dump_with_types: true
-            use_block_tlb: false
-            file_path: "dedust/pool.tlb"
-            object: "Asset"
+            {{ constants("dedust_asset", indent=12) }}
         - type: Int
           labels:
             name: amount_out

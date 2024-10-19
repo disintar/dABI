@@ -52,7 +52,7 @@ class TCaseType(dABIType):
 
     def check_result_rec(self, test_item, received: StackEntry, expected_item, error_holder=None):
         t = received.get_type()
-        my_error = f"{error_holder}, getter expected: {test_item}, received {received}"
+        my_error = f"({expected_item['labels']}) {error_holder}, getter expected: {test_item}, received {received.get()}"
 
         if expected_item['type'] == 'Tuple':
             if t is not StackEntry.Type.t_tuple:
@@ -62,11 +62,14 @@ class TCaseType(dABIType):
                 self.check_result_rec(test_item, stack_item, expected_inner, error_holder)
             return
 
-        if expected_item['labels']['name'] not in test_item:
+        if expected_item['labels']['name'] not in test_item and not expected_item.get("required", False):
             raise ValueError(
                 f"{error_holder}, ABI type of getter has no test for label: {expected_item['labels']['name']}")
 
-        expected = test_item[expected_item['labels']['name']]
+        if expected_item.get("required", False):
+            expected = expected_item.get("required", False)
+        else:
+            expected = test_item[expected_item['labels']['name']]
 
         is_address = False
         if 'address' in expected_item['labels'] and expected_item['labels']['address'] is True:
@@ -94,13 +97,18 @@ class TCaseType(dABIType):
                 received = received.get().load_address()
                 assert expected == received, f"{my_error}, {received}"
         elif t is StackEntry.Type.t_int:
-            assert expected == received.get(), f"{my_error}, {received.get()}"
+            if expected_item['type'] == 'Bool':
+                received = received.get() == -1
+            else:
+                received = received.get()
+
+            assert expected == received, f"{my_error}"
         elif t is StackEntry.Type.t_builder:
             if not is_address:
                 if 'tlb' in expected_item:
                     self.process_tlb(expected, received, expected_item, my_error)
                 else:
-                    assert expected == received.get().get_hash(), f"{my_error}, {received.get()}"
+                    assert expected == received.get().get_hash(), f"{my_error}"
             else:
                 received = received.get().end_cell().begin_parse().load_address()
                 assert expected == received, f"{my_error}, {received}"
@@ -158,7 +166,10 @@ class TCaseType(dABIType):
                     raise ValueError(f'TestCaseType: does not contain result for {getter}')
 
                 if not isinstance(data['parsed_info']['get_methods'][getter]['result'], list):
-                    raise ValueError(f'TestCaseType: {getter} must contain a list of results')
+                    if data['parsed_info']['get_methods'][getter]['result'] is None:
+                        data['parsed_info']['get_methods'][getter]['result'] = []
+                    else:
+                        raise ValueError(f'TestCaseType: {getter} must contain a list of results')
 
                 for i in data['parsed_info']['get_methods'][getter]['result']:
                     if len(i) < 1:
@@ -208,6 +219,13 @@ class TCaseType(dABIType):
 
                 method_name = instance['method_name']
                 if method_name not in self.parsed_info:
+                    labels = instance.get('labels', {})
+                    if labels is None:
+                        labels = {}
+
+                    if 'skipLive' in labels and labels['skipLive']:
+                        continue
+
                     warnings.warn(
                         f'TestCaseType: {method_name} of {self.name} does not contain expected result in tests')
                     continue
@@ -229,15 +247,20 @@ class TCaseType(dABIType):
 
                 if instance['result_length_strict_check']:
                     assert len(stack) == len(
-                        instance['method_result']), f"{error_holder}, method result length is not equal to ABI one"
+                        instance[
+                            'method_result']), f"{error_holder}, method result length is not equal to ABI one, stack: {stack.unpack_rec()}"
 
                 if instance['result_strict_type_check']:
                     my_result_hash = stack.get_abi_hash()
                     assert my_result_hash == instance[
-                        'method_result_hash'], f"{error_holder}, method result hash is not equal to ABI one"
+                        'method_result_hash'], f"{error_holder}, method result hash is not equal to ABI one, stack: {stack.unpack_rec()}"
 
                 for stack_item, expected_item in zip(stack, instance['method_result']):
-                    assert stack_item.as_abi()['type'] == expected_item[
-                        'type'], f"{error_holder}, ABI type of getter is not equal to {expected_item['type']}"
+                    exp = expected_item['type']
+                    if exp == 'Bool':
+                        exp = 'Int'
+
+                    assert stack_item.as_abi()[
+                               'type'] == exp, f"{error_holder}, ABI type of getter is not equal to {expected_item['type']}"
 
                     self.check_result_rec(current_test, stack_item, expected_item, error_holder)
