@@ -1,0 +1,59 @@
+apiVersion: dabi/v0
+type: TestCase
+smart_contract:
+  name: whales_nominator_pool
+  address: "EQA_cc5tIQ4haNbMVFUD1d0bNRt17S7wgWEqfP_xEaTACLUB"
+  block:
+    mc_seqno: 41143667
+parsed_info:
+  get_methods:
+    get_proxy:
+      result:
+        - proxy: "Ef80wWi-7xV1RtoTUK7bvRgYGyn327O-caldk90VySg8CLUB"
+
+    get_owner:
+      result:
+        - owner: "EQAWrkA_GfFFkCMsrA1xiRZ7kHZEty8ZCfcl3O8RA_zlx_Ep"
+
+    get_controller:
+      result:
+        - controller: "EQABxBgfxQ9FCN_4zxCWeiencYCTe_607ybjfh2tiuPb1acd"
+
+    get_unowned:
+      result:
+        - balance_unowned: 9250657198
+
+    get_available:
+      result:
+        - balance_available: 0
+
+    get_staking_status:
+      result:
+        - stake_at: 1728990984
+        - stake_until: 1729089588
+        - stake_sent: 400201164728729
+        - query_sent: 0
+        - could_unlock: true
+        - locked: true
+        - proxy_stake_lock_final: true
+
+    get_pool_status:
+      result:
+        - balance: 400201164728729
+        - balance_sent: 400201164728729
+        - balance_pending_deposits: 150018535154
+        - balance_pending_withdraw: 30000000000
+        - balance_withdraw: 294530805816
+
+    get_params:
+      result:
+        - enabled: true
+        - updates_enables: true
+        - min_stake: 49800000000
+        - deposit_fee: 100000000
+        - withdraw_fee: 100000000
+        - pool_fee: 1800
+        - receipt_price: 100000000
+
+    supported_interfaces:
+      result:

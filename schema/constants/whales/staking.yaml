@@ -1,0 +1,186 @@
+whales_nominators_getters:
+  - method_name: get_proxy
+    metadata:
+      link: "https://github.com/tonwhales/ton-nominators/blob/0553e1b6ddfc5c0b60505957505ce58d01bec3e7/sources/modules/get.fc#L5"
+    result:
+      - type: Slice
+        labels:
+          name: proxy
+          address: true
+
+  - method_name: get_owner
+    metadata:
+      link: "https://github.com/tonwhales/ton-nominators/blob/0553e1b6ddfc5c0b60505957505ce58d01bec3e7/sources/modules/get.fc#L10"
+    result:
+      - type: Slice
+        labels:
+          name: owner
+          address: true
+
+  - method_name: get_controller
+    metadata:
+      link: "https://github.com/tonwhales/ton-nominators/blob/0553e1b6ddfc5c0b60505957505ce58d01bec3e7/sources/modules/get.fc#L15"
+    result:
+      - type: Slice
+        labels:
+          name: controller
+          address: true
+
+  - method_name: get_unowned
+    metadata:
+      link: "https://github.com/tonwhales/ton-nominators/blob/0553e1b6ddfc5c0b60505957505ce58d01bec3e7/sources/modules/get.fc#L24"
+    result:
+      - type: Int
+        labels:
+          dton_type: UInt64
+          name: balance_unowned
+
+  - method_name: get_available
+    metadata:
+      link: "https://github.com/tonwhales/ton-nominators/blob/0553e1b6ddfc5c0b60505957505ce58d01bec3e7/sources/modules/get.fc#L30C3-L30C16"
+    result:
+      - type: Int
+        labels:
+          dton_type: UInt64
+          name: balance_available
+
+  - method_name: get_staking_status
+    metadata:
+      link: "https://github.com/tonwhales/ton-nominators/blob/0553e1b6ddfc5c0b60505957505ce58d01bec3e7/sources/modules/get.fc#L39"
+    result:
+      - type: Int
+        labels:
+          dton_type: Datetime
+          name: stake_at
+      - type: Int
+        labels:
+          dton_type: Datetime
+          name: stake_until
+      - type: Int
+        labels:
+          dton_type: UInt64
+          name: stake_sent
+      - type: Bool
+        labels:
+          name: query_sent
+      - type: Bool
+        labels:
+          name: could_unlock
+      - type: Bool
+        labels:
+          name: locked
+      - type: Bool
+        labels:
+          name: proxy_stake_lock_final
+
+
+  - method_name: get_pool_status
+    metadata:
+      link: "https://github.com/tonwhales/ton-nominators/blob/0553e1b6ddfc5c0b60505957505ce58d01bec3e7/sources/modules/get.fc#L53"
+    result:
+      - type: Int
+        labels:
+          dton_type: UInt64
+          name: balance
+      - type: Int
+        labels:
+          dton_type: UInt64
+          name: balance_sent
+      - type: Int
+        labels:
+          dton_type: UInt64
+          name: balance_pending_deposits
+      - type: Int
+        labels:
+          dton_type: UInt64
+          name: balance_pending_withdraw
+      - type: Int
+        labels:
+          dton_type: UInt64
+          name: balance_withdraw
+
+  - method_name: get_params
+    metadata:
+      link: "https://github.com/tonwhales/ton-nominators/blob/0553e1b6ddfc5c0b60505957505ce58d01bec3e7/sources/modules/get.fc#L61"
+    result:
+      - type: Bool
+        labels:
+          name: enabled
+      - type: Bool
+        labels:
+          name: updates_enables
+      - type: Int
+        labels:
+          dton_type: UInt64
+          name: min_stake
+      - type: Int
+        labels:
+          dton_type: UInt64
+          name: deposit_fee
+      - type: Int
+        labels:
+          dton_type: UInt64
+          name: withdraw_fee
+      - type: Int
+        labels:
+          dton_type: UInt64
+          name: pool_fee
+      - type: Int
+        labels:
+          dton_type: UInt64
+          name: receipt_price
+
+  - method_name: get_members_raw
+    metadata:
+      link: "https://github.com/tonwhales/ton-nominators/blob/0553e1b6ddfc5c0b60505957505ce58d01bec3e7/sources/modules/get.fc#L80"
+    labels:
+      skipLive: true
+    result:
+      - type: Cell
+        labels:
+          name: members_raw
+
+  - method_name: get_members
+    metadata:
+      link: "https://github.com/tonwhales/ton-nominators/blob/0553e1b6ddfc5c0b60505957505ce58d01bec3e7/sources/modules/get.fc#L85"
+    labels:
+      skipLive: true
+    result:
+      - type: Tuple
+        labels:
+          name: members
+
+  - method_name: get_member
+    metadata:
+      link: "https://github.com/tonwhales/ton-nominators/blob/0553e1b6ddfc5c0b60505957505ce58d01bec3e7/sources/modules/get.fc#L85"
+    args:
+      - type: Slice
+        labels:
+          name: member
+          address: true
+    result:
+      - type: Int
+        labels:
+          dton_type: UInt64
+          name: member_balance
+      - type: Int
+        labels:
+          dton_type: UInt64
+          name: member_pending_deposit
+      - type: Int
+        labels:
+          dton_type: UInt64
+          name: member_pending_withdraw
+      - type: Int
+        labels:
+          dton_type: UInt64
+          name: member_withdraw
+
+  - method_name: supported_interfaces
+    metadata:
+      link: "https://github.com/tonwhales/ton-nominators/blob/0553e1b6ddfc5c0b60505957505ce58d01bec3e7/sources/modules/get.fc#L120"
+    result:
+      - type: Int
+        required: 123515602279859691144772641439386770278 # org.ton.introspection.v0
+      - type: Int
+        required: 256184278959413194623484780286929323492 # com.tonwhales.nominators:v0

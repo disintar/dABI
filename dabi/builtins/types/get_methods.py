@@ -33,14 +33,7 @@ class MethodsSubtype(dABISubtype):
         self.anon_getter = anon_getter
 
     def parse(self, data: dict):
-        if 'type' in data:
-            if not self.allow_sub_getters:
-                raise ValueError("MethodsSubtype: too deep depth for type: GetMethod")
-
-            self.full_get_method = GetMethodType(self.context, allow_sub_getters=False, anon_getter=self.anon_getter)
-            self.full_get_method.parse(data)
-
-        elif 'method_name' in data:
+        if 'method_name' in data:
             self.method_inline = True
 
             if not isinstance(data['method_name'], str):
@@ -48,6 +41,11 @@ class MethodsSubtype(dABISubtype):
 
             self.method_name = data['method_name']
             self.method_id = method_name_to_id(data['method_name'])
+            if 'metadata' in data:
+                self.metadata.parse(data['metadata'])
+
+            if 'labels' in data:
+                self.labels.parse(data['labels'])
 
             self.method_args = []
             self.method_result = []
@@ -72,34 +70,28 @@ class MethodsSubtype(dABISubtype):
                         l[k].append(tmp)
 
         else:
-            raise ValueError('MethodsSubtype: Method type or method name missing')
+            raise ValueError('MethodsSubtype: Method name missing')
 
     def to_dict(self) -> List:
-        if not self.method_inline:
-            self.full_get_method.labels += self.labels
-            self.full_get_method.metadata += self.metadata
+        self.calculate_hash()
 
-            return self.full_get_method.to_dict()
-        else:
-            self.calculate_hash()
+        args_hash, result_hash = self.calculate_hash()
 
-            args_hash, result_hash = self.calculate_hash()
+        return [{
+            'metadata': self.metadata.to_dict(),
+            'labels': self.labels.to_dict(),
 
-            return [{
-                'metadata': self.metadata.to_dict(),
-                'labels': self.labels.to_dict(),
+            'method_name': self.method_name,
+            'method_id': self.method_id,
+            'method_args': [i.to_dict() for i in self.method_args],
+            'method_result': [i.to_dict() for i in self.method_result],
 
-                'method_name': self.method_name,
-                'method_id': self.method_id,
-                'method_args': [i.to_dict() for i in self.method_args],
-                'method_result': [i.to_dict() for i in self.method_result],
+            'method_args_hash': args_hash,
+            'method_result_hash': result_hash,
 
-                'method_args_hash': args_hash,
-                'method_result_hash': result_hash,
-
-                'result_strict_type_check': self.result_strict_type_check,
-                'result_length_strict_check': self.result_length_strict_check
-            }]
+            'result_strict_type_check': self.result_strict_type_check,
+            'result_length_strict_check': self.result_length_strict_check
+        }]
 
     def calculate_hash(self):
         json_string_args = json.dumps({'stack': [i.to_dict(True) for i in self.method_args]},

@@ -1,6 +1,4 @@
-apiVersion: dabi/v0
-type: GetMethod
-spec:
+my_getter:
   - method_name: t1
     args:
       - type: Cell

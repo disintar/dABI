@@ -26,6 +26,7 @@ class TVMTypeSubtype(dABISubtype):
             'Continuation',
             'Tuple',
             'Int',
+            'Bool'
         ]
 
     def parse(self, data: dict):
@@ -128,10 +129,16 @@ class TVMTypeSubtype(dABISubtype):
     def to_dict(self, type_only=False):
         if type_only:
             tmp = OrderedDict()
-            tmp['type'] = self.type
+            if self.type == 'Bool':
+                tmp['type'] = 'Int'
+            else:
+                tmp['type'] = self.type
 
             if self.type == 'Tuple':
-                tmp['items'] = [i.to_dict(type_only) for i in self.items]
+                if self.items:
+                    tmp['items'] = [i.to_dict(type_only) for i in self.items]
+                else:
+                    tmp['items'] = []
 
             return tmp
 
@@ -146,6 +153,9 @@ class TVMTypeSubtype(dABISubtype):
             tmp['tlb'] = self.tlb.to_dict()
 
         if self.type == 'Tuple':
-            tmp['items'] = [i.to_dict() for i in self.items]
+            if self.items:
+                tmp['items'] = [i.to_dict() for i in self.items]
+            else:
+                tmp['items'] = []
 
         return tmp

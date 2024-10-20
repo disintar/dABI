@@ -18,7 +18,7 @@ def test_get_method():
             'metadata': {'name': 'My cool smart contract', 'description': 'Completely not useless', 'link': ''},
             'labels': {'dton_parse_prefix': 'parsed_smart_', 'name': 'my_unique_smc'},
             'selector': {'selector_type': 'by_methods', 'items': []}, 'get_methods': {85793: [
-                {'metadata': {'name': '', 'description': '', 'link': ''}, 'labels': None, 'method_name': 'get_cool_smc',
+                {'metadata': {'name': '', 'description': '', 'link': ''}, 'labels': {}, 'method_name': 'get_cool_smc',
                  'method_id': 85793, 'method_args': [], 'method_result': [
                     {'type': 'Int', 'metadata': {'name': '', 'description': '', 'link': ''},
                      'labels': {'name': 'anon_0'}, 'required': 256}],

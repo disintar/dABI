@@ -1,0 +1,14 @@
+apiVersion: dabi/v0
+type: Interface
+metadata:
+  name: "Whales Nominators Interface"
+  link: "https://github.com/tonwhales/ton-nominators/tree/main"
+labels:
+  name: whales_nominator_pool
+  dton_parse_prefix: abi_whales_nominator_
+spec:
+  get_methods:
+    {{ constants("whales_nominators_getters", indent=4) }}
+
+  selector:
+    by_methods: true
