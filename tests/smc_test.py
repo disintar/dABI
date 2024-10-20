@@ -7,7 +7,6 @@ from tests.test_base import *
 def test_get_method():
     with open('tests/examples/smc.yaml', 'r') as stream:
         data = load_smart_contract_template(root=context.root, smc_yaml=stream.read())
-        print(data.getvalue())
         smcs = list(yaml.safe_load_all(data))
         context.update_subcontext()
 

@@ -23,7 +23,6 @@ def load_yaml_files(root):
                         if isinstance(doc, dict):
                             # Extract the key from each document, assuming it has one top-level key
                             for key, value in doc.items():
-                                print("LOAD: ", key)
                                 yaml_data[key] = value
 
     return yaml_data
