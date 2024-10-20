@@ -27,12 +27,16 @@ def compare_methods(a_contracts, b_contracts):
     b_methods_metadata = {}
 
     for contract in a_contracts:
-        for method in contract.get('get_methods', []):
-            a_methods_metadata[method['method_name']] = method['metadata']
+        getters = contract.get('get_methods', {})
+        for method in getters:
+            for getter in getters[method]:
+                a_methods_metadata[getter['method_name']] = getter['metadata']
 
     for contract in b_contracts:
-        for method in contract.get('get_methods', []):
-            b_methods_metadata[method['method_name']] = method['metadata']
+        getters = contract.get('get_methods', {})
+        for method in getters:
+            for getter in getters[method]:
+                b_methods_metadata[getter['method_name']] = getter['metadata']
 
     added_methods = {name: b_methods_metadata[name] for name in b_methods_metadata if name not in a_methods_metadata}
     removed_methods = {name: a_methods_metadata[name] for name in a_methods_metadata if name not in b_methods_metadata}
@@ -82,7 +86,14 @@ def display_contracts_info(contracts):
         name = contract['metadata'].get('name', 'No name')
         description = contract['metadata'].get('description', 'No description')
         selector_type = contract.get('selector', {}).get('selector_type', 'No selector')
-        methods = ", ".join([method['method_name'] for method in contract.get('get_methods', [])]) or 'No methods'
+
+        data = []
+
+        getters = contract.get('get_methods', {})
+        for method in getters:
+            for getter in getters[method]:
+                data.append(getter['method_name'])
+        methods = ", ".join(data) or 'No methods'
         table += f"| {name} | {description} | {selector_type} | {methods} |\n"
 
     return table
