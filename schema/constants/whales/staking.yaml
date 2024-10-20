@@ -80,23 +80,23 @@ whales_nominators_getters:
     result:
       - type: Int
         labels:
-          dton_type: Int64
+          dton_type: UInt64
           name: balance
       - type: Int
         labels:
-          dton_type: Int64
+          dton_type: UInt64
           name: balance_sent
       - type: Int
         labels:
-          dton_type: Int64
+          dton_type: UInt64
           name: balance_pending_deposits
       - type: Int
         labels:
-          dton_type: Int64
+          dton_type: UInt64
           name: balance_pending_withdraw
       - type: Int
         labels:
-          dton_type: Int64
+          dton_type: UInt64
           name: balance_withdraw
 
   - method_name: get_params
@@ -111,23 +111,23 @@ whales_nominators_getters:
           name: updates_enables
       - type: Int
         labels:
-          dton_type: Int64
+          dton_type: UInt64
           name: min_stake
       - type: Int
         labels:
-          dton_type: Int64
+          dton_type: UInt64
           name: deposit_fee
       - type: Int
         labels:
-          dton_type: Int64
+          dton_type: UInt64
           name: withdraw_fee
       - type: Int
         labels:
-          dton_type: Int64
+          dton_type: UInt64
           name: pool_fee
       - type: Int
         labels:
-          dton_type: Int64
+          dton_type: UInt64
           name: receipt_price
 
   - method_name: get_members_raw
@@ -139,7 +139,6 @@ whales_nominators_getters:
       - type: Cell
         labels:
           name: members_raw
-          dton_type: WhalesNominatorsMembersList
 
   - method_name: get_members
     metadata:
@@ -150,7 +149,6 @@ whales_nominators_getters:
       - type: Tuple
         labels:
           name: members
-          dton_type: WhalesNominatorsMembersList
 
   - method_name: get_member
     metadata:
@@ -163,19 +161,19 @@ whales_nominators_getters:
     result:
       - type: Int
         labels:
-          dton_type: Int64
+          dton_type: UInt64
           name: member_balance
       - type: Int
         labels:
-          dton_type: Int64
+          dton_type: UInt64
           name: member_pending_deposit
       - type: Int
         labels:
-          dton_type: Int64
+          dton_type: UInt64
           name: member_pending_withdraw
       - type: Int
         labels:
-          dton_type: Int64
+          dton_type: UInt64
           name: member_withdraw
 
   - method_name: supported_interfaces
