@@ -125,6 +125,13 @@ labels:
   address: true
 ```
 
+To auto convert `Slice` / `Builder` / `Cell` to `String` you can use:
+
+```yaml
+labels:
+  string: true
+```
+
 This is better solution than add special type for TVM that doesn't exist. Also it much easier to hash check types
 between ABI and TVM result.
 

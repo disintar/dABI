@@ -1,0 +1,67 @@
+apiVersion: dabi/v0
+type: Interface
+metadata:
+  name: "StonFi Pool v2"
+  link: "https://docs.ston.fi/docs/developer-section/api-reference-v2/pool"
+labels:
+  name: stonfi_pool_v2
+  dton_parse_prefix: abi_stonfi_pool_
+spec:
+  get_methods:
+    - method_name: get_pool_data
+      metadata:
+        link: "https://docs.ston.fi/docs/developer-section/api-reference-v2/pool"
+      result:
+        - type: Bool
+          labels:
+            name: is_locked
+          metadata:
+            description: "true if transfer_notification operations are locked (swap, provide_lp)"
+        - type: Slice
+          labels:
+            name: router_address
+            address: true
+        - type: Int
+          labels:
+            name: total_supply
+            skipParse: true
+        - type: Int
+          labels:
+            name: reserve0
+        - type: Int
+          labels:
+            name: reserve1
+        - type: Slice
+          labels:
+            name: asset0
+            address: true
+          metadata:
+            description: "asset0 jetton master address"
+        - type: Slice
+          labels:
+            name: asset1
+            address: true
+          metadata:
+            description: "asset1 jetton master address"
+        - type: Int
+          labels:
+            name: lp_fee
+            dton_type: UInt16
+        - type: Int
+          labels:
+            name: protocol_fee
+            dton_type: UInt16
+        - type: Slice
+          labels:
+            name: protocol_fee_address
+            skipParse: true
+            address: true
+        - type: Int
+          labels:
+            name: collected_asset0_protocol_fee
+        - type: Int
+          labels:
+            name: collected_asset1_protocol_fee
+    {{ constants("stonfi_get_lp_account_address", indent=4) }}
+  selector:
+    by_methods: true

@@ -1,0 +1,118 @@
+apiVersion: dabi/v0
+type: Interface
+metadata:
+  name: "StonFi Pool v1"
+  link: "https://docs.ston.fi/docs/developer-section/api-reference-v1/pool"
+labels:
+  name: stonfi_pool_v1
+  dton_parse_prefix: abi_stonfi_pool_
+spec:
+  get_methods:
+    - method_name: get_pool_data
+      metadata:
+        link: "https://docs.ston.fi/docs/developer-section/api-reference-v1/pool#get_pool_data"
+      result:
+        - type: Int
+          labels:
+            name: reserve0
+          metadata:
+            description: "reserve of asset0"
+        - type: Int
+          labels:
+            name: reserve1
+          metadata:
+            description: "reserve of asset1"
+        - type: Slice
+          labels:
+            name: asset0
+            address: true
+          metadata:
+            description: "asset0 jetton master address"
+        - type: Slice
+          labels:
+            name: asset1
+            address: true
+          metadata:
+            description: "asset1 jetton master address"
+        - type: Int
+          labels:
+            name: lp_fee
+            dton_type: UInt8
+        - type: Int
+          labels:
+            name: protocol_fee
+            dton_type: UInt8
+        - type: Int
+          labels:
+            name: ref_fee
+            dton_type: UInt8
+        - type: Slice
+          labels:
+            name: protocol_fee_address
+            skipParse: true
+            address: true
+        - type: Int
+          labels:
+            name: collected_asset0_protocol_fee
+        - type: Int
+          labels:
+            name: collected_asset1_protocol_fee
+
+    - method_name: get_expected_outputs
+      args:
+        - type: Int
+          labels:
+            name: "amount"
+        - type: Slice
+          labels:
+            name: token_wallet
+            address: true
+      result:
+        - type: Int
+          labels:
+            name: jetton_to_receive
+          metadata:
+            description: "Amount of tokens received (in basic token units)"
+        - type: Int
+          labels:
+            name: protocol_fee_paid
+          metadata:
+            description: "Amount tokens paid for protocol fees (in basic token units)"
+        - type: Int
+          labels:
+            name: ref_fee_paid
+          metadata:
+            description: "Amount tokens paid for referral fees (in basic token units)"
+
+    - method_name: get_expected_tokens
+      args:
+        - type: Int
+          labels:
+            name: "tokens_amount0"
+        - type: Int
+          labels:
+            name: "tokens_amount1"
+      result:
+        - type: Int
+          labels:
+            name: liquidity
+          metadata:
+            description: "estimated amount of liquidity tokens to be minted"
+
+    - method_name: get_expected_liquidity
+      args:
+        - type: Int
+          labels:
+            name: "liquidity_amount0"
+      result:
+        - type: Int
+          labels:
+            name: asset0_tokens
+        - type: Int
+          labels:
+            name: asset1_tokens
+
+    {{ constants("stonfi_get_lp_account_address", indent=4) }}
+
+  selector:
+    by_methods: true

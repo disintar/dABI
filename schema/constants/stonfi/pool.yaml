@@ -1,0 +1,12 @@
+stonfi_get_lp_account_address:
+  - method_name: get_lp_account_address
+    args:
+      - type: Slice
+        labels:
+          name: "owner_address"
+          address: true
+    result:
+      - type: Slice
+        labels:
+          name: lp_account
+          address: true

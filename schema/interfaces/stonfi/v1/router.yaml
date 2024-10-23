@@ -1,0 +1,42 @@
+apiVersion: dabi/v0
+type: Interface
+metadata:
+  name: "StonFi Router v1"
+  link: "https://docs.ston.fi/docs/developer-section/api-reference-v1/router"
+labels:
+  name: stonfi_router_v1
+  dton_parse_prefix: abi_stonfi_router_
+spec:
+  get_methods:
+    - method_name: get_router_data
+      metadata:
+        link: "https://docs.ston.fi/docs/developer-section/api-reference-v1/router#get_router_data"
+      result:
+        - type: Bool
+          labels:
+            name: is_locked
+        - type: Slice
+          labels:
+            name: admin_address
+            address: true
+        - type: Cell
+          labels:
+            name: temp_upgrade
+            skipParse: true
+        - type: Cell
+          labels:
+            name: pool_code
+            skipParse: true
+        - type: Cell
+          labels:
+            name: jetton_lp_wallet_code
+            skipParse: true
+        - type: Cell
+          labels:
+            name: lp_account_code
+            skipParse: true
+
+    {{ constants("stonfi_get_pool_address", indent=4) }}
+
+  selector:
+    by_methods: true
