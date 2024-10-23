@@ -1,0 +1,21 @@
+stonfi_get_pool_address:
+  - method_name: get_pool_address
+    metadata:
+      link: "https://docs.ston.fi/docs/developer-section/api-reference-v1/router#get_pool_address"
+    args:
+      - type: Slice
+        labels:
+          name: asset0
+      - type: Slice
+        labels:
+          name: asset1
+
+    result:
+      - type: Slice
+        labels:
+          name: address0
+          address: true
+      - type: Slice
+        labels:
+          name: address1
+          address: true

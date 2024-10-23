@@ -1,0 +1,34 @@
+apiVersion: dabi/v0
+type: TestCase
+smart_contract:
+  name: stonfi_router_v1
+  address: "EQB3ncyBUTjZUA5EnFKR5_EnOMI9V1tTEAAPaiU71gc4TiUt"
+  block:
+    mc_seqno: 41143667
+parsed_info:
+  get_methods:
+    get_router_data:
+      result:
+       - is_locked: false
+       - admin_address: "EQBJm7wS-5M9SmJ3xLMCj8Ol-JKLikGDj-GfDwL1_6b7cENC"
+
+---
+
+apiVersion: dabi/v0
+type: TestCase
+smart_contract:
+  name: stonfi_router_v2
+  libs:
+    - "848D1DA9F94D125219685290A670A23573A3FF671DFE3C04B7AA8832C6A4F5CC"
+  address: "EQADEFMTMnC-gu5v2U0ZY8AYaGhAOk9TcECg1TOquAW3r-IE"
+  block:
+    mc_seqno: 41337187
+parsed_info:
+  get_methods:
+    get_router_data:
+      result:
+       - router_id: 90942
+       - router_type: "constant_product"
+       - is_locked: false
+       - admin_address: "EQBAj_9iYponyRxQgNurrn4t7UNS0aQeteHY7U-H-F_XTy-Z"
+

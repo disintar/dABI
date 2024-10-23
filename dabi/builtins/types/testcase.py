@@ -29,6 +29,7 @@ class TCaseType(dABIType):
         self.parsed_info = {}
         self.abi = abi
         self.name = None
+        self.libs = []
 
     def process_tlb(self, expected, received: StackEntry, expected_item, my_error):
         received_tlb = {}
@@ -54,6 +55,9 @@ class TCaseType(dABIType):
         t = received.get_type()
         my_error = f"({expected_item['labels']}) {error_holder}, getter expected: {test_item}, received {received.get()}"
 
+        if expected_item['labels'].get('skipParse', False):
+            return
+
         if expected_item['type'] == 'Tuple':
             if t is not StackEntry.Type.t_tuple:
                 raise AssertionError(my_error)
@@ -76,23 +80,35 @@ class TCaseType(dABIType):
             is_address = True
             expected = Address(expected)
 
+        is_string = False
+        if 'string' in expected_item['labels'] and expected_item['labels']['string'] is True:
+            is_string = True
+
         if t is StackEntry.Type.t_null:
             assert expected is None or not len(expected), my_error
         elif t is StackEntry.Type.t_cell:
             if not is_address:
-                if 'tlb' in expected_item:
-                    self.process_tlb(expected, received, expected_item, my_error)
+                if not is_string:
+                    if 'tlb' in expected_item:
+                        self.process_tlb(expected, received, expected_item, my_error)
+                    else:
+                        assert expected == received.get().get_hash(), f"{my_error}, {received.get().get_hash()}"
                 else:
-                    assert expected == received.get().get_hash(), f"{my_error}, {received.get().get_hash()}"
+                    received = received.get().begin_parse().load_string()
+                    assert expected == received, f"{my_error}, {received}"
             else:
                 received = received.get().begin_parse().load_address()
                 assert expected == received, f"{my_error}, {received}"
         elif t is StackEntry.Type.t_slice:
             if not is_address:
-                if 'tlb' in expected_item:
-                    self.process_tlb(expected, received, expected_item, my_error)
+                if not is_string:
+                    if 'tlb' in expected_item:
+                        self.process_tlb(expected, received, expected_item, my_error)
+                    else:
+                        assert expected == received.get().get_hash(), f"{my_error}, {received.get().get_hash()}"
                 else:
-                    assert expected == received.get().get_hash(), f"{my_error}, {received.get().get_hash()}"
+                    received = received.get().load_string()
+                    assert expected == received, f"{my_error}, {received}"
             else:
                 received = received.get().load_address()
                 assert expected == received, f"{my_error}, {received}"
@@ -105,10 +121,14 @@ class TCaseType(dABIType):
             assert expected == received, f"{my_error}"
         elif t is StackEntry.Type.t_builder:
             if not is_address:
-                if 'tlb' in expected_item:
-                    self.process_tlb(expected, received, expected_item, my_error)
+                if not is_string:
+                    if 'tlb' in expected_item:
+                        self.process_tlb(expected, received, expected_item, my_error)
+                    else:
+                        assert expected == received.get().get_hash(), f"{my_error}"
                 else:
-                    assert expected == received.get().get_hash(), f"{my_error}"
+                    received = received.get().end_cell().begin_parse().load_string()
+                    assert expected == received, f"{my_error}, {received}"
             else:
                 received = received.get().end_cell().begin_parse().load_address()
                 assert expected == received, f"{my_error}, {received}"
@@ -146,6 +166,11 @@ class TCaseType(dABIType):
             raise ValueError('TestCaseType: name must be in smart_contract (name of label.smart_contract to test)')
         self.name = data['smart_contract']['name']
 
+        if 'libs' in data['smart_contract']:
+            if isinstance(data['smart_contract']['libs'], list):
+                self.libs = data['smart_contract']['libs']
+            else:
+                raise ValueError('TestCaseType: libs must be a list')
         try:
             self.address = Address(data['smart_contract']['address'])
         except Exception as e:
@@ -194,6 +219,10 @@ class TCaseType(dABIType):
 
         tvm = TVM(data=data, code=code, allow_debug=True)
         tvm.set_gas_limit(5000000, 5000000)
+
+        if len(self.libs):
+            libs_data = self.client.get_libraries(self.libs)
+            tvm.set_libs(libs_data)
 
         config = self.client.get_config_all(block)
 

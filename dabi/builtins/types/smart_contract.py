@@ -29,10 +29,10 @@ class InterfaceType(dABIType):
                 self.unique_getters.add(cur_name)
                 return cur_name
             else:
-                raise ValueError(f'MethodsSubtype: Method name {cur_name} already exists')
+                raise ValueError(f'MethodsSubtype: Method name {cur_name} already exists in {self.labels.data}')
         else:
             if name in self.unique_getters:
-                raise ValueError(f'MethodsSubtype: Method name {name} already exists')
+                raise ValueError(f'MethodsSubtype: Method name {name} already exists in {self.labels.data}')
             self.unique_getters.add(name)
             return name
 
