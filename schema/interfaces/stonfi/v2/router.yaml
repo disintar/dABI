@@ -5,7 +5,7 @@ metadata:
   link: "https://docs.ston.fi/docs/developer-section/api-reference-v2/router"
 labels:
   name: stonfi_router_v2
-  dton_parse_prefix: abi_stonfi_router_v2_
+  dton_parse_prefix: abi_stonfi_router_
 spec:
   get_methods:
     - method_name: get_router_data
@@ -15,7 +15,7 @@ spec:
         - type: Int
           labels:
             name: router_id
-            dton_type: uint32
+            dton_type: UInt32
         - type: Slice
           labels:
             name: router_type

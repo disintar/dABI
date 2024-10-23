@@ -5,7 +5,7 @@ metadata:
   link: "https://docs.ston.fi/docs/developer-section/api-reference-v1/router"
 labels:
   name: stonfi_router_v1
-  dton_parse_prefix: abi_stonfi_router_v1_
+  dton_parse_prefix: abi_stonfi_router_
 spec:
   get_methods:
     - method_name: get_router_data
