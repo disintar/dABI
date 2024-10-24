@@ -1,0 +1,26 @@
+apiVersion: dabi/v0
+type: TestCase
+smart_contract:
+  name: core_nominator_pool
+  address: "Ef9Qhifu_o6WiS3JzJEailMuDtlDqmy55eCGDJ5cYSTGD4BW"
+  block:
+    mc_seqno: 40948230
+parsed_info:
+  get_methods:
+    has_withdraw_requests:
+      result:
+        - has_withdraw_requests: false
+    get_pool_data:
+      result:
+        - state: 2
+        - nominators_count: 2
+        - stake_amount_sent: 1095810256035185
+        - validator_amount: 12463025142241
+        - validator_address: "EQCH8_nLNEPcgjMNaNSThwovrfFa_M_mjYH8SESYXdiWsFXC"
+        - validator_reward_share: 4000
+        - max_nominators_count: 40
+        - min_validator_stake: 10000000000000
+        - min_nominator_stake: 10000000000000
+        - stake_at: 1728466696
+        - stake_held_for: 32768
+_

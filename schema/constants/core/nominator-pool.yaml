@@ -1,0 +1,76 @@
+core_nominator_get_pool_data:
+  - method_name: get_pool_data
+    result_strict_type_check: false
+    labels:
+      skipLive: true
+    result:
+      - type: Int
+        labels:
+          name: state
+          dton_type: UInt8
+      - type: Int
+        labels:
+          name: nominators_count
+          dton_type: UInt16
+      - type: Int
+        labels:
+          name: stake_amount_sent
+          dton_type: UInt64
+      - type: Int
+        labels:
+          name: validator_amount
+          dton_type: UInt64
+      - type: Int
+        labels:
+          name: validator_address
+          address: true
+      - type: Int
+        labels:
+          name: validator_reward_share
+          dton_type: UInt16
+      - type: Int
+        labels:
+          name: max_nominators_count
+          dton_type: UInt16
+      - type: Int
+        labels:
+          name: min_validator_stake
+          dton_type: UInt64
+      - type: Int
+        labels:
+          name: min_nominator_stake
+          dton_type: UInt64
+      - type: Cell
+        labels:
+          name: nominators
+          skipParse: true
+      - type: Cell
+        labels:
+          name: withdraw_requests
+          skipParse: true
+      - type: Int
+        labels:
+          name: stake_at
+          dton_type: Datetime
+      - type: Int
+        labels:
+          skipParse: true
+          name: saved_validator_set_hash
+          dton_type: FixedString(64)
+      - type: Int
+        labels:
+          skipParse: true
+          name: validator_set_changes_count
+          dton_type: UInt8
+      - type: Int
+        labels:
+          name: validator_set_change_time
+          skipParse: true
+      - type: Int
+        labels:
+          name: stake_held_for
+          dton_type: UInt32
+      - type: Cell
+        labels:
+          name: config_proposal_votings
+          skipParse: true
