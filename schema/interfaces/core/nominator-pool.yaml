@@ -1,0 +1,56 @@
+apiVersion: dabi/v0
+type: Interface
+metadata:
+  name: "TF Core: Nominator pool"
+  link: "https://github.com/ton-blockchain/nominator-pool/tree/main"
+labels:
+  name: core_nominator_pool
+  dton_parse_prefix: abi_core_nominator_pool_
+spec:
+  get_methods:
+    - method_name: has_withdraw_requests
+      result:
+        - type: Bool
+          labels:
+            name: has_withdraw_requests
+    - method_name: get_nominator_data
+      args:
+        - type: Int
+          labels:
+            name: nominator_address
+      result:
+        - type: Int
+          labels:
+            name: amount
+        - type: Int
+          labels:
+            name: pending_deposit_amount
+        - type: Int
+          labels:
+            name: withdraw_found
+    - method_name: get_max_punishment
+      args:
+        - type: Int
+          labels:
+            name: stake
+      result:
+        - type: Cell
+          labels:
+            name: pool_data
+
+    - method_name: list_nominators
+      labels:
+        skipLive: true
+      result:
+        - type: Tuple
+
+    - method_name: list_votes
+      labels:
+        skipLive: true
+      result:
+        - type: Tuple
+
+    {{ constants("core_nominator_get_pool_data", indent=4) }}
+
+  selector:
+    by_methods: true

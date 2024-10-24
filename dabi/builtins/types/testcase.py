@@ -113,12 +113,18 @@ class TCaseType(dABIType):
                 received = received.get().load_address()
                 assert expected == received, f"{my_error}, {received}"
         elif t is StackEntry.Type.t_int:
+
             if expected_item['type'] == 'Bool':
                 received = received.get() == -1
             else:
                 received = received.get()
 
-            assert expected == received, f"{my_error}"
+            if not is_address:
+                assert expected == received, f"{my_error}"
+            else:
+                received = hex(received)[2:].upper().zfill(64)
+                assert expected.address == received, f"{my_error}, {Address(f"{0}:{received}")}"
+
         elif t is StackEntry.Type.t_builder:
             if not is_address:
                 if not is_string:
@@ -277,7 +283,7 @@ class TCaseType(dABIType):
                 if instance['result_length_strict_check']:
                     assert len(stack) == len(
                         instance[
-                            'method_result']), f"{error_holder}, method result length is not equal to ABI one, stack: {stack.unpack_rec()}"
+                            'method_result']), f"{error_holder}, method result length is not equal to ABI one, stack: {stack.unpack_rec()}, got: {len(stack)}, expected: {len(instance['method_result'])}"
 
                 if instance['result_strict_type_check']:
                     my_result_hash = stack.get_abi_hash()
@@ -285,6 +291,9 @@ class TCaseType(dABIType):
                         'method_result_hash'], f"{error_holder}, method result hash is not equal to ABI one, stack: {stack.unpack_rec()}"
 
                 for stack_item, expected_item in zip(stack, instance['method_result']):
+                    if expected_item['labels'].get('skipParse', False):
+                        continue
+
                     exp = expected_item['type']
                     if exp == 'Bool':
                         exp = 'Int'
