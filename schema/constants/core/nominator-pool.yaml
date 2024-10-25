@@ -1,8 +1,6 @@
 core_nominator_get_pool_data:
   - method_name: get_pool_data
     result_strict_type_check: false
-    labels:
-      skipLive: true
     result:
       - type: Int
         labels:
