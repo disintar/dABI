@@ -1,0 +1,41 @@
+apiVersion: dabi/v0
+type: TestCase
+smart_contract:
+  name: core_liquid_staking
+  address: "EQD2_4d91M4TVbEBVyBF8J1UwpMJc361LKVCz6bBlffMW05o"
+  block:
+    mc_seqno: 40948230
+parsed_info:
+  get_methods:
+    get_pool_full_data:
+      result:
+        - state: 0
+        - halted: false
+        - total_balance: 4794170236677451
+        - interest_rate: 3027
+        - optimistic_deposit_withdrawals: true
+        - deposits_open: true
+        - min_loan_per_validator: 10000000000000
+        - max_loan_per_validator: 1000000000000000
+        - governance_fee: 3187671
+        - jetton_minter: "EQCqC6EhRJ_tpWngKxL6dV0k6DSnRUrs9GSVkLbfdCqsj6TE"
+        - supply: 4641824552679857
+        - deposit_payout: 0
+        - requested_for_deposit: 0
+        - withdrawal_payout: false
+        - requested_for_withdrawal: 0
+        - sudoer: "EQDbsFaxyZERqMVfeS4BI1ElUynogUXM62-AquTbh71CMP2C"
+        - sudoer_set_at: 0
+        - governor: "EQBB44emfOH7kH1vZGqcqsvwHpU8kV4i1YqAy1Gk7Y6Wrmax"
+        - governance_update_after: 281474976710655
+        - interest_manager: "EQD9e_ImTqS1iy9cGKHRUhUCWjbPf4Fd1hWwEzOqQB_KPShX"
+        - halter: "EQBB44emfOH7kH1vZGqcqsvwHpU8kV4i1YqAy1Gk7Y6Wrmax"
+        - approver: "EQBB44emfOH7kH1vZGqcqsvwHpU8kV4i1YqAy1Gk7Y6Wrmax"
+        - projected_total_balance: 4794544053567564
+        - projected_supply: 4641824552679857
+        - round_id: 430
+        - active_borrowers: 2
+        - borrowed: 1840000000000000
+        - expected: 1840330553054808
+        - returned: 0
+        - profit: 0

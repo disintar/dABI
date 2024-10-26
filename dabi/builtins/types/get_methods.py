@@ -65,7 +65,7 @@ class MethodsSubtype(dABISubtype):
                         raise ValueError('MethodsSubtype: args must be a list')
 
                     for arg in data[k]:
-                        tmp = TVMTypeSubtype(self.context, self.anon_getter)
+                        tmp = TVMTypeSubtype(self.context, self.anon_getter, k != 'args')
                         tmp.parse(arg)
                         l[k].append(tmp)
 

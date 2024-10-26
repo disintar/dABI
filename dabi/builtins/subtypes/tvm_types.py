@@ -7,11 +7,12 @@ from collections import OrderedDict
 
 
 class TVMTypeSubtype(dABISubtype):
-    def __init__(self, context, anon_getter):
+    def __init__(self, context, anon_getter, strict_anon=True):
         super().__init__(context)
 
         self.metadata = MetadataSubtype(context)
         self.labels = LabelsSubtype(context)
+        self.strict_anon = strict_anon
 
         self.tlb = None
         self.type = None
@@ -68,13 +69,13 @@ class TVMTypeSubtype(dABISubtype):
         if self.labels.data is None or 'name' not in self.labels.data:
             if self.labels.data is None:
                 self.labels.data = {}
-
             self.labels.data['name'] = self.anon_getter(None)
         else:
             pattern = r'^[A-Za-z_][A-Za-z0-9_]*$'
             if re.match(pattern, self.labels.data['name']) is None:
                 raise ValueError("TVMTypeSubtype: name must match pattern '{}'".format(pattern))
-            self.anon_getter(self.labels.data['name'])
+            if self.strict_anon:
+                self.anon_getter(self.labels.data['name'])
 
         if 'required' in data:
             if not isinstance(data['required'], str) and not isinstance(data['required'], int):
