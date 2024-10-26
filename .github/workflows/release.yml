@@ -116,7 +116,7 @@ jobs:
           # Ensure old_latest.json exists to avoid errors
           if [ ! -f old_latest.json ]; then touch old_latest.json; fi
           ls
-          python3.12 diff.py dabi_latest.json > diff_output.txt
+          python3.12 diff.py old_latest.json dabi_latest.json > diff_output.txt
 
       # Commit and push the versioned and latest JSON files to the specified branch
       - name: Commit and Push JSON Files to Branch

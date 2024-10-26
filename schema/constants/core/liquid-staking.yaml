@@ -1,0 +1,181 @@
+liquid_staking_core_get_pool_full_data:
+  - method_name: get_pool_full_data
+    result_strict_type_check: false
+    result:
+      - type: Int
+        labels:
+          name: state
+          dton_type: UInt8
+      - type: Bool
+        labels:
+          name: halted
+      - type: Int
+        labels:
+          name: total_balance
+          dton_type: UInt64
+      - type: Int
+        labels:
+          name: interest_rate
+          dton_type: UInt32
+      - type: Bool
+        labels:
+          name: optimistic_deposit_withdrawals
+      - type: Bool
+        labels:
+          name: deposits_open
+      - type: Int
+        labels:
+          name: saved_validator_set_hash
+          skipParse: true
+      - type: Tuple
+        labels:
+          name: prev_round_borrowers
+          skipParse: true
+        items:
+          - type: Cell
+            labels:
+              name: prev_borrowers
+              skipParse: true
+          - type: Int
+            labels:
+              name: prev_round_id
+              dton_type: UInt32
+          - type: Int
+            labels:
+              name: prev_active_borrowers
+              dton_type: UInt32
+          - type: Int
+            labels:
+              name: prev_borrowed
+              dton_type: UInt64
+          - type: Int
+            labels:
+              name: prev_expected
+              dton_type: UInt64
+          - type: Int
+            labels:
+              name: prev_returned
+              dton_type: UInt64
+          - type: Int
+            labels:
+              name: prev_profit
+              dton_type: UInt64
+      - type: Tuple
+        labels:
+          name: current_round_borrowers
+        items:
+          - type: Cell
+            labels:
+              name: borrowers
+              skipParse: true
+          - type: Int
+            labels:
+              name: round_id
+              dton_type: UInt32
+          - type: Int
+            labels:
+              name: active_borrowers
+              dton_type: UInt32
+          - type: Int
+            labels:
+              name: borrowed
+              dton_type: UInt64
+          - type: Int
+            labels:
+              name: expected
+              dton_type: UInt64
+          - type: Int
+            labels:
+              name: returned
+              dton_type: UInt64
+          - type: Int
+            labels:
+              name: profit
+              dton_type: UInt64
+      - type: Int
+        labels:
+          name: min_loan_per_validator
+          dton_type: UInt64
+      - type: Int
+        labels:
+          name: max_loan_per_validator
+          dton_type: UInt64
+      - type: Int
+        labels:
+          name: governance_fee
+          dton_type: UInt32
+      - type: Slice
+        labels:
+          name: jetton_minter
+          address: true
+      - type: Int
+        labels:
+          name: supply
+      - type: Slice
+        labels:
+          name: deposit_payout
+          address: true
+      - type: Int
+        labels:
+          name: requested_for_deposit
+          dton_type: UInt64
+      - type: Slice
+        labels:
+          name: withdrawal_payout
+          address: true
+      - type: Int
+        labels:
+          name: requested_for_withdrawal
+          dton_type: UInt64
+      - type: Slice
+        labels:
+          name: sudoer
+          address: true
+      - type: Int
+        labels:
+          name: sudoer_set_at
+          dton_type: Datetime
+      - type: Slice
+        labels:
+          name: governor
+          address: true
+      - type: Int
+        labels:
+          name: governance_update_after
+          dton_type: Datetime
+      - type: Slice
+        labels:
+          name: interest_manager
+          address: true
+      - type: Slice
+        labels:
+          name: halter
+          address: true
+      - type: Slice
+        labels:
+          name: approver
+          address: true
+      - type: Cell
+        labels:
+          name: controller_code
+          skipParse: true
+      - type: Cell
+        labels:
+          name: pool_jetton_wallet_code
+          skipParse: true
+      - type: Cell
+        labels:
+          name: payout_minter_code
+          skipParse: true
+      - type: Int
+        labels:
+          name: projected_total_balance
+          dton_type: UInt64
+      - type: Int
+        labels:
+          name: projected_supply
+          dton_type: UInt64
+
+
+
+

@@ -62,7 +62,7 @@ class TCaseType(dABIType):
             if t is not StackEntry.Type.t_tuple:
                 raise AssertionError(my_error)
 
-            for expected_inner, stack_item in zip(expected_item['items'], t.get()):
+            for expected_inner, stack_item in zip(expected_item['items'], received.get()):
                 self.check_result_rec(test_item, stack_item, expected_inner, error_holder)
             return
 
@@ -85,7 +85,10 @@ class TCaseType(dABIType):
             is_string = True
 
         if t is StackEntry.Type.t_null:
-            assert expected is None or not len(expected), my_error
+            if not is_address:
+                assert expected is None or not len(expected), my_error
+            else:
+                assert expected == Address(), f"{my_error}, addr_none"
         elif t is StackEntry.Type.t_cell:
             if not is_address:
                 if not is_string:
@@ -298,7 +301,10 @@ class TCaseType(dABIType):
                     if exp == 'Bool':
                         exp = 'Int'
 
-                    assert stack_item.as_abi()[
-                               'type'] == exp, f"{error_holder}, ABI type of getter is not equal to {expected_item['type']}"
+                    if not stack_item.as_abi()['type'] == exp and expected_item['labels'].get('address', False):
+                        self.check_result_rec(current_test, stack_item, expected_item, error_holder)
+                    else:
+                        assert stack_item.as_abi()[
+                                   'type'] == exp, f"{error_holder}, ABI type of getter is not equal to {expected_item['type']}"
 
-                    self.check_result_rec(current_test, stack_item, expected_item, error_holder)
+                        self.check_result_rec(current_test, stack_item, expected_item, error_holder)

@@ -1,0 +1,78 @@
+apiVersion: dabi/v0
+type: Interface
+metadata:
+  name: "TF Core: Liquid Staking pool"
+  link: "https://ton-ls-protocol.gitbook.io/ton-liquid-staking-protocol/protocol-components/get-method-interfaces"
+labels:
+  name: core_liquid_staking
+  dton_parse_prefix: abi_core_liquid_staking_
+spec:
+  get_methods:
+    - method_name: get_controller_address
+      args:
+        - type: Int
+          labels:
+            name: controller_id
+        - type: Slice
+          labels:
+            name: validator_address
+      result:
+        - type: Slice
+          labels:
+            name: controller_address
+
+    - method_name: get_controller_address_legacy
+      args:
+        - type: Int
+          labels:
+            name: controller_id
+        - type: Int
+          labels:
+            name: addr_hash
+      result:
+        - type: Int
+          labels:
+            name: controller_address_wc
+        - type: Int
+          labels:
+            name: controller_address_address
+
+    - method_name: get_loan
+      args:
+        - type: Int
+          labels:
+            name: controller_id
+        - type: Int
+          labels:
+            name: validator_address
+        - type: Int
+          labels:
+            name: prev
+      result:
+        - type: Int
+          labels:
+            name: load_body
+        - type: Int
+          labels:
+            name: interest
+
+    - method_name: get_controller_loan_position
+      args:
+        - type: Int
+          labels:
+            name: controller_addr_hash
+        - type: Int
+          labels:
+            name: prev
+      result:
+        - type: Int
+          labels:
+            name: distance_to_median
+        - type: Int
+          labels:
+            name: expected_c
+
+    {{ constants("liquid_staking_core_get_pool_full_data", indent=4) }}
+
+  selector:
+    by_methods: true
