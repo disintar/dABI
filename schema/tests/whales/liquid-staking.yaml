@@ -1,0 +1,26 @@
+apiVersion: dabi/v0
+type: TestCase
+smart_contract:
+  name: whales_liquid_staking
+  address: "EQB0SoxuGDx5qjVt0P_bPICFeWdFLBmVopHhjgfs0q-wsTON"
+  block:
+    mc_seqno: 41143667
+parsed_info:
+  get_methods:
+    get_pool_status:
+      result:
+        - deposit_rate: 967246009
+        - withdraw_rate: 1033672396
+        - ctx_round_id: 412
+        - enabled: true
+        - udpates_enabled: true
+        - min_stake: 800000000
+        - deposit_fee: 100000000
+        - withdraw_fee: 100000000
+        - receipt_price: 100000000
+        - pool_fee: 1950
+        - ctx_minter_total_supply: 1123094368405450
+        - ctx_balance: 1161680300091666
+        - ctx_balance_sent: 1161626747676637
+        - ctx_balance_pending_withdraw: 768653312686
+        - ctx_balance_withdraw: 18842032917654

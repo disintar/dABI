@@ -37,4 +37,4 @@ def run(to_run: str = None):
 
 
 if __name__ == '__main__':
-    run("core_liquid_staking")
+    run("whales_liquid_staking")

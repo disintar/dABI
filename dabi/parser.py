@@ -91,10 +91,10 @@ class dABIParser:
                     by_get_method_stats[name_of_i] += 1
 
             for code_hash in parsed_i['code_hashes']:
-                if code_hash not in by_code_hash:
-                    by_code_hash[code_hash] = []
+                if code_hash['hash'] not in by_code_hash:
+                    by_code_hash[code_hash['hash']] = []
 
-                by_code_hash[code_hash].append(name_of_i)
+                by_code_hash[code_hash['hash']].append(name_of_i)
 
 
                 by_get_method_stats[name_of_i] += 1
