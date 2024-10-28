@@ -1,0 +1,72 @@
+apiVersion: dabi/v0
+type: Interface
+metadata:
+  name: "Ton Whales: Liquid Staking pool"
+labels:
+  name: whales_liquid_staking
+  dton_parse_prefix: abi_whales_liquid_staking_
+spec:
+  get_methods:
+    - method_name: get_pool_status
+      result:
+        - type: Int
+          labels:
+            name: deposit_rate
+            dton_type: UInt64
+        - type: Int
+          labels:
+            name: withdraw_rate
+            dton_type: UInt64
+        - type: Int
+          labels:
+            name: ctx_round_id
+            dton_type: UInt32
+        - type: Bool
+          labels:
+            name: enabled
+        - type: Bool
+          labels:
+            name: udpates_enabled
+        - type: Int
+          labels:
+            name: min_stake
+            dton_type: UInt64
+        - type: Int
+          labels:
+            name: deposit_fee
+            dton_type: UInt64
+        - type: Int
+          labels:
+            name: withdraw_fee
+            dton_type: UInt64
+        - type: Int
+          labels:
+            name: receipt_price
+            dton_type: UInt64
+        - type: Int
+          labels:
+            name: pool_fee
+            dton_type: UInt64
+        - type: Int
+          labels:
+            name: ctx_minter_total_supply
+            dton_type: UInt64
+        - type: Int
+          labels:
+            name: ctx_balance
+            dton_type: UInt64
+        - type: Int
+          labels:
+            name: ctx_balance_sent
+            dton_type: UInt64
+        - type: Int
+          labels:
+            name: ctx_balance_pending_withdraw
+            dton_type: UInt64
+        - type: Int
+          labels:
+            name: ctx_balance_withdraw
+            dton_type: UInt64
+  selector:
+    by_code:
+      - hash: "B6E75696F4A86DCFDA59C97554131A6B9E58ACD395AE7E4ADD1C450E5DC07483"
