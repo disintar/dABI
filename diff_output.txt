@@ -2,7 +2,7 @@
 
 | Change Type | Name | Description | Link |
 | ----------- | ---- | ----------- | ---- |
-| Added 📈 | TF Core: Liquid Staking pool | No name | No description | No link |
+| Added 📈 | Ton Whales: Liquid Staking pool | No name | No description | No link |
 
 
 
@@ -10,11 +10,7 @@
 
 | Change Type | Name | Description | Link |
 | ----------- | ---- | ----------- | ---- |
-| Added 📈 | get_controller_address |  |  | No link |
-| Added 📈 | get_controller_address_legacy |  |  | No link |
-| Added 📈 | get_loan |  |  | No link |
-| Added 📈 | get_controller_loan_position |  |  | No link |
-| Added 📈 | get_pool_full_data |  |  | No link |
+| No changes | 😊 | | |
 
 ### Supported Smart Contracts
 
@@ -27,5 +23,6 @@
 | StonFi Pool v2 |  | by_methods | get_pool_data, get_lp_account_address |
 | StonFi Router v2 |  | by_methods | get_router_data, get_pool_address, get_pool_address |
 | Default royalty get methods |  | by_methods | royalty_params |
+| TF Core: Liquid Staking pool |  | by_methods | get_controller_address, get_controller_address_legacy, get_loan, get_controller_loan_position, get_pool_full_data |
 | TF Core: Nominator pool |  | by_methods | has_withdraw_requests, get_nominator_data, get_max_punishment, list_nominators, list_votes, get_pool_data |
 
