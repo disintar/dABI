@@ -1,0 +1,150 @@
+apiVersion: dabi/v0
+type: Interface
+metadata:
+  name: "Hippo Liquid Staking"
+  url: "https://github.com/HipoFinance/contract/blob/91291c5bfc5da61467d065c6ccd121f0308490e4/contracts/treasury.fc#L2085"
+labels:
+  name: hipo_liquid_staking
+  dton_parse_prefix: abi_hipo_liquid_
+spec:
+  get_methods:
+    - method_name: get_max_burnable_tokens
+      result:
+        - type: Int
+          labels:
+            name: max_burnable_tokens
+    - method_name: get_surplus
+      labels:
+        skipParse: true
+      result:
+        - type: Int
+          labels:
+            name: surplus
+    - method_name: get_treasury_fees
+      args:
+        - type: Int
+          labels:
+            name: ownership_assigned_amount
+      result:
+        - type: Int
+          labels:
+            name: loan_fee
+        - type: Int
+          labels:
+            name: deposit_fee
+        - type: Int
+          labels:
+            name: unstake_all_fee
+    - method_name: get_loan_address
+      args:
+        - type: Slice
+          labels:
+            address: true
+            name: borrower
+        - type: Int
+          labels:
+            name: round_since
+      result:
+          - type: Slice
+            labels:
+              name: load_address
+              address: true
+    - method_name: get_bill_address
+      args:
+        - type: Int
+          labels:
+            name: round_since
+        - type: Int
+          labels:
+            name: index
+      result:
+          - type: Slice
+            labels:
+              name: bill_address
+              address: true
+    - method_name: get_collection_address
+      args:
+        - type: Int
+          labels:
+            name: round_since
+      result:
+          - type: Slice
+            labels:
+              name: collection_address
+              address: true
+    - method_name: get_treasury_state
+      result_strict_type_check: false
+      result:
+        - type: Int
+          labels:
+            name: total_coins
+        - type: Int
+          labels:
+            name: total_tokens
+        - type: Int
+          labels:
+            name: total_staking
+        - type: Int
+          labels:
+            name: total_unstaking
+        - type: Int
+          labels:
+            name: total_borrowers_stake
+        - type: Slice
+          labels:
+            name: parent
+            address: true
+        - type: Cell
+          labels:
+            name: participations
+            skipParse: true
+        - type: Int
+          labels:
+            name: rounds_imbalance
+            skipParse: true
+        - type: Bool
+          labels:
+            name: stopped
+        - type: Bool
+          labels:
+            name: instant_mint
+        - type: Cell
+          labels:
+            name: loan_codes
+            skipParse: true
+        - type: Int
+          labels:
+            name: last_staked
+        - type: Int
+          labels:
+            name: last_recovered
+        - type: Int
+          labels:
+            name: halter
+            skipParse: true
+        - type: Slice
+          labels:
+            name: governor
+            skipParse: true
+        - type: Slice
+          labels:
+            name: proposed_governor
+            skipParse: true
+        - type: Int
+          labels:
+            name: governance_fee
+            skipParse: true
+        - type: Cell
+          labels:
+            name: collection_codes
+            skipParse: true
+        - type: Cell
+          labels:
+            name: bill_codes
+            skipParse: true
+        - type: Cell
+          labels:
+            name: old_parents
+            skipParse: true
+  selector:
+    by_methods: true

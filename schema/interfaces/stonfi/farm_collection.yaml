@@ -1,0 +1,76 @@
+apiVersion: dabi/v0
+type: Interface
+metadata:
+  name: "Farm StonFi Collection"
+  link: "https://github.com/ston-fi/sdk/blob/main/src/contracts/farm/v3/FarmNftItemV3.ts#L216"
+labels:
+  name: stonfi_farm_collection
+  dton_parse_prefix: abi_stonfi_farm_collection_
+spec:
+  get_methods:
+    - method_name: get_version
+      labels:
+        skipLive: true
+      result:
+        - type: Int
+          labels:
+            name: major
+        - type: Int
+          labels:
+            name: minor
+        - type: Slice
+          labels:
+            name: development
+            string: true
+    - method_name: get_farming_minter_data
+      result_strict_type_check: false
+      result:
+        - type: Int
+          labels:
+            name: next_item_index
+            skipParse: true
+        - type: Int
+          labels:
+            name: status
+            dton_type: UInt8
+        - type: Int
+          labels:
+            name: pool_count
+            dton_type: UInt16
+        - type: Int
+          labels:
+            name: current_staked_tokens
+        - type: Int
+          labels:
+            name: contract_unique_id
+            skipParse: true
+        - type: Int
+          labels:
+            name: min_stake_time
+            dton_type: Datetime
+        - type: Slice
+          labels:
+            name: staking_token_wallet
+            address: true
+        - type: Slice
+          labels:
+            name: custodian_address
+            address: true
+        - type: Bool
+          labels:
+            name: can_change_custodian
+        - type: Bool
+          labels:
+            name: can_send_raw_msg
+        - type: Cell
+          labels:
+            name: farm_data_accrued
+            skipParse: true
+        - type: Cell
+          labels:
+            name: farm_data_parameters
+            skipParse: true
+
+
+  selector:
+    by_methods: true

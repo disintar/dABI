@@ -1,0 +1,23 @@
+apiVersion: dabi/v0
+type: Interface
+metadata:
+  name: "SBT Contract"
+  link: "https://github.com/ton-blockchain/TEPs/blob/master/text/0085-sbt-standard.md"
+labels:
+  name: sbt
+  dton_parse_prefix: parsed_object_sbt_
+spec:
+  get_methods:
+    - method_name: get_authority_address
+      result:
+        - type: Slice
+          labels:
+            address: true
+            name: authority
+    - method_name: get_revoked_time
+      result:
+        - type: Int
+          labels:
+            name: revoked_time
+  selector:
+    by_methods: true

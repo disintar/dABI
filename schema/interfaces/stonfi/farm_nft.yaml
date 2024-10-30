@@ -1,0 +1,51 @@
+apiVersion: dabi/v0
+type: Interface
+metadata:
+  name: "Farm StonFi NFT"
+  link: "https://github.com/ston-fi/sdk/blob/main/src/contracts/farm/v3/FarmNftItemV3.ts#L216"
+labels:
+  name: stonfi_farm_nft
+  dton_parse_prefix: abi_stonfi_farm_nft_
+spec:
+  get_methods:
+    - method_name: get_authority_address
+      labels:
+        skipLive: true
+      result:
+        - type: Slice
+          labels:
+            address: true
+            name: authority
+    - method_name: get_revoked_time
+      labels:
+        skipLive: true
+      result:
+        - type: Int
+          labels:
+            name: revoked_time
+    - method_name: get_farming_data
+      result:
+        - type: Int
+          labels:
+            name: status
+        - type: Int
+          labels:
+            name: revoke_time
+            dton_type: Datetime
+        - type: Int
+          labels:
+            name: staked_tokens
+        - type: Int
+          labels:
+            name: stake_date
+            dton_type: Datetime
+        - type: Cell
+          labels:
+            name: claimed_per_unit
+            skipParse: true
+        - type: Slice
+          labels:
+            name: owner_address
+            address: true
+  selector:
+    by_methods: true
