@@ -1,0 +1,92 @@
+apiVersion: dabi/v0
+type: Interface
+metadata:
+  name: "STORM Vault"
+labels:
+  name: storm_vault
+  dton_parse_prefix: abi_storm_vault_
+spec:
+  get_methods:
+    - method_name: get_executor_collection_address
+      labels:
+        skipLive: true
+      result:
+        - type: Slice
+          labels:
+            name: executor_collection
+            address: true
+    - method_name: get_referral_collection_address
+      labels:
+        skipLive: true
+      result:
+        - type: Slice
+          labels:
+            name: referral_collection
+            address: true
+    - method_name: get_vault_contract_data
+      labels:
+        skipLive: true
+      result:
+        - type: Cell
+    - method_name: get_vault_contract_data
+      labels:
+        skipLive: true
+      result:
+        - type: Cell
+    - method_name: get_lp_minter_address
+      result:
+        - type: Slice
+          labels:
+            name: lp_minter
+            address: true
+    - method_name: get_vault_whitelisted_addresses
+      labels:
+        skipLive: true
+      result:
+        - type: Cell
+    - method_name: get_vault_data
+      result_strict_type_check: false
+      result_length_strict_check: false
+      result:
+        - type: Slice
+          labels:
+            name: jetton_wallet
+            address: true
+        - type: Int
+          labels:
+            dton_type: UInt64
+            name: rate
+        - type: Int
+          labels:
+            dton_type: UInt64
+            name: total_supply
+        - type: Int
+          labels:
+            dton_type: UInt64
+            name: free_balance
+        - type: Int
+          labels:
+            dton_type: UInt64
+            name: locked_balance
+        - type: Int
+          labels:
+            dton_type: UInt64
+            name: stakers_balance
+        - type: Int
+          labels:
+            dton_type: UInt64
+            name: executors_balance
+        - type: Int
+          labels:
+            dton_type: UInt64
+            skipParse: true
+
+    - method_name: get_vault_type
+      result:
+        - type: Int
+          labels:
+            dton_type: UInt32
+            name: vault_type
+
+  selector:
+    by_methods: true

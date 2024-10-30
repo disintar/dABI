@@ -1,0 +1,21 @@
+apiVersion: dabi/v0
+type: TestCase
+smart_contract:
+  name: storm_vault
+  address: "EQDpJnZP89Jyxz3euDaXXFUhwCWtaOeRmiUJTi3jGYgF8fnj"
+  block:
+    mc_seqno: 41143667
+parsed_info:
+  get_methods:
+    get_vault_data:
+      result:
+        - jetton_wallet: "EQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAM9c"
+        - rate: 1140491230
+        - total_supply: 2183899208311044
+        - free_balance: 2490717894195642
+        - locked_balance: 107457254245950
+        - stakers_balance: 0
+        - executors_balance: 163766584342
+    get_lp_minter_address:
+      result:
+        - lp_minter: "EQCNY2AQ3ZDYwJAqx_nzl9i9Xhd_Ex7izKJM6JTxXRnO6n1F"
