@@ -1,0 +1,25 @@
+apiVersion: dabi/v0
+type: TestCase
+smart_contract:
+  name: hipo_liquid_staking
+  address: "EQCLyZHP4Xe8fpchQz76O-_RmUhaVc_9BAoGyJrwJrcbz2eZ"
+  block:
+    mc_seqno: 41537629
+parsed_info:
+  get_methods:
+    get_max_burnable_tokens:
+      result:
+        - max_burnable_tokens: 771607345193091
+
+    get_treasury_state:
+      result:
+        - total_coins: 1526367406303723
+        - total_tokens: 1469992464293327
+        - total_borrowers_stake: 151191276228
+        - total_staking: 0
+        - total_unstaking: 0
+        - parent: "EQDPdq8xjAhytYqfGSX8KcFWIReCufsB9Wdg0pLlYSO_h76w"
+        - stopped: false
+        - instant_mint: true
+        - last_staked: 788297828933936
+        - last_recovered: 788437370131007

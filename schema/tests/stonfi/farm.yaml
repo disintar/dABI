@@ -1,0 +1,40 @@
+apiVersion: dabi/v0
+type: TestCase
+smart_contract:
+  name: stonfi_farm_nft
+  address: "EQD4UDBmiTlw3vtGye3MvZDyjcrcDvq8dMgoxHRiL6zyzrMz"
+  block:
+    mc_seqno: 41537629
+parsed_info:
+  get_methods:
+    get_farming_data:
+      result:
+        - status: 1
+        - revoke_time: 0
+        - staked_tokens: 2091182291559
+        - stake_date: 1729169590
+        - owner_address: "EQDMQrdAHrUUWEKH9h6Ss6kf6W1iiSOVUMaNO4PYe53lLssn"
+
+---
+
+apiVersion: dabi/v0
+type: TestCase
+smart_contract:
+  name: stonfi_farm_collection
+  address: "EQDZsV30R-YiBeZ-NyITRQW4-VtQBJlBN7OoyDvmdPD-f2Mh"
+  block:
+    mc_seqno: 41537629
+parsed_info:
+  get_methods:
+    get_farming_minter_data:
+      result:
+        - pool_count: 4
+        - next_item_index: 1
+        - status: 1
+        - current_staked_tokens: 222741488197587
+        - min_stake_time: 2419200
+        - can_change_custodian: true
+        - can_send_raw_msg: true
+        - staking_token_wallet: "EQCUt07Z4iR7jITr_MdRlbpaqOcrwnSADBaEn9OoUGgKxfp8"
+        - custodian_address: "EQCariTouRoqxeqB9rVsXlSK5ML1XQW-QNxzzj4VXiQl9Vix"
+

@@ -1,0 +1,22 @@
+apiVersion: dabi/v0
+type: TestCase
+smart_contract:
+  name: bemo_liquid_staking
+  address: "EQDNhy-nxYFgUqzfUzImBEP67JqsyMIcyk2S5_RwNNEYku0k"
+  block:
+    mc_seqno: 41537629
+parsed_info:
+  get_methods:
+    get_full_data:
+      result:
+        - jetton_total_supply: 13616049593752556
+        - ton_total_supply: 14292292289375379
+        - commission_total_supply: 5004162175023
+        - commission_factor: 112
+        - commission_address: "EQCrRD8tCR9tQ6ffnMX1oN3Uzvz7iarU8L9A-fYHxhoYMbdx"
+        - admin_address: "EQDxQbuRc5lQjSE5LM5uB09zlZRUIvofHr7g-_vUNwj0kStM"
+        - transaction_address: "EQDNhy-nxYFgUqzfUzImBEP67JqsyMIcyk2S5_RwNNEYku0k"
+        - last_lockup_epoch: 13350
+        - lockup_supply: 0
+        - next_lockup_supply: 22196793523402
+        - later_lockup_supply: 19904252269853

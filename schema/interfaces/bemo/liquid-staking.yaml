@@ -1,0 +1,75 @@
+apiVersion: dabi/v0
+type: Interface
+metadata:
+  name: "Bemo Liquid Staking"
+labels:
+  name: bemo_liquid_staking
+  dton_parse_prefix: abi_bemo_liquid_
+spec:
+  get_methods:
+    - method_name: get_jetton_data
+      result:
+        - type: Int
+          labels:
+            skipParse: true
+      labels:
+        skipLive: true
+    - method_name: get_full_data
+      result:
+        - type: Int
+          labels:
+            name: jetton_total_supply
+        - type: Int
+          labels:
+            name: ton_total_supply
+        - type: Int
+          labels:
+            name: commission_total_supply
+        - type: Int
+          labels:
+            name: commission_factor
+            dton_type: UInt16
+        - type: Slice
+          labels:
+            name: commission_address
+            address: true
+        - type: Slice
+          labels:
+            name: admin_address
+            address: true
+        - type: Slice
+          labels:
+            name: transaction_address
+            address: true
+            skipParse: true
+        - type: Cell
+          labels:
+            name: content
+            skipParse: true
+        - type: Cell
+          labels:
+            name: jetton_wallet_code
+            skipParse: true
+        - type: Cell
+          labels:
+            name: unstake_request_code
+            skipParse: true
+        - type: Int
+          labels:
+            name: last_lockup_epoch
+            dton_type: UInt32
+        - type: Int
+          labels:
+            name: lockup_supply
+        - type: Int
+          labels:
+            name: next_lockup_supply
+        - type: Int
+          labels:
+            name: later_lockup_supply
+        - type: Int
+          labels:
+            name: next_unstake_request_index
+            skipParse: true
+  selector:
+    by_methods: true
