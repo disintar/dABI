@@ -2,7 +2,7 @@
 
 | Change Type | Name | Description | Link |
 | ----------- | ---- | ----------- | ---- |
-| No changes | 😊 | | |
+| Added 📈 | EVAA User | No name | No description | No link |
 
 
 
@@ -10,7 +10,19 @@
 
 | Change Type | Name | Description | Link |
 | ----------- | ---- | ----------- | ---- |
-| No changes | 😊 | | |
+| Added 📈 | getAccountAssetBalance |  |  | No link |
+| Added 📈 | getAccountBalances |  |  | No link |
+| Added 📈 | getAccountHealth |  |  | No link |
+| Added 📈 | getAvailableToBorrow |  |  | No link |
+| Added 📈 | getIsLiquidable |  |  | No link |
+| Added 📈 | getAggregatedBalances |  |  | No link |
+| Added 📈 | codeVersion |  |  | No link |
+| Added 📈 | isUserSc |  |  | No link |
+| Added 📈 | get_asset_principal |  |  | No link |
+| Added 📈 | getPrincipals |  |  | No link |
+| Added 📈 | getRewards |  |  | No link |
+| Added 📈 | getAllUserScData |  |  | No link |
+| Added 📈 | get_maximum_withdraw_amount |  |  | No link |
 
 ### Supported Smart Contracts
 
