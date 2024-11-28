@@ -1,0 +1,210 @@
+apiVersion: dabi/v0
+type: Interface
+metadata:
+  name: "EVAA User"
+labels:
+  name: evaa_user
+  dton_parse_prefix: abi_evaa_user_
+spec:
+  get_methods:
+    - method_name: getAccountAssetBalance
+      args:
+        - type: Int
+          labels:
+            name: asset_id
+        - type: Int
+          labels:
+            name: s_rate
+        - type: Int
+          labels:
+            name: b_rate
+
+      labels:
+        skipLive: true
+      result:
+        - type: Int
+
+
+
+    - method_name: getAccountBalances
+      args:
+        - type: Cell
+          labels:
+            name: asset_dynamics_collection
+
+      labels:
+        skipLive: true
+      result:
+        - type: Cell
+          labels:
+            name: account_balances
+
+    - method_name: getAccountHealth
+      args:
+        - type: Cell
+          labels:
+            name: asset_config_collection
+        - type: Cell
+          labels:
+            name: asset_dynamics_collection
+        - type: Cell
+          labels:
+            name: prices_packed
+      labels:
+        skipLive: true
+      result:
+        - type: Int
+
+    - method_name: getAvailableToBorrow
+      args:
+        - type: Cell
+          labels:
+            name: asset_config_collection
+        - type: Cell
+          labels:
+            name: asset_dynamics_collection
+        - type: Cell
+          labels:
+            name: prices_packed
+      labels:
+        skipLive: true
+      result:
+        - type: Int
+
+    - method_name: getIsLiquidable
+      args:
+        - type: Cell
+          labels:
+            name: asset_config_collection
+        - type: Cell
+          labels:
+            name: asset_dynamics_collection
+        - type: Cell
+          labels:
+            name: prices_packed
+      labels:
+        skipLive: true
+      result:
+        - type: Int
+
+    - method_name: getAggregatedBalances
+      args:
+        - type: Cell
+          labels:
+            name: asset_config_collection
+        - type: Cell
+          labels:
+            name: asset_dynamics_collection
+        - type: Cell
+          labels:
+            name: prices_packed
+      labels:
+        skipLive: true
+      result:
+        - type: Int
+          labels:
+            name: user_total_supply
+        - type: Int
+          labels:
+            name: user_total_borrow
+
+    - method_name: codeVersion
+      labels:
+        skipLive: true
+      result:
+        - type: Int
+
+    - method_name: isUserSc
+      labels:
+        skipLive: true
+      result:
+        - type: Int
+
+    - method_name: get_asset_principal
+      args:
+        - type: Int
+          labels:
+            name: asset
+      labels:
+        skipLive: true
+      result:
+        - type: Int
+          labels:
+            name: asset_principal
+
+    - method_name: getPrincipals
+      labels:
+        skipLive: true
+      result:
+        - type: Cell
+          labels:
+            name: getPrincipals_user_principals
+
+    - method_name: getRewards
+      labels:
+        skipLive: true
+      result:
+        - type: Cell
+          labels:
+            name: getRewards_user_rewards
+
+
+
+    - method_name: getAllUserScData
+      result_strict_type_check: false
+      result:
+        - type: Int
+          labels:
+            name: code_version
+        - type: Slice
+          labels:
+            name: master_address
+            address: true
+        - type: Slice
+          labels:
+            name: owner_address
+            address: true
+        - type: Cell
+          labels:
+            name: user_principals
+            skipParse: true
+        - type: Int
+          labels:
+            name: state
+
+        - type: Cell
+          labels:
+            name: user_rewards
+            skipParse: true
+        - type: Cell
+          labels:
+            name: backup_cell_1
+            skipParse: true
+        - type: Cell
+          labels:
+            name: backup_cell_2
+            skipParse: true
+
+    - method_name: get_maximum_withdraw_amount
+      args:
+        - type: Int
+          labels:
+            name: asset_id
+        - type: Cell
+          labels:
+            name: prices_packed
+        - type: Cell
+          labels:
+            name: asset_config_collection
+        - type: Cell
+          labels:
+            name: asset_dynamics_collection
+      labels:
+        skipLive: true
+      result:
+        - type: Int
+          labels:
+            name: maximum_withdraw_amount
+
+  selector:
+    by_methods: true

@@ -37,4 +37,4 @@ def run(to_run: str = None):
 
 
 if __name__ == '__main__':
-    run("stonfi_farm_collection")
+    run("evaa_user")

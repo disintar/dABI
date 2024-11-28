@@ -1,0 +1,15 @@
+apiVersion: dabi/v0
+type: TestCase
+smart_contract:
+  name: evaa_user
+  address: "EQCkBeGphoYaJdDE5nqsKEyN1xR2-ub7x5-yEzArWEt9iwm3"
+  block:
+    mc_seqno: 42436476
+parsed_info:
+  get_methods:
+    getAllUserScData:
+      result:
+        - code_version: 6
+        - master_address: "EQC8rUZqR_pWV1BylWUlPNBzyiTYVoBEmQkMIQDZXICfnuRr"
+        - owner_address: "EQDfmsDtWQP5D_YkXX-XlULvs4HivRaKY38ftT2hS5yAANRf"
+        - state: 0
