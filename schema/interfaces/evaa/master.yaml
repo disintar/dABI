@@ -4,7 +4,7 @@ metadata:
   name: "EVAA Master"
 labels:
   name: evaa_master
-  dton_parse_prefix: abi_evaa_master
+  dton_parse_prefix: abi_evaa_master_
 spec:
   get_methods:
     - method_name: getCollateralQuote
