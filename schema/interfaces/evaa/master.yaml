@@ -1,0 +1,364 @@
+apiVersion: dabi/v0
+type: Interface
+metadata:
+  name: "EVAA Master"
+labels:
+  name: evaa_master
+  dton_parse_prefix: abi_evaa_master
+spec:
+  get_methods:
+    - method_name: getCollateralQuote
+      args:
+        - type: Int
+          labels:
+            name: borrow_asset_id
+        - type: Int
+          labels:
+            name: borrow_liquidate_amount
+        - type: Int
+          labels:
+            name: collateral_asset_id
+        - type: Cell
+          labels:
+            name: prices_packed
+      labels:
+        skipLive: true
+      result:
+        - type: Int
+
+
+
+    - method_name: getUpdatedRates
+      args:
+        - type: Cell
+          labels:
+            name: asset_config_collection
+        - type: Cell
+          labels:
+            name: asset_dynamics_collection
+        - type: Int
+          labels:
+            name: asset_id
+        - type: Int
+          labels:
+            name: time_elapsed
+      labels:
+        skipLive: true
+      result:
+        - type: Int
+          labels:
+            name: getUpdatedRates_s_rate
+        - type: Int
+          labels:
+            name: getUpdatedRates_b_rate
+
+
+
+    - method_name: getUpdatedRatesForAllAssets
+      args:
+        - type: Int
+          labels:
+            name: time_elapsed
+      labels:
+        skipLive: true
+      result:
+        - type: Cell
+
+
+    - method_name: getAssetRates
+      args:
+        - type: Int
+          labels:
+            name: asset_id
+      labels:
+        skipLive: true
+      result:
+        - type: Int
+          labels:
+            name: getAssetRates_s_rate
+        - type: Int
+          labels:
+            name: getAssetRates_b_rate
+
+    - method_name: get_assets_rates
+      labels:
+        skipLive: true
+      result:
+        - type: Cell
+          labels:
+            name: rates
+
+    - method_name: getAssetReserves
+      args:
+        - type: Int
+          labels:
+            name: asset_id
+      labels:
+        skipLive: true
+      result:
+        - type: Int
+          labels:
+            name: asset_id
+
+    - method_name: get_assets_reserves
+      labels:
+        skipLive: true
+      result:
+        - type: Cell
+          labels:
+            name: reserves
+
+    - method_name: getAssetTotals
+      labels:
+        skipLive: true
+      args:
+        - type: Int
+          labels:
+            name: asset_id
+      result:
+        - type: Int
+          labels:
+            name: total_supply
+        - type: Int
+          labels:
+            name: total_borrow
+
+    - method_name: getAssetsData
+      labels:
+        skipLive: true
+      result:
+        - type: Cell
+          labels:
+            name: getAssetsData_asset_dynamics_collection
+
+    - method_name: getAssetsConfig
+      labels:
+        skipLive: true
+      result:
+        - type: Cell
+          labels:
+            name: asset_config_collection
+
+    - method_name: getConfig
+      labels:
+        skipLive: true
+      result:
+        - type: Cell
+          labels:
+            name: getConfig_config
+
+    - method_name: getStore
+      labels:
+        skipLive: true
+      result:
+        - type: Cell
+          labels:
+            name: store
+
+    - method_name: getUIVariables
+      labels:
+        skipLive: true
+      result:
+        - type: Cell
+          labels:
+            name: getUIVariables_asset_dynamics_collection
+        - type: Cell
+          labels:
+            name: getUIVariables_config
+        - type: Cell
+          labels:
+            name: assets_rates
+        - type: Cell
+          labels:
+            name: assets_reserves
+
+    - method_name: get_user_address
+      labels:
+        skipLive: true
+      args:
+        - type: Slice
+          labels:
+            name: owner_address
+            address: true
+      result:
+        - type: Slice
+          labels:
+            name: owner_address
+            address: true
+
+    - method_name: claim_asset_reserves_min_attachment
+      labels:
+        skipLive: true
+      args:
+        - type: Int
+          labels:
+            name: fwd_fee
+      result:
+        - type: Int
+
+    - method_name: supply_min_attachment
+      labels:
+        skipLive: true
+      args:
+        - type: Int
+          labels:
+            name: fwd_fee
+        - type: Cell
+          labels:
+            name: supply_user_message
+
+      result:
+        - type: Int
+
+    - method_name: dummy_withdraw_user_message
+      labels:
+        skipLive: true
+      result:
+        - type: Cell
+
+    - method_name: withdraw_min_attachment
+      labels:
+        skipLive: true
+      args:
+        - type: Int
+          labels:
+            name: fwd_fee
+        - type: Cell
+          labels:
+            name: withdraw_user_message
+
+      result:
+        - type: Int
+    - method_name: dummy_liquidate_user_message
+      labels:
+        skipLive: true
+      result:
+        - type: Cell
+
+    - method_name: liquidate_min_attachment
+      labels:
+        skipLive: true
+      args:
+        - type: Int
+          labels:
+            name: fwd_fee
+        - type: Cell
+          labels:
+            name: liquidate_user_message
+
+      result:
+        - type: Int
+
+    - method_name: get_asset_total_principals
+      labels:
+        skipLive: true
+      args:
+        - type: Int
+          labels:
+            name: asset_id
+      result:
+        - type: Int
+          labels:
+            name: total_supply_principal
+        - type: Int
+          labels:
+            name: total_borrow_principal
+
+    - method_name: get_asset_balance
+      labels:
+        skipLive: true
+      args:
+        - type: Int
+          labels:
+            name: asset_id
+      result:
+        - type: Int
+          labels:
+            name: get_asset_balance_balance
+
+    - method_name: get_asset_liquidity_by_id
+      labels:
+        skipLive: true
+      args:
+        - type: Int
+          labels:
+            name: asset_id
+      result:
+        - type: Int
+          labels:
+            name: get_asset_liquidity_by_id_balance
+    - method_name: get_asset_liquidity_minus_reserves_by_id
+      labels:
+        skipLive: true
+      args:
+        - type: Int
+          labels:
+            name: asset_id
+      result:
+        - type: Int
+          labels:
+            name: get_asset_liquidity_minus_reserves_by_id_balance
+    - method_name: get_asset_sb_rate
+      labels:
+        skipLive: true
+      args:
+        - type: Int
+          labels:
+            name: asset_id
+      result:
+        - type: Int
+          labels:
+            name: get_asset_sb_rate_s_rate
+        - type: Int
+          labels:
+            name: get_asset_sb_rate_b_rate
+    - method_name: get_active
+      result:
+        - type: Bool
+          labels:
+            name: is_active
+    - method_name: getTokensKeys
+      labels:
+        skipLive: true
+      result:
+        - type: Cell
+          labels:
+            name: tokens_keys
+    - method_name: getLastUserScVersion
+      result:
+        - type: Int
+          labels:
+            name: user_version
+    - method_name: getUpgradeConfig
+      labels:
+        skipLive: true
+      result:
+        - type: Int
+        - type: Int
+        - type: Int
+        - type: Int
+        - type: Int
+        - type: Cell
+        - type: Cell
+        - type: Cell
+
+    - method_name: get_asset_sb_rate
+      labels:
+        skipLive: true
+      args:
+        - type: Int
+          labels:
+            name: asset_id
+      result:
+        - type: Int
+          labels:
+            name: tracking_supply_index
+        - type: Int
+          labels:
+            name: tracking_borrow_index
+        - type: Int
+          labels:
+            name: last_accrual
+
+  selector:
+    by_methods: true

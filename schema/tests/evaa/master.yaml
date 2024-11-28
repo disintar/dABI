@@ -1,0 +1,15 @@
+apiVersion: dabi/v0
+type: TestCase
+smart_contract:
+  name: evaa_master
+  address: "EQC8rUZqR_pWV1BylWUlPNBzyiTYVoBEmQkMIQDZXICfnuRr"
+  block:
+    mc_seqno: 42436476
+parsed_info:
+  get_methods:
+    getLastUserScVersion:
+      result:
+        - user_version: 6
+    get_active:
+      result:
+        - is_active: True
