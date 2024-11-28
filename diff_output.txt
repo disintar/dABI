@@ -2,11 +2,7 @@
 
 | Change Type | Name | Description | Link |
 | ----------- | ---- | ----------- | ---- |
-| Added 📈 | Bemo Liquid Staking | No name | No description | No link |
-| Added 📈 | Hippo Liquid Staking | No name | No description | No link |
-| Added 📈 | Farm StonFi NFT | No name | No description | No link |
-| Added 📈 | Farm StonFi Collection | No name | No description | No link |
-| Added 📈 | SBT Contract | No name | No description | No link |
+| Added 📈 | EVAA Master | No name | No description | No link |
 
 
 
@@ -14,34 +10,55 @@
 
 | Change Type | Name | Description | Link |
 | ----------- | ---- | ----------- | ---- |
-| Added 📈 | get_jetton_data |  |  | No link |
-| Added 📈 | get_full_data |  |  | No link |
-| Added 📈 | get_max_burnable_tokens |  |  | No link |
-| Added 📈 | get_surplus |  |  | No link |
-| Added 📈 | get_treasury_fees |  |  | No link |
-| Added 📈 | get_loan_address |  |  | No link |
-| Added 📈 | get_bill_address |  |  | No link |
-| Added 📈 | get_collection_address |  |  | No link |
-| Added 📈 | get_treasury_state |  |  | No link |
-| Added 📈 | get_authority_address |  |  | No link |
-| Added 📈 | get_revoked_time |  |  | No link |
-| Added 📈 | get_farming_data |  |  | No link |
-| Added 📈 | get_version |  |  | No link |
-| Added 📈 | get_farming_minter_data |  |  | No link |
+| Added 📈 | getCollateralQuote |  |  | No link |
+| Added 📈 | getUpdatedRates |  |  | No link |
+| Added 📈 | getUpdatedRatesForAllAssets |  |  | No link |
+| Added 📈 | getAssetRates |  |  | No link |
+| Added 📈 | get_assets_rates |  |  | No link |
+| Added 📈 | getAssetReserves |  |  | No link |
+| Added 📈 | get_assets_reserves |  |  | No link |
+| Added 📈 | getAssetTotals |  |  | No link |
+| Added 📈 | getAssetsData |  |  | No link |
+| Added 📈 | getAssetsConfig |  |  | No link |
+| Added 📈 | getConfig |  |  | No link |
+| Added 📈 | getStore |  |  | No link |
+| Added 📈 | getUIVariables |  |  | No link |
+| Added 📈 | get_user_address |  |  | No link |
+| Added 📈 | claim_asset_reserves_min_attachment |  |  | No link |
+| Added 📈 | supply_min_attachment |  |  | No link |
+| Added 📈 | dummy_withdraw_user_message |  |  | No link |
+| Added 📈 | withdraw_min_attachment |  |  | No link |
+| Added 📈 | dummy_liquidate_user_message |  |  | No link |
+| Added 📈 | liquidate_min_attachment |  |  | No link |
+| Added 📈 | get_asset_total_principals |  |  | No link |
+| Added 📈 | get_asset_balance |  |  | No link |
+| Added 📈 | get_asset_liquidity_by_id |  |  | No link |
+| Added 📈 | get_asset_liquidity_minus_reserves_by_id |  |  | No link |
+| Added 📈 | get_asset_sb_rate |  |  | No link |
+| Added 📈 | get_active |  |  | No link |
+| Added 📈 | getTokensKeys |  |  | No link |
+| Added 📈 | getLastUserScVersion |  |  | No link |
+| Added 📈 | getUpgradeConfig |  |  | No link |
 
 ### Supported Smart Contracts
 
 | Name | Description | Selector Type | Methods |
 | ---- | ----------- | ------------- | ------- |
+| Bemo Liquid Staking |  | by_methods | get_jetton_data, get_full_data |
 | DeDust Pool get methods |  | by_methods | get_assets, get_reserves, is_stable, get_trade_fee, estimate_swap_out |
 | Whales Nominators Interface |  | by_methods | get_proxy, get_owner, get_controller, get_unowned, get_available, get_staking_status, get_pool_status, get_params, get_members_raw, get_members, get_member, supported_interfaces |
 | Ton Whales: Liquid Staking pool |  | by_code | get_pool_status |
+| Hippo Liquid Staking |  | by_methods | get_max_burnable_tokens, get_surplus, get_treasury_fees, get_loan_address, get_bill_address, get_collection_address, get_treasury_state |
 | STORM Vault |  | by_methods | get_executor_collection_address, get_referral_collection_address, get_vault_contract_data, get_vault_contract_data, get_lp_minter_address, get_vault_whitelisted_addresses, get_vault_data, get_vault_type |
+| Farm StonFi NFT |  | by_methods | get_authority_address, get_revoked_time, get_farming_data |
+| Farm StonFi Collection |  | by_methods | get_version, get_farming_minter_data |
+| Farm StonFi NFT |  | by_methods | get_authority_address, get_revoked_time, get_farming_data |
 | StonFi Pool v1 |  | by_methods | get_pool_data, get_expected_outputs, get_expected_tokens, get_expected_liquidity, get_lp_account_address |
 | StonFi Router v1 |  | by_methods | get_router_data, get_pool_address |
 | StonFi Pool v2 |  | by_methods | get_pool_data, get_lp_account_address |
 | StonFi Router v2 |  | by_methods | get_router_data, get_pool_address, get_pool_address |
 | Default royalty get methods |  | by_methods | royalty_params |
+| SBT Contract |  | by_methods | get_authority_address, get_revoked_time |
 | TF Core: Liquid Staking pool |  | by_methods | get_controller_address, get_controller_address_legacy, get_loan, get_controller_loan_position, get_pool_full_data |
 | TF Core: Nominator pool |  | by_methods | has_withdraw_requests, get_nominator_data, get_max_punishment, list_nominators, list_votes, get_pool_data |
 
