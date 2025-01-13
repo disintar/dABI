@@ -1,0 +1,123 @@
+apiVersion: dabi/v0
+type: Interface
+metadata:
+  name: "JVault Staking Pool get methods"
+  link: "https://github.com/JVault-app/staking-v2/blob/main/src/contracts/staking_pool.fc"
+labels:
+  name: jvault_staking_pool
+  dton_parse_prefix: abi_jvault_staking_pool_
+spec:
+  get_methods:
+    - method_name: get_storage_data
+      result_strict_type_check: false
+
+      metadata:
+        link: "https://github.com/JVault-app/staking-v2/blob/d953ea4b378cdb19072a53efb5b327d5a8e6a2ea/src/contracts/staking_pool.fc#L533-L556"
+      result:
+        - type: Int
+          labels:
+            name: init
+        - type: Int
+          labels:
+            name: pool_id
+        - type: Slice
+          labels:
+            name: admin_address
+            address: true
+          metadata:
+            description: "Address of the pool factory"
+        - type: Slice
+          labels:
+            name: creator_address
+            address: true
+        - type: Cell
+          labels:
+            name: stake_wallet_code
+        - type: Slice
+          labels:
+            name: lock_wallet_address
+            address: true
+          metadata:
+            description: "Address of the jetton_wallet for staking jetton"
+        - type: Int
+          labels:
+            name: tvl
+          metadata:
+            description: "TVL without multipliers (real amount of staked jettons)"
+        - type: Int
+          labels:
+            name: tvl_with_multipliers
+          metadata:
+            description: "TVL with reward multipliers (used for calculating APR)"
+        - type: Int
+          labels:
+            name: min_deposit
+        - type: Int
+          labels:
+            name: max_deposit
+        - type: Cell
+          labels:
+            name: reward_jettons
+            skipParse: true
+          tlb:
+            {{ constants("jvault_reward_jettons", indent=12) }}
+        - type: Int
+          labels:
+            name: reward_jettons_count
+          metadata:
+            description: "Number of different jettons used for rewards"
+        - type: Int
+          labels:
+            name: rewards_deposits_count
+          metadata:
+            description: "Current number of active rewards distributions"
+        - type: Cell
+          labels:
+            name: lock_periods
+            skipParse: true
+          tlb:
+            {{ constants("jvault_lock_periods", indent=12) }}
+        - type: Cell
+          labels:
+            name: whitelist
+            skipParse: true
+          tlb:
+            {{ constants("jvault_address_list", indent=12) }}
+        - type: Int
+          labels:
+            name: unstake_fee
+          metadata:
+            description: "Constant TON fee for instant unstake"
+        - type: Int
+          labels:
+            name: collected_commissions
+          metadata:
+            description: "Amount of claimable commissions (for deposits and unstakes)"
+        - type: Int
+          labels:
+            name: rewards_commission
+          metadata:
+            description: "Commission rate for adding new rewards"
+        - type: Int
+          labels:
+            name: version
+
+    - method_name: get_stake_wallet_address
+      metadata:
+        link: "https://github.com/JVault-app/staking-v2/blob/d953ea4b378cdb19072a53efb5b327d5a8e6a2ea/src/contracts/staking_pool.fc#L513-L531"
+      args:
+        - type: Slice
+          labels:
+            name: owner_address
+            address: true
+        - type: Int
+          labels:
+            name: lock_period
+            dton_type: Datetime
+      result:
+        - type: Slice
+          labels:
+            name: stake_wallet_address
+            address: true
+  selector:
+    by_methods: true

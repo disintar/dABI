@@ -1,0 +1,102 @@
+apiVersion: dabi/v0
+type: Interface
+metadata:
+  name: "JVault Stake Wallet"
+  link: "https://github.com/JVault-app/staking-v2/blob/main/src/contracts/stake_wallet.fc"
+labels:
+  name: jvault_staking_wallet
+  dton_parse_prefix: abi_jvault_staking_wallet_
+spec:
+  get_methods:
+    - method_name: get_wallet_data
+      metadata:
+        link: "https://github.com/JVault-app/staking-v2/blob/d953ea4b378cdb19072a53efb5b327d5a8e6a2ea/src/contracts/stake_wallet.fc#L438-L446"
+      result:
+        - type: Int
+          labels:
+            name: wallet_jetton_balance
+        - type: Slice
+          labels:
+            name: wallet_owner_address
+            address: true
+        - type: Slice
+          labels:
+            name: wallet_minter_address
+            address: true
+        - type: Cell
+          labels:
+            name: jetton_wallet_code
+
+    - method_name: get_storage_data
+      result_strict_type_check: false
+      metadata:
+        link: "https://github.com/JVault-app/staking-v2/blob/d953ea4b378cdb19072a53efb5b327d5a8e6a2ea/src/contracts/stake_wallet.fc#L448-L467"
+      result:
+        - type: Slice
+          labels:
+            name: staking_pool_address
+            address: true
+        - type: Slice
+          labels:
+            name: storage_owner_address
+            address: true
+        - type: Int
+          labels:
+            name: lock_period
+            dton_type: UInt32
+        - type: Int
+          labels:
+            name: storage_jetton_balance
+        - type: Cell
+          labels:
+            skipParse: true
+            name: rewards_dict
+          tlb:
+            {{ constants("jvault_rewards_dict", indent=12) }}
+        - type: Cell
+          labels:
+            skipParse: true
+            name: unstake_requests
+          tlb:
+            {{ constants("jvault_unstake_requests", indent=12) }}
+        - type: Int
+          labels:
+            name: requests_count
+            dton_type: UInt32
+        - type: Int
+          labels:
+            name: total_requested_jettons
+        - type: Bool
+          labels:
+            name: is_active
+          metadata:
+            description: "False if there is a pending transaction"
+        - type: Int
+          labels:
+            name: unstake_commission
+            dton_type: UInt16
+          metadata:
+            description: "Commission for instant unstakes multiplied by 10000"
+        - type: Int
+          labels:
+            name: unstake_fee 
+          metadata:
+            description: "Const TON fee for instant unstakes"
+        - type: Int
+          labels:
+            name: min_deposit
+        - type: Int
+          labels:
+            name: max_deposit
+        - type: Cell
+          labels:
+            skipParse: true
+            name: whitelist
+          tlb:
+            {{ constants("jvault_address_list", indent=12) }}
+        - type: Slice
+          labels:
+            name: storage_minter_address
+            address: true
+  selector:
+    by_methods: true

@@ -64,7 +64,7 @@ class InterfaceType(dABIType):
             raise ValueError('InterfaceType: spec must be dict')
 
         if 'selector' not in data['spec']:
-            raise ValueError('InterfaceType: selector must be presented')
+            raise ValueError(f'InterfaceType: selector must be presented, contract: {data["metadata"]["name"]}')
 
         self.selector.parse(data['spec']['selector'])
 

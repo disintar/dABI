@@ -34,7 +34,14 @@ def run(to_run: str = None):
                         tmp.parse(smc)
                         if tmp.name == to_run:
                             tmp.validate()
+                        del tmp
+
+    del context
+    del parser
+    del abi
 
 
 if __name__ == '__main__':
-    run("evaa_user")
+    run("jvault_staking_pool_factory")
+    run("jvault_staking_pool")
+    run("jvault_staking_wallet")
