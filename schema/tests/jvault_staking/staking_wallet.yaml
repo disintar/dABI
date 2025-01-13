@@ -1,0 +1,32 @@
+apiVersion: dabi/v0
+type: TestCase
+smart_contract:
+  name: jvault_staking_wallet
+  address: "EQCJXjA_I-dvImmRg9Mm5lhJAJGHZeQ0bEWAAtQAfTtPu-xc"
+  block:
+    mc_seqno: 43915595
+parsed_info:
+  get_methods:
+    get_wallet_data:
+      result:
+        - wallet_jetton_balance: 600000000000
+        - wallet_owner_address: "0:DF9AC0ED5903F90FF6245D7F979542EFB381E2BD168A637F1FB53DA14B9C8000"
+        - wallet_minter_address: '0:B902CB5F4E7CBFBA9027079E6C82D63B0FC6A81E1E0FF8E4AB61A91FDA66274B'
+        - jetton_wallet_code: "BC09E075B6B44D00C1E0ECD395B2BE605630118ED9067A9980BA0C3DAEA314C1"
+    get_storage_data:
+      result:
+        - staking_pool_address: 'EQDaC-uD4Q0GkTnG9lXqPb5HKgyUhlzcQVJOHJDnDyVNUdik'
+        - storage_owner_address: "EQDfmsDtWQP5D_YkXX-XlULvs4HivRaKY38ftT2hS5yAANRf"
+        - lock_period: 2592000
+        - storage_jetton_balance: 600000000000
+         # - rewards_dict: "A0921E62841ACD8FE0FED16748D63B8C66209F3F0880992473361CCFD736393F"
+        # - unstake_requests:
+        - requests_count: 0
+        - total_requested_jettons: 0
+        - is_active: True
+        - unstake_commission: 1000
+        - unstake_fee: 150000000
+        - min_deposit: 0
+        - max_deposit: 1329227995784915872903807060280344575
+        - whitelist: None
+        - storage_minter_address: "EQC5AstfTny_upAnB55sgtY7D8aoHh4P-OSrYakf2mYnS_zr"

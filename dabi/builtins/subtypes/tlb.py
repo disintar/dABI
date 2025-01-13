@@ -89,7 +89,12 @@ class TLBSubtype(dABISubtype):
                 tlb_data = f.read()
 
                 parsed_tlb = {}
-                add_tlb(tlb_data, parsed_tlb)
+                if self.use_block_tlb:
+                    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'block.tlb')) as f:
+                        block_tlb = f.read()
+                        add_tlb(block_tlb + '\n' + tlb_data, parsed_tlb)
+                else:
+                    add_tlb(tlb_data, parsed_tlb)
 
                 if not isinstance(data['object'], str):
                     raise ValueError('Invalid TLB Subtype, define object as string')

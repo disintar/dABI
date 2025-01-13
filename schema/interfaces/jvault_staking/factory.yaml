@@ -1,0 +1,80 @@
+apiVersion: dabi/v0
+type: Interface
+metadata:
+  name: "JVault Pool Factory get methods"
+  link: "https://github.com/JVault-app/staking-v2/blob/main/src/contracts/pool_factory.fc"
+labels:
+  name: jvault_staking_pool_factory
+  dton_parse_prefix: abi_jvault_staking_pool_factory_
+spec:
+  get_methods:
+    - method_name: get_nft_address_by_index
+      args:
+        - type: Int
+          labels:
+            name: index
+            dton_type: UInt32
+      result:
+        - type: Slice
+          labels:
+            name: pool_address
+            address: true
+
+    - method_name: get_storage_data
+      result:
+        - type: Slice
+          labels:
+            name: admin_address
+            address: true
+          metadata:
+            description: "Address of the wallet that can withdraw commissions"
+        - type: Slice
+          labels:
+            name: owner_address
+            address: true
+          metadata:
+            description: "Address of the wallet that can change code and other parameters"
+        - type: Int
+          labels:
+            name: next_pool_id
+        - type: Cell
+          labels:
+            name: collection_content
+        - type: Int
+          labels:
+            name: min_rewards_commission
+          metadata:
+            description: "Minimum size of commission for adding rewards in pools"
+        - type: Int
+          labels:
+            name: unstake_fee
+          metadata:
+            description: "Const TON fee for instant unstakes"
+        - type: Slice
+          labels:
+            name: fees_wallet_address
+            address: true
+          metadata:
+            description: "Address of the JVT jetton wallet"
+        - type: Int
+          labels:
+            name: creation_fee
+          metadata:
+            description: "Fee for creating new pools (in JVT)"
+        - type: Cell
+          labels:
+            name: pool_uninited_codes
+        - type: Cell
+          labels:
+            name: pool_inited_code
+        - type: Cell
+          labels:
+            name: stake_wallet_code
+        - type: Cell
+          labels:
+            name: jetton_minter_code
+        - type: Int
+          labels:
+            name: version
+  selector:
+    by_methods: true

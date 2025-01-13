@@ -1,0 +1,75 @@
+jvault_address_list:
+  version: tlb/v0
+  dump_with_types: true
+  file_path: "jvault/staking.tlb"
+  object: "AddressList"
+  use_block_tlb: true
+
+
+jvault_reward_jettons:
+  version: tlb/v0
+  dump_with_types: true
+  file_path: "jvault/staking.tlb"
+  object: "RewardJettons"
+  use_block_tlb: true
+  parse:
+    - path: "distributed_rewards"
+    - path: "distribution_speed"
+    - path: "start_time"
+      labels:
+        dton_type: Datetime
+    - path: "end_time"
+      labels:
+        dton_type: Datetime
+
+
+jvault_lock_periods:
+  version: tlb/v0
+  dump_with_types: true
+  file_path: "jvault/staking.tlb"
+  object: "LockPeriods"
+  use_block_tlb: true
+  parse:
+    - path: "cur_tvl"
+      metadata:
+        description: "Current TVL"
+    - path: "tvl_limit"
+      labels:
+        dton_type: UInt16
+      metadata:
+        description: "Max TVL"
+    - path: "deposit_commission"
+      labels:
+        dton_type: UInt16
+      metadata:
+        description: "Commission for deposits multiplied by 10000"
+    - path: "unstake_commission"
+      labels:
+        dton_type: UInt16
+      metadata:
+        description: "Commission for instant unstakes multiplied by 10000"
+    - path: "minter_address"
+      labels:
+        address: true
+      metadata:
+        description: "Address of the corresponding st-jettons minter"
+
+
+jvault_rewards_dict:
+  version: tlb/v0
+  dump_with_types: true
+  file_path: "jvault/staking.tlb"
+  object: "RewardsDict"
+  use_block_tlb: true
+  parse:
+    - path: "last_distributed_rewards"
+    - path: "unclaimed_rewards"
+
+
+jvault_unstake_requests:
+  version: tlb/v0
+  dump_with_types: true
+  file_path: "jvault/staking.tlb"
+  object: "UnstakeRequests"
+  use_block_tlb: true
+  

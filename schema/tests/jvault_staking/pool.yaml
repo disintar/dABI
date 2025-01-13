@@ -1,0 +1,30 @@
+apiVersion: dabi/v0
+type: TestCase
+smart_contract:
+  name: jvault_staking_pool
+  address: "EQDaC-uD4Q0GkTnG9lXqPb5HKgyUhlzcQVJOHJDnDyVNUdik"
+  block:
+    mc_seqno: 43915595
+parsed_info:
+  get_methods:
+    get_storage_data:
+      result:
+        - init: -1
+        - pool_id: 51
+        - admin_address: "EQAYS3AO2NaFr5-wl1CU8QMiCxrP0OEXYn82iqnuST9FKo9I"
+        - creator_address: "EQDTc5NdoOV0Jk70VqOGXyeXceLEHtcdbIUKcfbSZJ3Wryit"
+        - stake_wallet_code: "BC09E075B6B44D00C1E0ECD395B2BE605630118ED9067A9980BA0C3DAEA314C1"
+        - lock_wallet_address: "EQBHNDC01MHD4U-3FIHktw6QISBkXgGpjQkFoOhkgVpeldQ5"
+        - tvl: 58588700873625466
+        - tvl_with_multipliers: 58611448350906955
+        - min_deposit: 0
+        - max_deposit: 1329227995784915872903807060280344575
+#        - reward_jettons
+        - reward_jettons_count: 1
+        - rewards_deposits_count: 7
+#        - lock_periods
+#        - whitelist
+        - unstake_fee: 150000000
+        - collected_commissions: 289527844418977
+        - rewards_commission: 100
+        - version: 8

@@ -1,0 +1,24 @@
+apiVersion: dabi/v0
+type: TestCase
+smart_contract:
+  name: jvault_staking_pool_factory
+  address: "EQAYS3AO2NaFr5-wl1CU8QMiCxrP0OEXYn82iqnuST9FKo9I"
+  block:
+    mc_seqno: 43915595
+parsed_info:
+  get_methods:
+    get_storage_data:
+      result:
+        - admin_address: "EQDtZ91HL9fRGJlGyceT2OEVLXfH3qCAaVUgRA6nz5ZuZRSu"
+        - owner_address: "EQAPAyUbcOv-r3XTKoAma309Km5RSxkb08zz999OYJl4T6MG"
+        - next_pool_id: 125
+        - collection_content: "38422FC76DA19D666485910490AE2F07BD1AEC69AEDB4F9875C7700D50B4137B"
+        - min_rewards_commission: 50
+        - unstake_fee: 300000000
+        - fees_wallet_address: "EQBTHVu0uqX_DgOgskivqyNZFs7CIx4NtgA6znQs3XmKyio6"
+        - creation_fee: 50000000000
+        - pool_uninited_codes: "FDB10F55F3AFF73DD49A44A95B23D0B9D9CBC628920058094DE9EA8218F7D049"
+        - pool_inited_code: "BEA64E026FF5B6A78FEEFB618F7B42146E32A10F13476B9C0FEE8EF7E31667ED"
+        - stake_wallet_code: "683C8B95134B6594EC30AF4BED9A985DC1A591073AE473F5A4AE2F04AE74AAC0"
+        - jetton_minter_code: "D17E97979D5A2A73D10A5E8FE5D42D75FD71C1DA395A6B34A9BC045A5A801C39"
+        - version: 10
