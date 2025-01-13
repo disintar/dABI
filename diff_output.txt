@@ -2,7 +2,9 @@
 
 | Change Type | Name | Description | Link |
 | ----------- | ---- | ----------- | ---- |
-| No changes | 😊 | | |
+| Added 📈 | JVault Staking Pool get methods | No name | No description | No link |
+| Added 📈 | JVault Pool Factory get methods | No name | No description | No link |
+| Added 📈 | JVault Stake Wallet | No name | No description | No link |
 
 
 
@@ -10,7 +12,10 @@
 
 | Change Type | Name | Description | Link |
 | ----------- | ---- | ----------- | ---- |
-| No changes | 😊 | | |
+| Added 📈 | get_storage_data |  |  | [Link](https://github.com/JVault-app/staking-v2/blob/d953ea4b378cdb19072a53efb5b327d5a8e6a2ea/src/contracts/stake_wallet.fc#L448-L467) |
+| Added 📈 | get_stake_wallet_address |  |  | [Link](https://github.com/JVault-app/staking-v2/blob/d953ea4b378cdb19072a53efb5b327d5a8e6a2ea/src/contracts/staking_pool.fc#L513-L531) |
+| Added 📈 | get_nft_address_by_index |  |  | No link |
+| Added 📈 | get_wallet_data |  |  | [Link](https://github.com/JVault-app/staking-v2/blob/d953ea4b378cdb19072a53efb5b327d5a8e6a2ea/src/contracts/stake_wallet.fc#L438-L446) |
 
 ### Supported Smart Contracts
 
