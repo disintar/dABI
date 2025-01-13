@@ -2,7 +2,7 @@ from tests.test_base import *
 
 
 def test_tlb():
-    with open('tests/examples/tlb.yaml', 'r') as stream:
+    with open('./tests/examples/tlb.yaml', 'r') as stream:
         tlbs = list(yaml.safe_load_all(stream))
         context.update_subcontext()
 
