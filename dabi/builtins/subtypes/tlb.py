@@ -39,7 +39,7 @@ class TLBSubtype(dABISubtype):
         if not self.is_inline and 'object' not in data:
             raise ValueError('Invalid TLB Subtype, define object for file_path')
 
-        self.use_block_tlb = data.get('use_block_tlb', True)
+        self.use_block_tlb = data.get('use_block_tlb', False)
 
         if not isinstance(self.use_block_tlb, bool):
             raise ValueError("Can't load 'use_block_tlb', must be boolean")
