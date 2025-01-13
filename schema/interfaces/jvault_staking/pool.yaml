@@ -33,6 +33,7 @@ spec:
         - type: Cell
           labels:
             name: stake_wallet_code
+            skipParse: true
         - type: Slice
           labels:
             name: lock_wallet_address

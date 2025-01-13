@@ -40,6 +40,7 @@ spec:
         - type: Cell
           labels:
             name: collection_content
+            skipParse: true
         - type: Int
           labels:
             name: min_rewards_commission
@@ -63,15 +64,19 @@ spec:
             description: "Fee for creating new pools (in JVT)"
         - type: Cell
           labels:
+            skipParse: true
             name: pool_uninited_codes
         - type: Cell
           labels:
+            skipParse: true
             name: pool_inited_code
         - type: Cell
           labels:
+            skipParse: true
             name: stake_wallet_code
         - type: Cell
           labels:
+            skipParse: true
             name: jetton_minter_code
         - type: Int
           labels:

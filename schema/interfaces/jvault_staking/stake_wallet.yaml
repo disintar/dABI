@@ -25,6 +25,7 @@ spec:
             address: true
         - type: Cell
           labels:
+            skipParse: true
             name: jetton_wallet_code
 
     - method_name: get_storage_data
