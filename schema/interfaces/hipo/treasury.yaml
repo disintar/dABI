@@ -16,7 +16,7 @@ spec:
             dton_type: UInt256
     - method_name: get_surplus
       labels:
-        skipParse: true
+        skipLive: true
       result:
         - type: Int
           labels:

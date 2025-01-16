@@ -111,6 +111,7 @@ liquid_staking_core_get_pool_full_data:
       - type: Int
         labels:
           name: supply
+          dton_type: UInt256
       - type: Slice
         labels:
           name: deposit_payout

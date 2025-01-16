@@ -33,6 +33,7 @@ spec:
         - type: Int
           labels:
             name: controller_address_wc
+
         - type: Int
           labels:
             name: controller_address_address
