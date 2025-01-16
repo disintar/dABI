@@ -121,6 +121,7 @@ spec:
         - type: Int
           labels:
             name: last_staked
+            dton_type: UInt256
         - type: Int
           labels:
             name: last_recovered
