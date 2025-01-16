@@ -14,7 +14,7 @@ spec:
       metadata:
         link: "https://github.com/JVault-app/staking-v2/blob/d953ea4b378cdb19072a53efb5b327d5a8e6a2ea/src/contracts/staking_pool.fc#L533-L556"
       result:
-        - type: Int
+        - type: Bool
           labels:
             name: init
         - type: Int

@@ -40,8 +40,9 @@ def run(to_run: str = None):
     del parser
     del abi
 
+    print('Done')
+
 
 if __name__ == '__main__':
-    run("jvault_staking_pool_factory")
-    run("jvault_staking_pool")
     run("jvault_staking_wallet")
+
