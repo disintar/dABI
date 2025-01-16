@@ -15,11 +15,13 @@ spec:
         - type: Int
           labels:
             name: reserve0
+            dton_type: UInt256
           metadata:
             description: "reserve of asset0"
         - type: Int
           labels:
             name: reserve1
+            dton_type: UInt256
           metadata:
             description: "reserve of asset1"
         - type: Slice
@@ -54,9 +56,11 @@ spec:
         - type: Int
           labels:
             name: collected_asset0_protocol_fee
+            dton_type: UInt256
         - type: Int
           labels:
             name: collected_asset1_protocol_fee
+            dton_type: UInt256
 
     - method_name: get_expected_outputs
       args:

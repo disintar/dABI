@@ -25,12 +25,15 @@ spec:
           labels:
             name: total_supply
             skipParse: true
+            dton_type: UInt256
         - type: Int
           labels:
             name: reserve0
+            dton_type: UInt256
         - type: Int
           labels:
             name: reserve1
+            dton_type: UInt256
         - type: Slice
           labels:
             name: asset0
@@ -59,9 +62,11 @@ spec:
         - type: Int
           labels:
             name: collected_asset0_protocol_fee
+            dton_type: UInt256
         - type: Int
           labels:
             name: collected_asset1_protocol_fee
+            dton_type: UInt256
     {{ constants("stonfi_get_lp_account_address", indent=4) }}
   selector:
     by_methods: true

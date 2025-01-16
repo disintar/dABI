@@ -19,5 +19,6 @@ spec:
         - type: Int
           labels:
             name: revoked_time
+            dton_type: UInt64
   selector:
     by_methods: true

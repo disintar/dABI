@@ -40,6 +40,7 @@ spec:
         - type: Int
           labels:
             name: current_staked_tokens
+            dton_type: UInt256
         - type: Int
           labels:
             name: contract_unique_id

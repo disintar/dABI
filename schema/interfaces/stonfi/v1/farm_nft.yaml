@@ -33,15 +33,18 @@ spec:
         - type: Int
           labels:
             name: status
+            dton_type: UInt8
         - type: Bool
           labels:
             name: is_soulbound
         - type: Int
           labels:
             name: staked_tokens
+            dton_type: UInt256
         - type: Int
           labels:
             name: claimed_per_unit_nanorewards
+            dton_type: UInt256
 
   selector:
     by_methods: true
