@@ -12,6 +12,8 @@ spec:
       result:
         - type: Int
           required: 0x100
+          labels:
+            dton_type: UInt256
     {{ constants("my_getter", indent=4) }}
   selector:
     by_methods: true
