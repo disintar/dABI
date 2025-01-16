@@ -22,6 +22,7 @@ core_nominator_get_pool_data:
         labels:
           name: validator_address
           address: true
+          dton_type: UInt256
       - type: Int
         labels:
           name: validator_reward_share
