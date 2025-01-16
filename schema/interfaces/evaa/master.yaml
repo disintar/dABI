@@ -332,6 +332,7 @@ spec:
         - type: Int
           labels:
             name: user_version
+            dton_type: UInt8
     - method_name: getUpgradeConfig
       labels:
         skipLive: true

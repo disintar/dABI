@@ -19,12 +19,15 @@ spec:
         - type: Int
           labels:
             name: jetton_total_supply
+            dton_type: UInt256
         - type: Int
           labels:
             name: ton_total_supply
+            dton_type: UInt256
         - type: Int
           labels:
             name: commission_total_supply
+            dton_type: UInt256
         - type: Int
           labels:
             name: commission_factor
@@ -61,12 +64,15 @@ spec:
         - type: Int
           labels:
             name: lockup_supply
+            dton_type: UInt256
         - type: Int
           labels:
             name: next_lockup_supply
+            dton_type: UInt256
         - type: Int
           labels:
             name: later_lockup_supply
+            dton_type: UInt256
         - type: Int
           labels:
             name: next_unstake_request_index

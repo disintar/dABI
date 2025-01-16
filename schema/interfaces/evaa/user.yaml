@@ -148,14 +148,13 @@ spec:
           labels:
             name: getRewards_user_rewards
 
-
-
     - method_name: getAllUserScData
       result_strict_type_check: false
       result:
         - type: Int
           labels:
             name: code_version
+            dton_type: UInt32
         - type: Slice
           labels:
             name: master_address
@@ -171,6 +170,7 @@ spec:
         - type: Int
           labels:
             name: state
+            dton_type: Int64
 
         - type: Cell
           labels:

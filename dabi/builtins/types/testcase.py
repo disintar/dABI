@@ -299,8 +299,8 @@ class TCaseType(dABIType):
 
                     exp = expected_item['type']
 
-                    if expected_item['type'] == 'Int' and 'dton_type' not in expected_item['labels']:
-                        raise Exception(f'dton_type not found for {expected_item["labels"]["name"]} field')
+                    if expected_item['type'] == 'Int' and 'dton_type' not in expected_item['labels'] and 'required' not in expected_item:
+                        raise Exception(f'!!!!!!!!!!!! dton_type not found for {expected_item["labels"]["name"]} field, method {method_name}')
 
                     if exp == 'Bool':
                         exp = 'Int'
