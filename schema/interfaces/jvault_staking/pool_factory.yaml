@@ -37,6 +37,7 @@ spec:
         - type: Int
           labels:
             name: next_pool_id
+            dton_type: UInt32
         - type: Cell
           labels:
             name: collection_content
@@ -44,11 +45,13 @@ spec:
         - type: Int
           labels:
             name: min_rewards_commission
+            dton_type: UInt16
           metadata:
             description: "Minimum size of commission for adding rewards in pools"
         - type: Int
           labels:
             name: unstake_fee
+            dton_type: UInt128
           metadata:
             description: "Const TON fee for instant unstakes"
         - type: Slice
@@ -60,6 +63,7 @@ spec:
         - type: Int
           labels:
             name: creation_fee
+            dton_type: UInt128
           metadata:
             description: "Fee for creating new pools (in JVT)"
         - type: Cell
@@ -81,5 +85,6 @@ spec:
         - type: Int
           labels:
             name: version
+            dton_type: UInt16
   selector:
     by_methods: true

@@ -20,6 +20,7 @@ spec:
         - type: Int
           labels:
             name: pool_id
+            dton_type: UInt32
         - type: Slice
           labels:
             name: admin_address
@@ -43,19 +44,24 @@ spec:
         - type: Int
           labels:
             name: tvl
+            dton_type: UInt128
           metadata:
             description: "TVL without multipliers (real amount of staked jettons)"
         - type: Int
           labels:
             name: tvl_with_multipliers
+            dton_type: UInt128
           metadata:
             description: "TVL with reward multipliers (used for calculating APR)"
         - type: Int
           labels:
             name: min_deposit
+            dton_type: UInt128
+
         - type: Int
           labels:
             name: max_deposit
+            dton_type: UInt128
         - type: Cell
           labels:
             name: reward_jettons
@@ -65,11 +71,13 @@ spec:
         - type: Int
           labels:
             name: reward_jettons_count
+            dton_type: UInt8
           metadata:
             description: "Number of different jettons used for rewards"
         - type: Int
           labels:
             name: rewards_deposits_count
+            dton_type: UInt8
           metadata:
             description: "Current number of active rewards distributions"
         - type: Cell
@@ -87,21 +95,25 @@ spec:
         - type: Int
           labels:
             name: unstake_fee
+            dton_type: UInt128
           metadata:
             description: "Constant TON fee for instant unstake"
         - type: Int
           labels:
             name: collected_commissions
+            dton_type: UInt128
           metadata:
             description: "Amount of claimable commissions (for deposits and unstakes)"
         - type: Int
           labels:
             name: rewards_commission
+            dton_type: UInt16
           metadata:
             description: "Commission rate for adding new rewards"
         - type: Int
           labels:
             name: version
+            dton_type: UInt16
 
     - method_name: get_stake_wallet_address
       metadata:
