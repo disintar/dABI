@@ -125,6 +125,7 @@ spec:
         - type: Int
           labels:
             name: last_recovered
+            dton_type: UInt256
         - type: Int
           labels:
             name: halter
@@ -141,6 +142,7 @@ spec:
           labels:
             name: governance_fee
             skipParse: true
+            dton_type: UInt256
         - type: Cell
           labels:
             name: collection_codes
