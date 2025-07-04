@@ -1,0 +1,34 @@
+apiVersion: dabi/v0
+type: TestCase
+smart_contract:
+  name: tonco_pool
+  address: "EQD25vStEwc-h1QT1qlsYPQwqU5IiOhox5II0C_xsDNpMVo7"
+  block:
+    mc_seqno: 49508367
+parsed_info:
+  get_methods:
+    getPoolStateAndConfiguration:
+      result:
+        - router_address: "EQC_-t0nCnOFMdp7E7qPxAOCbCWGFz-e3pwxb6tTvFmshjt5"
+        - admin_address: "EQA_CO_XYJU_vp16Oh6yOmd2nee1TkHaxBUK73D7_L7Y0UH_"
+        - controller_address: "EQCnkV6IV0co7j7D4UHhaPl-qdn0RGr7eDfa1x-vb7dzP3kA"
+        - jetton0_wallet: "EQCHHakhWxSQIWbw6ioW21YnjVKBCDd_gVjF9Mz9_dIuFy23"
+        - jetton1_wallet: "EQCsrUV5ZySz8ArUKkMRsgZn2kviikOVFYejgfc6qVUiCYtS"
+        - jetton0_minter: "EQCUnExmdgwAKADi-j2KPKThyQqTc7U650cgM0g78UzZXn9J"
+        - jetton1_minter: "EQCxE6mUtQJKFnGfaROTKOt1lZbDiiX1kCixRv7Nw2Id_sDs"
+        - pool_active: 1
+        - tick_spacing: 60
+        - lp_fee_base: 40
+        - protocol_fee: 1000
+        - lp_fee_current: 40
+        - tick: -58752
+        - price_sqrt: 4199324691278625202031298399
+        - liquidity: 64728896959720
+        - feeGrowthGlobal0X128: 180865991089801861651625117552376947117
+        - feeGrowthGlobal1X128: 678689266695805021804940072894074950
+        - collectedProtocolFee0: 113893374524
+        - collectedProtocolFee1: 328619999
+        - nftv3item_counter: 4520
+        - reserve0: 2578584785138954
+        - reserve1: 110589169411
+        - nftv3items_active: 844

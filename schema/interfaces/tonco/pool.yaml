@@ -1,0 +1,123 @@
+apiVersion: dabi/v0
+type: Interface
+metadata:
+  name: "TONCO Pool"
+labels:
+  name: tonco_pool
+  dton_parse_prefix: abi_tonco_pool_
+spec:
+  get_methods:
+    - method_name: getPoolStateAndConfiguration
+      result:
+        - type: Slice
+          labels:
+            name: router_address
+            address: true
+        - type: Slice
+          labels:
+            name: admin_address
+            address: true
+        - type: Slice
+          labels:
+            name: controller_address
+            address: true
+        - type: Slice
+          labels:
+            name: jetton0_wallet
+            address: true
+        - type: Slice
+          labels:
+            name: jetton1_wallet
+            address: true
+        - type: Slice
+          labels:
+            name: jetton0_minter
+            address: true
+        - type: Slice
+          labels:
+            name: jetton1_minter
+            address: true
+
+        - type: Int
+          labels:
+            name: pool_active
+            dton_type: UInt8
+
+        - type: Int
+          labels:
+            name: tick_spacing
+            dton_type: UInt32
+        - type: Int
+          labels:
+            name: lp_fee_base
+            dton_type: UInt16
+        - type: Int
+          labels:
+            name: protocol_fee
+            dton_type: UInt16
+        - type: Int
+          labels:
+            name: lp_fee_current
+            dton_type: UInt16
+
+        - type: Int
+          labels:
+            name: tick
+            dton_type: Int32
+
+        - type: Int
+          labels:
+            name: price_sqrt
+            dton_type: UInt256
+        - type: Int
+          labels:
+            name: liquidity
+            dton_type: UInt256
+        - type: Int
+          labels:
+            name: feeGrowthGlobal0X128
+            dton_type: UInt256
+        - type: Int
+          labels:
+            name: feeGrowthGlobal1X128
+            dton_type: UInt256
+        - type: Int
+          labels:
+            name: collectedProtocolFee0
+            dton_type: UInt128
+        - type: Int
+          labels:
+            name: collectedProtocolFee1
+            dton_type: UInt128
+        - type: Int
+          labels:
+            name: nftv3item_counter
+            dton_type: UInt64
+        - type: Int
+          labels:
+            name: reserve0
+            dton_type: UInt128
+        - type: Int
+          labels:
+            name: reserve1
+            dton_type: UInt128
+        - type: Int
+          labels:
+            name: nftv3items_active
+            dton_type: UInt64
+        - type: Int
+          labels:
+            name: ticks_occupied
+            dton_type: UInt64
+            skipParse: true
+
+        - type: Int
+          labels:
+            name: seqno
+            dton_type: UInt64
+            skipParse: true
+
+
+  selector:
+    by_code:
+      - hash: "BC947D16346C2FDC845B7A446382F59C86ACB075E2A31DBFA956CD0C9E54678E"
