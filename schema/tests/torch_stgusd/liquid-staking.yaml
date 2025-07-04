@@ -1,0 +1,13 @@
+apiVersion: dabi/v0
+type: TestCase
+smart_contract:
+  name: tgusd_liquid_staking
+  address: "EQDsRxOvYyhOAi-zHBSN2NkHcjwFB1aaMSnqJG7Chm14x02P"
+  block:
+    mc_seqno: 49133473
+parsed_info:
+  get_methods:
+    conversionRatio:
+      result:
+        - total_active_stake: 888573053344
+        - total_shares: 869946192801

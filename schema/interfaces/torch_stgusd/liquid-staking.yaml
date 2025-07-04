@@ -1,0 +1,22 @@
+apiVersion: dabi/v0
+type: Interface
+metadata:
+  name: "tgUSD Liquid Staking"
+labels:
+  name: tgusd_liquid_staking
+  dton_parse_prefix: abi_tgusd_liquid_
+spec:
+  get_methods:
+    - method_name: conversionRatio
+      result:
+        - type: Int
+          labels:
+            name: total_active_stake
+            dton_type: UInt256
+        - type: Int
+          labels:
+            name: total_shares
+            dton_type: UInt256
+  selector:
+    by_code:
+      - hash: "5012A44C584F85CE0AF2B6032B9308743DB065A5A407EC8D2AD855DD24AC55FF"
