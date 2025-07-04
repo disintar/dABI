@@ -24,8 +24,7 @@ class TCaseType(dABIType):
         server = json.loads(os.getenv('LITESERVER'))
         self.client = LiteClient(host=server['ip'],
                                  port=server['port'],
-                                 pubkey_base64=server['id']['key'],
-                                 timeout=5)
+                                 pubkey_hex=server['id']['key'])
         self.parsed_info = {}
         self.abi = abi
         self.name = None
