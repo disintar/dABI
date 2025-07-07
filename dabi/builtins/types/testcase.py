@@ -8,6 +8,7 @@ from tonpy import MASTER_SHARD, LiteClient, BlockIdExt, BlockId, TVM, C7, Addres
 from dabi.builtins.types.base import dABIType
 from dabi.settings import supported_versions
 
+from time import sleep
 
 class TCaseType(dABIType):
     smart_contract = {
@@ -25,11 +26,14 @@ class TCaseType(dABIType):
         self.client = LiteClient(host=server['ip'],
                                  port=server['port'],
                                  pubkey_base64=server['id']['key'],
-                                 timeout=5)
+                                 timeout=5,
+                                 num_try=100)
         self.parsed_info = {}
         self.abi = abi
         self.name = None
         self.libs = []
+
+        self.block_cache = dict()
 
     def process_tlb(self, expected, received: StackEntry, expected_item, my_error):
         received_tlb = {}
@@ -215,11 +219,28 @@ class TCaseType(dABIType):
                         self.parsed_info[getter][j] = i[j]
 
     def get_tvm(self):
-        block = self.client.lookup_block(block=BlockId(
+
+        bid = BlockId(
             workchain=self.smart_contract['workchain'],
             shard=self.smart_contract['shard'],
             seqno=self.smart_contract['seqno']
-        )).blk_id
+        )
+
+        if bid not in self.block_cache:
+            not_loaded=True
+            while not_loaded:
+
+                try:
+                    self.block_cache[bid] = self.client.lookup_block(workchain=bid.workchain, shard=bid.shard, seqno=bid.seqno).blk_id
+                    not_loaded=False
+                except Exception as e:
+                    print('SHARD!!!!', self.smart_contract)
+                    sleep(0.1)
+
+                    # raise ValueError(f'TestCaseType: block {bid} not found: {e}')
+
+
+        block = self.block_cache[bid]
 
         account_state = self.client.get_account_state(self.address, block).get_parsed()
 
