@@ -234,7 +234,6 @@ class TCaseType(dABIType):
                     self.block_cache[bid] = self.client.lookup_block(workchain=bid.workchain, shard=bid.shard, seqno=bid.seqno).blk_id
                     not_loaded=False
                 except Exception as e:
-                    print('SHARD!!!!', self.smart_contract)
                     sleep(0.1)
 
                     # raise ValueError(f'TestCaseType: block {bid} not found: {e}')
