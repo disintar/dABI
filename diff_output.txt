@@ -2,7 +2,8 @@
 
 | Change Type | Name | Description | Link |
 | ----------- | ---- | ----------- | ---- |
-| No changes | 😊 | | |
+| Added 📈 | TONCO Pool | No name | No description | No link |
+| Added 📈 | tgUSD Liquid Staking | No name | No description | No link |
 
 
 
@@ -10,7 +11,8 @@
 
 | Change Type | Name | Description | Link |
 | ----------- | ---- | ----------- | ---- |
-| No changes | 😊 | | |
+| Added 📈 | getPoolStateAndConfiguration |  |  | No link |
+| Added 📈 | conversionRatio |  |  | No link |
 
 ### Supported Smart Contracts
 
