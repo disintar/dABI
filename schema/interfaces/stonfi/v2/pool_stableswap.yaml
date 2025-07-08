@@ -1,7 +1,7 @@
 apiVersion: dabi/v0
 type: Interface
 metadata:
-  name: "StonFi Pool v2"
+  name: "StonFi Pool v2 Stableswap"
   link: "https://docs.ston.fi/docs/developer-section/api-reference-v2/pool"
 labels:
   name: stonfi_pool_v2_stableswap
