@@ -1,0 +1,48 @@
+#apiVersion: dabi/v0
+#type: Interface
+#metadata:
+#  name: "Torch Pool"
+#labels:
+#  name: bidask_pool
+#  dton_parse_prefix: abi_bidask_pool_
+#spec:
+#  get_methods:
+#    - method_name: get_pool_info
+#      result:
+#        - type: Slice
+#          labels:
+#            name: jetton_wallet_x
+#            address: true
+#        - type: Slice
+#          labels:
+#            name: jetton_wallet_y
+#            address: true
+#        - type: Int
+#          labels:
+#            name: bin_step
+#            dton_type: UInt32
+#            skipParse: true
+#        - type: Int
+#          labels:
+#            name: lp_fee
+#            dton_type: UInt32
+#            skipParse: true
+#    - method_name: get_sqrt_p
+#      result:
+#        - type: Int
+#          labels:
+#            name: sqrt_price
+#            dton_type: UInt256
+#    - method_name: get_tvl
+#      result:
+#        - type: Int
+#          labels:
+#            name: reserve_x
+#            dton_type: UInt256
+#        - type: Int
+#          labels:
+#            name: reserve_y
+#            dton_type: UInt256
+#  selector:
+#    by_code:
+#      - hash: "BFF2AA0E9E34825CD01D08146844DAC8F4AAEC41272CFC12E42CA4C1481285C1"
