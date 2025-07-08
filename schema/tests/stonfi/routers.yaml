@@ -32,3 +32,62 @@ parsed_info:
        - is_locked: false
        - admin_address: "EQBAj_9iYponyRxQgNurrn4t7UNS0aQeteHY7U-H-F_XTy-Z"
 
+---
+
+apiVersion: dabi/v0
+type: TestCase
+smart_contract:
+  name: stonfi_router_v2
+  libs:
+    - "AEF0FEBD0A029F7DA080D6111DC48510DFA3D3010679FB24AFB56B3442D36D9C"
+  address: "0:52357FF99928A4055B6D5A121A21BD1FF23254EDF2FA92FCB2155A6977B75644"
+  block:
+    mc_seqno: 49647931
+parsed_info:
+  get_methods:
+    get_router_data:
+      result:
+       - router_id: 123731700
+       - router_type: "stableswap"
+       - is_locked: false
+       - admin_address: "EQBAj_9iYponyRxQgNurrn4t7UNS0aQeteHY7U-H-F_XTy-Z"
+
+---
+
+apiVersion: dabi/v0
+type: TestCase
+smart_contract:
+  name: stonfi_router_v2
+  libs:
+    - "F13D4058E67F82ED4605DA13B717D5451E06B7CA6DD7BE951400CBEB80A0EE7B"
+  address: "0:222D5EBBEC1807357114B832770B0F0AE563A22523BCEB187C610AB62ED84912"
+  block:
+    mc_seqno: 49647987
+parsed_info:
+  get_methods:
+    get_router_data:
+      result:
+       - router_id: 530249
+       - router_type: "weighted_const_product"
+       - is_locked: false
+       - admin_address: "EQBAj_9iYponyRxQgNurrn4t7UNS0aQeteHY7U-H-F_XTy-Z"
+
+---
+
+apiVersion: dabi/v0
+type: TestCase
+smart_contract:
+  name: stonfi_router_v2
+  libs:
+    - "57DE63D28E4D3608E0C02D437A7B50EF5F28F36A4821A047FD663CE63F4597EC"
+  address: "0:632BF92363947F0E8C9345F7F5D3D57316B4A5285082FE038E58832DC84BC272"
+  block:
+    mc_seqno: 49647987
+parsed_info:
+  get_methods:
+    get_router_data:
+      result:
+       - router_id: 126228815
+       - router_type: "weighted_stableswap"
+       - is_locked: false
+       - admin_address: "EQBAj_9iYponyRxQgNurrn4t7UNS0aQeteHY7U-H-F_XTy-Z"

@@ -4,7 +4,7 @@ metadata:
   name: "StonFi Pool v2"
   link: "https://docs.ston.fi/docs/developer-section/api-reference-v2/pool"
 labels:
-  name: stonfi_pool_v2
+  name: stonfi_pool_v2_constant_product
   dton_parse_prefix: abi_stonfi_pool_
 spec:
   get_methods:
@@ -68,10 +68,11 @@ spec:
             name: collected_asset1_protocol_fee
             dton_type: UInt256
     {{ constants("stonfi_get_lp_account_address", indent=4) }}
-
+    
     - method_name: get_pool_type
       result:
         - type: Slice
+          required: A74AEA905D929840C7D91E5766512F9E5A2996800EA8CD38E5CB423A95EA2683 # constant_product
           labels:
             name: pool_type
             string: true

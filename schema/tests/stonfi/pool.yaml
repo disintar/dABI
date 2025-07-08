@@ -45,3 +45,116 @@ parsed_info:
        - ref_fee: 10
        - collected_asset0_protocol_fee: 38445962781520
        - collected_asset1_protocol_fee: 29706724201
+    get_pool_type:
+      result:
+        - pool_type: "constant_product"
+
+---
+
+apiVersion: dabi/v0
+type: TestCase
+smart_contract:
+  name: stonfi_pool_v2_constant_product
+  address: "EQAlNk4VwBlVV-sQr0UYe5souU_xbTof54Fd9qewwN1N7pXL"
+  libs:
+    - "A9338ECD624CA15D37E4A8D9BF677DDC9B84F0E98F05F2FB84C7AFE332A281B4"
+  block:
+    mc_seqno: 41337187
+parsed_info:
+  get_methods:
+    get_pool_data:
+      result:
+       - is_locked: false
+       - router_address: "EQADEFMTMnC-gu5v2U0ZY8AYaGhAOk9TcECg1TOquAW3r-IE"
+       - reserve0: 154193182324195318
+       - reserve1: 110830831557322
+       - asset0: "EQAEfVGA4DRRml_z_MtEK8W8TaPLPwjRdNsSLJJLMOw0muo0"
+       - asset1: "EQACuz151snlY46PKdUOkyiCf0zzcxMsN6XmKQkSKZjkvyFH"
+       - lp_fee: 20
+       - protocol_fee: 10
+       - ref_fee: 10
+       - collected_asset0_protocol_fee: 38445962781520
+       - collected_asset1_protocol_fee: 29706724201
+
+---
+
+apiVersion: dabi/v0
+type: TestCase
+smart_contract:
+  name: stonfi_pool_v2_stableswap
+  address: "EQBSUY4UWGJFAps0KwHY4tpOGqzU41DZhyrT8OuyAWWtnezy"
+  libs:
+    - "3C882EB9EDE6BE2459B2D2E469680AF9F8E48AB16EC0726F0D07B0E5686BE718"
+  block:
+    mc_seqno: 48941441
+parsed_info:
+  get_methods:
+    get_pool_data:
+      result:
+       - is_locked: false
+       - router_address: "0:52357FF99928A4055B6D5A121A21BD1FF23254EDF2FA92FCB2155A6977B75644"
+       - reserve0: 4247155912282
+       - reserve1: 4192077818318
+       - asset0: "0:519AA82CEA278028775F33E7A2889658BF0C94D9C8B0CD449D25E3E618767A3B"
+       - asset1: "0:53DC91CD6E8DCDB68A011AD149BC11158C80C96DF97731E748DF2B0776813C54"
+       - lp_fee: 0
+       - protocol_fee: 1
+       - collected_asset0_protocol_fee: 416956412
+       - collected_asset1_protocol_fee: 443342242
+       - amp: 100
+
+---
+
+apiVersion: dabi/v0
+type: TestCase
+smart_contract:
+  name: stonfi_pool_v2_weighted_const_product
+  address: "EQAgvVHlcR3M19rfCj5uqQZvyuJAOobCM5AGAwJFRZsXMp91"
+  libs:
+    - "2BBFE992EA55521EC06A1C0303E00806538C66F60DB13D66E6377A2F7FD115E"
+  block:
+    mc_seqno: 48943095
+parsed_info:
+  get_methods:
+    get_pool_data:
+      result:
+       - is_locked: false
+       - router_address: "0:222D5EBBEC1807357114B832770B0F0AE563A22523BCEB187C610AB62ED84912"
+       - reserve0: 13696551968654
+       - reserve1: 144971799266123304
+       - asset0: "0:26576073462E9CF92D76EB702BF4787208BAEFB4C11A7BFA9F1338719CAEEA4A"
+       - asset1: "0:269DBC5EE11C2C07E999A9F11F8F83CB754E791822C38B24ADD50EA08467AFE2"
+       - lp_fee: 99
+       - protocol_fee: 30
+       - collected_asset0_protocol_fee: 552151340710
+       - collected_asset1_protocol_fee: 606074696022881
+       - w0: 200000000000000000
+
+---
+
+apiVersion: dabi/v0
+type: TestCase
+smart_contract:
+  name: stonfi_pool_v2_weighted_stableswap
+  address: "EQBjiBVhFLQVCMS8mKMA3gS823m9Xeu9aXiZUYD4TP8GDvui"
+  libs:
+    - "9E5038AB735973D5450FAE1A14E7707B332DCD8E744F5DBB3B6A0D994D400C59"
+  block:
+    mc_seqno: 48942142
+parsed_info:
+  get_methods:
+    get_pool_data:
+      result:
+       - is_locked: false
+       - router_address: "0:632BF92363947F0E8C9345F7F5D3D57316B4A5285082FE038E58832DC84BC272"
+       - reserve0: 44402056032603
+       - reserve1: 104399612412165
+       - asset0: "0:62CBD96DBB796430BD62FCC0155B6C9A5CEB0F789DCD5C25D02E5700C7EEA52A"
+       - asset1: "0:6098BF1081B8EEE10156B5BB6476FF466A829FD1AF808CD93003F4807B91CBF5"
+       - lp_fee: 4
+       - protocol_fee: 1
+       - collected_asset0_protocol_fee: 17326932169
+       - collected_asset1_protocol_fee: 19585148174
+       - amp: 50000000000000000000
+       - rate: 1064000000000000000
+       - w0: 250000000000000000
