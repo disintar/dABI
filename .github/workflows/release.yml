@@ -40,7 +40,7 @@ jobs:
 
       # Upload the final.json as an artifact using GitHub run_id
       - name: Upload Final JSON as Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: final-json-${{ github.run_id }}
           path: final.json
@@ -58,7 +58,7 @@ jobs:
 
       # Download the artifact with the final JSON file using the run ID
       - name: Download Final JSON Artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: final-json-${{ github.run_id }}
           path: .
@@ -130,7 +130,7 @@ jobs:
 
       # Upload the diff file as an artifact
       - name: Upload Diff as Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: diff-output-${{ github.run_id }}
           path: diff_output.txt
