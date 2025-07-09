@@ -2,10 +2,7 @@
 
 | Change Type | Name | Description | Link |
 | ----------- | ---- | ----------- | ---- |
-| Added 📈 | StonFi Pool v2 Weighted Stableswap | No name | No description | No link |
-| Added 📈 | StonFi Pool v2 Stableswap | No name | No description | No link |
-| Added 📈 | StonFi Pool v2 Constant Product | No name | No description | No link |
-| Added 📈 | StonFi Pool v2 Weighted Const Product | No name | No description | No link |
+| No changes | 😊 | | |
 
 
 
@@ -32,11 +29,11 @@
 | Farm StonFi Collection |  | by_methods | get_version, get_farming_minter_data |
 | Farm StonFi NFT |  | by_methods | get_authority_address, get_revoked_time, get_farming_data |
 | StonFi Router v2 |  | by_methods | get_router_data, get_pool_address, get_pool_address |
+| StonFi Pool v2 Weighted Stableswap |  | by_methods | get_pool_data, get_lp_account_address, get_pool_type |
 | StonFi Pool v2 |  | by_methods | get_pool_data, get_lp_account_address, get_pool_type |
-| StonFi Pool v2 |  | by_methods | get_pool_data, get_lp_account_address, get_pool_type |
-| StonFi Pool v2 |  | by_methods | get_pool_data, get_lp_account_address, get_pool_type |
-| StonFi Pool v2 |  | by_methods | get_pool_data, get_lp_account_address, get_pool_type |
-| StonFi Pool v2 |  | by_methods | get_pool_data, get_lp_account_address, get_pool_type |
+| StonFi Pool v2 Stableswap |  | by_methods | get_pool_data, get_lp_account_address, get_pool_type |
+| StonFi Pool v2 Constant Product |  | by_methods | get_pool_data, get_lp_account_address, get_pool_type |
+| StonFi Pool v2 Weighted Const Product |  | by_methods | get_pool_data, get_lp_account_address, get_pool_type |
 | StonFi Router v1 |  | by_methods | get_router_data, get_pool_address |
 | StonFi Pool v1 |  | by_methods | get_pool_data, get_expected_outputs, get_expected_tokens, get_expected_liquidity, get_lp_account_address |
 | Farm StonFi NFT |  | by_methods | get_authority_address, get_revoked_time, get_farming_data |
