@@ -70,7 +70,7 @@ spec:
         - type: Int
           labels:
             name: amp
-            dton_type: UInt32
+            dton_type: UInt128
     {{ constants("stonfi_get_lp_account_address", indent=4) }}
 
     - method_name: get_pool_type
