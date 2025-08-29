@@ -3,46 +3,16 @@
 #metadata:
 #  name: "Torch Pool"
 #labels:
-#  name: bidask_pool
-#  dton_parse_prefix: abi_bidask_pool_
+#  name: torch_pool
+#  dton_parse_prefix: abi_torch_pool_
 #spec:
 #  get_methods:
-#    - method_name: get_pool_info
+#    - method_name: get_pool_data
 #      result:
 #        - type: Slice
 #          labels:
-#            name: jetton_wallet_x
-#            address: true
-#        - type: Slice
-#          labels:
-#            name: jetton_wallet_y
-#            address: true
-#        - type: Int
-#          labels:
-#            name: bin_step
-#            dton_type: UInt32
-#            skipParse: true
-#        - type: Int
-#          labels:
-#            name: lp_fee
-#            dton_type: UInt32
-#            skipParse: true
-#    - method_name: get_sqrt_p
-#      result:
-#        - type: Int
-#          labels:
-#            name: sqrt_price
-#            dton_type: UInt256
-#    - method_name: get_tvl
-#      result:
-#        - type: Int
-#          labels:
-#            name: reserve_x
-#            dton_type: UInt256
-#        - type: Int
-#          labels:
-#            name: reserve_y
-#            dton_type: UInt256
+#            name: data
+#
 #  selector:
 #    by_code:
-#      - hash: "BFF2AA0E9E34825CD01D08146844DAC8F4AAEC41272CFC12E42CA4C1481285C1"
+#      - hash: "3BEE078C9CB35BDA1D772D3DCC6B4AB5B43C7182BE66CC183EE6928629FBD9FF"

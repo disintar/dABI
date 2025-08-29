@@ -1,0 +1,42 @@
+// native$0000 = Asset;
+// jetton$0001 workchain:int8 address:uint256 = Asset;
+// extra_currency$0010 currency_id:int32 = Asset;
+
+// reserves#_ ;
+coins_list#_
+  value_0:VarUInteger 16
+  value_1:VarUInteger 16
+  value_2:VarUInteger 16
+  value_3:VarUInteger 16
+= CoinsList;
+
+pool_data#_
+  contract_type:uint5
+  pool_type:uint4
+  admin:MsgAddress
+  signer_key:uint256
+  is_stop:Bool
+  use_rates:Bool
+  base_lp_index:uint4
+  assets:^CoinsList
+  reserve_admin_fees:^(
+    reserve:^CoinsList
+    admin_fees:^CoinsList
+  )
+  parameters:^(
+    fee_numerator:VarUInteger 16
+    admin_fee_numerator:VarUInteger 16
+    init_A:uint20
+    future_A:uint20
+    init_A_time:uint32
+    future_A_time:uint32
+    lp_total_supply:VarUInteger 16
+    lp_wallet_code:^Cell
+    decimals:^CoinsList
+    plugin:dict 4 ^Cell
+  )
+  base_factory:^(
+    base_code:^Cell
+    factory:MsgAddress
+  )
+= PoolData;

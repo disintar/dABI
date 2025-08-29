@@ -1,0 +1,30 @@
+torch_pool_data:
+  version: tlb/v0
+  dump_with_types: true
+  file_path: "torch/pool.tlb"
+  object: "PoolData"
+  use_block_tlb: true
+  parse:
+    - path: "contract_type"
+      metadata:
+        description: "Contract type"
+    - path: "pool_type"
+      labels:
+        dton_type: UInt16
+      metadata:
+        description: "Max TVL"
+    - path: "deposit_commission"
+      labels:
+        dton_type: UInt16
+      metadata:
+        description: "Commission for deposits multiplied by 10000"
+    - path: "unstake_commission"
+      labels:
+        dton_type: UInt16
+      metadata:
+        description: "Commission for instant unstakes multiplied by 10000"
+    - path: "minter_address"
+      labels:
+        address: true
+      metadata:
+        description: "Address of the corresponding st-jettons minter"

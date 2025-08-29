@@ -1,0 +1,17 @@
+apiVersion: dabi/v0
+type: Interface
+metadata:
+  name: "TAC Jetton"
+labels:
+  name: tac_jetton
+  dton_parse_prefix: abi_tac_jetton_
+spec:
+  get_methods:
+    - method_name: get_evm_token_address
+      result:
+        - type: Slice
+          labels:
+            name: evm_address
+            string: true
+  selector:
+    by_methods: true

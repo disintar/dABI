@@ -1,0 +1,12 @@
+apiVersion: dabi/v0
+type: TestCase
+smart_contract:
+  name: tac_jetton
+  address: "EQBWHKpEx-l1VFDwLCfi8wKkqM4I38pUr0gAUJtJLqyx0-72"
+  block:
+    mc_seqno: 51369544
+parsed_info:
+  get_methods:
+    get_evm_token_address:
+      result:
+        - evm_address: "0x4183Bd253Dc1918A04Bd8a8dD546BaAD58898109"
