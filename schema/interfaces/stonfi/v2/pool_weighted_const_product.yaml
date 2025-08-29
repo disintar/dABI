@@ -1,10 +1,10 @@
 apiVersion: dabi/v0
 type: Interface
 metadata:
-  name: "StonFi Pool v2"
+  name: "StonFi Pool v2 Weighted Const Product"
   link: "https://docs.ston.fi/docs/developer-section/api-reference-v2/pool"
 labels:
-  name: stonfi_pool_v2
+  name: stonfi_pool_v2_weighted_const_product
   dton_parse_prefix: abi_stonfi_pool_
 spec:
   get_methods:
@@ -67,11 +67,16 @@ spec:
           labels:
             name: collected_asset1_protocol_fee
             dton_type: UInt256
+        - type: Int
+          labels:
+            name: w0
+            dton_type: UInt128
     {{ constants("stonfi_get_lp_account_address", indent=4) }}
 
     - method_name: get_pool_type
       result:
         - type: Slice
+          required: 3695DAA452AD160E8F071AA5E14A13DA3EA8F3F747EF46D3F415236ED7AC40CC # weighted_const_product
           labels:
             name: pool_type
             string: true

@@ -1,10 +1,10 @@
 apiVersion: dabi/v0
 type: Interface
 metadata:
-  name: "StonFi Pool v2"
+  name: "StonFi Pool v2 Stableswap"
   link: "https://docs.ston.fi/docs/developer-section/api-reference-v2/pool"
 labels:
-  name: stonfi_pool_v2
+  name: stonfi_pool_v2_stableswap
   dton_parse_prefix: abi_stonfi_pool_
 spec:
   get_methods:
@@ -67,11 +67,16 @@ spec:
           labels:
             name: collected_asset1_protocol_fee
             dton_type: UInt256
+        - type: Int
+          labels:
+            name: amp
+            dton_type: UInt128
     {{ constants("stonfi_get_lp_account_address", indent=4) }}
 
     - method_name: get_pool_type
       result:
         - type: Slice
+          required: F08305FAF6C2343C02824FA88920B3C3AA891A1B34CA78F45526D78C48B3A300 # stableswap
           labels:
             name: pool_type
             string: true
