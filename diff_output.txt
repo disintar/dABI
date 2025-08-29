@@ -2,7 +2,7 @@
 
 | Change Type | Name | Description | Link |
 | ----------- | ---- | ----------- | ---- |
-| No changes | 😊 | | |
+| Added 📈 | TAC Jetton | No name | No description | No link |
 
 
 
@@ -10,7 +10,7 @@
 
 | Change Type | Name | Description | Link |
 | ----------- | ---- | ----------- | ---- |
-| No changes | 😊 | | |
+| Added 📈 | get_evm_token_address |  |  | No link |
 
 ### Supported Smart Contracts
 
