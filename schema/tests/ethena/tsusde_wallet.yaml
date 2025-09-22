@@ -1,0 +1,21 @@
+apiVersion: dabi/v0
+type: TestCase
+smart_contract:
+  name: tsusde_wallet
+  address: "EQDjJT1i9vgNpsbctFwYCMEgtADsTfoeEnaD4QSWCUY1X8zf"
+  block:
+    mc_seqno: 48269304
+parsed_info:
+  get_methods:
+    get_wallet_data:
+      result:
+        - balance: 24564290305
+        - owner_address: "UQApXKTeI56uu34eRxXZT5edGMgjNsW-iMYUhCsEdOlVKVs0"
+        - jetton_master_address: "EQDQ5UUyPHrLcQJlPAczd_fjxn8SLrlNQwolBznxCdSlfQwr"
+    get_status:
+      result:
+        - status: 0
+    get_timelock_data:
+      result:
+        - timelocked_balance: 0
+        - timelock_limit: 0
