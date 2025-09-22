@@ -1,0 +1,48 @@
+apiVersion: dabi/v0
+type: Interface
+metadata:
+  name: "tsUSDe Wallet"
+labels:
+  name: tsusde_wallet
+  dton_parse_prefix: abi_tsusde_wallet_
+spec:
+  get_methods:
+    - method_name: get_wallet_data
+      result:
+        - type: Int
+          labels:
+            name: balance
+            dton_type: UInt256
+        - type: Slice
+          labels:
+            name: owner_address
+            address: true
+        - type: Slice
+          labels:
+            name: jetton_master_address
+            address: true
+        - type: Cell
+          labels:
+            skipParse: true
+            name: jetton_wallet_code
+
+    - method_name: get_status
+      result:
+        - type: Int
+          labels:
+            name: status
+            dton_type: UInt8
+
+    - method_name: get_timelock_data
+      result:
+        - type: Int
+          labels:
+            name: timelocked_balance
+            dton_type: UInt256
+        - type: Int
+          labels:
+            name: timelock_limit
+            dton_type: UInt64
+
+  selector:
+    by_methods: true
