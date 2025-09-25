@@ -13,7 +13,7 @@ spec:
         - type: Int
           labels:
             name: inited
-            dton_type: UInt8
+            dton_type: Int8
         - type: Int
           labels:
             name: index
