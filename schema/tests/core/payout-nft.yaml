@@ -1,0 +1,19 @@
+apiVersion: dabi/v0
+type: TestCase
+smart_contract:
+  name: core_payout_nft
+  address: "0:0001F090FE8B85BC64364DF250917FA3B722E844A828712BA33619FA96EBC2B6"
+  block:
+    mc_seqno: 43019939
+parsed_info:
+  get_methods:
+    get_nft_data:
+      result:
+        - inited: -1
+        - index: 64
+        - collection_address: "EQBllVevtv2QYb30AXIyoLigZjBJafCXdAR1cZHVCNuhXl39"
+        - owner_address: "EQCOCa4MSQz-YcDe8aFvGlMsD4hTIHIMTRgIdqTuyEcbq2oR"
+
+    get_bill_amount:
+      result:
+        - amount: 31876967239
