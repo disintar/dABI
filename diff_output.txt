@@ -2,7 +2,7 @@
 
 | Change Type | Name | Description | Link |
 | ----------- | ---- | ----------- | ---- |
-| Added 📈 | tsUSDe Wallet | No name | No description | No link |
+| Added 📈 | TF Core: Payout NFT | No name | No description | No link |
 
 
 
@@ -10,13 +10,14 @@
 
 | Change Type | Name | Description | Link |
 | ----------- | ---- | ----------- | ---- |
-| Added 📈 | get_status |  |  | No link |
-| Added 📈 | get_timelock_data |  |  | No link |
+| Added 📈 | get_nft_data |  |  | No link |
+| Added 📈 | get_bill_amount |  |  | No link |
 
 ### Supported Smart Contracts
 
 | Name | Description | Selector Type | Methods |
 | ---- | ----------- | ------------- | ------- |
+| tsUSDe Wallet |  | by_methods | get_wallet_data, get_status, get_timelock_data |
 | TAC Jetton |  | by_methods | get_evm_token_address |
 | TONCO Pool |  | by_code | getPoolStateAndConfiguration |
 | JVault Staking Pool get methods |  | by_methods | get_storage_data, get_stake_wallet_address |
