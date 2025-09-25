@@ -1,0 +1,42 @@
+apiVersion: dabi/v0
+type: Interface
+metadata:
+  name: "TF Core: Payout NFT"
+  link: "https://ton-ls-protocol.gitbook.io/ton-liquid-staking-protocol/protocol-components/common-components/payouts"
+labels:
+  name: core_payout_nft
+  dton_parse_prefix: abi_core_payout_nft_
+spec:
+  get_methods:
+    - method_name: get_nft_data
+      result:
+        - type: Int
+          labels:
+            name: inited
+            dton_type: UInt8
+        - type: Int
+          labels:
+            name: index
+            dton_type: UInt64
+        - type: Slice
+          labels:
+            name: collection_address
+            address: true
+        - type: Slice
+          labels:
+            name: owner_address
+            address: true
+        - type: Cell
+          labels:
+            name: amount_cell
+            skipParse: true
+
+    - method_name: get_bill_amount
+      result:
+        - type: Int
+          labels:
+            name: amount
+            dton_type: UInt256
+
+  selector:
+    by_methods: true
