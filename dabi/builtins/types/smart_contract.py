@@ -4,6 +4,7 @@ from dabi.builtins.subtypes.metadata import MetadataSubtype
 from dabi.builtins.subtypes.labels import LabelsSubtype
 from dabi.builtins.subtypes.selector import SelectorSubtype
 from dabi.builtins.types.get_methods import MethodsSubtype
+from dabi.builtins.subtypes.tlb import TLBSubtype
 from dabi.builtins.types.base import dABIType
 import re
 
@@ -18,6 +19,7 @@ class InterfaceType(dABIType):
         self.labels = LabelsSubtype(context)
         self.selector = SelectorSubtype(context)
         self.get_methods = []
+        self.storage: TLBSubtype | None = None
         self.unique_getters = set()
         self.current_unique_index = 0
 
@@ -68,6 +70,12 @@ class InterfaceType(dABIType):
 
         self.selector.parse(data['spec']['selector'])
 
+        if 'storage' in data['spec']:
+            if not isinstance(data['spec']['storage'], dict):
+                raise ValueError('InterfaceType: storage must be presented as dict')
+            self.storage = TLBSubtype(self.context)
+            self.storage.parse(data['spec']['storage'])
+
         if 'get_methods' in data['spec']:
             if not isinstance(data['spec']['get_methods'], list):
                 raise ValueError('InterfaceType: get_methods must be presented as list')
@@ -93,10 +101,15 @@ class InterfaceType(dABIType):
         if self.selector.selector_type == 'by_code':
             code_hashes = self.selector.items
 
-        return {
+        result = {
             'metadata': self.metadata.to_dict(),
             'labels': self.labels.to_dict(),
             'selector': self.selector.to_dict(),
             'get_methods': getters,
             'code_hashes': code_hashes
         }
+
+        if self.storage is not None:
+            result['storage'] = self.storage.to_dict()
+
+        return result

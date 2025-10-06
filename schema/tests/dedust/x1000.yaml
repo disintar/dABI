@@ -1,0 +1,12 @@
+apiVersion: dabi/v0
+type: TestCase
+smart_contract:
+  name: x1000_wallet
+  address: "EQDP5uHBEMdxjA_zACkOUZIinRsKFkT-UvFfBRdMpfghVsD_"
+  block:
+    mc_seqno: 52337416
+parsed_info:
+  storage:
+    seqno_offset: 123
+
+
