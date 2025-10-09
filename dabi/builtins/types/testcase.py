@@ -32,6 +32,7 @@ class TCaseType(dABIType):
         self.abi = abi
         self.name = None
         self.libs = []
+        self.only_storage = False
 
         self.block_cache = dict()
 
@@ -225,8 +226,9 @@ class TCaseType(dABIType):
                             self.parsed_info[getter][j] = i[j]
 
         if has_storage:
-            # For storage tests we just record a flag; data can be mocked/empty.
+            # Record storage expectations; may be storage-only test
             self.parsed_info['__storage__'] = data['parsed_info']['storage']
+            self.only_storage = not has_getters
 
     def get_tvm(self):
 
@@ -282,7 +284,7 @@ class TCaseType(dABIType):
 
         contract = self.abi['by_name'][self.name]
 
-        # Storage-only test path: if storage is requested in parsed_info, just verify interface has storage and sources
+        # Storage validation: if storage is requested in parsed_info, verify storage values against TLB-parsed data
         if '__storage__' in self.parsed_info:
             if 'storage' not in contract:
                 raise ValueError(f"Test Case: {self.name} has no storage in interface")
@@ -290,8 +292,63 @@ class TCaseType(dABIType):
             tlb_id = storage.get('id')
             if not tlb_id or tlb_id not in self.abi['tlb_sources']:
                 raise ValueError(f"Test Case: storage TLB id not registered for {self.name}")
-            # Mocked data: no live network calls, just succeed
-            return
+
+            # Prepare TLB parser for storage
+            tlb_text = self.abi['tlb_sources'][tlb_id]['tlb']
+            if storage.get('use_block_tlb', False):
+                tlb_text = f"{tlb_text}\n\n{self.abi['tlb_sources']['block_tlb']}"
+            parsed_tlb = {}
+            add_tlb(tlb_text, parsed_tlb)
+            to_parse = parsed_tlb[storage['object']]()
+
+            # Load current account data cell
+            bid = BlockId(
+                workchain=self.smart_contract['workchain'],
+                shard=self.smart_contract['shard'],
+                seqno=self.smart_contract['seqno']
+            )
+            if bid not in self.block_cache:
+                not_loaded = True
+                while not_loaded:
+                    try:
+                        self.block_cache[bid] = self.client.lookup_block(workchain=bid.workchain, shard=bid.shard, seqno=bid.seqno).blk_id
+                        not_loaded = False
+                    except Exception:
+                        sleep(0.1)
+
+            block = self.block_cache[bid]
+            account_state = self.client.get_account_state(self.address, block).get_parsed()
+            data_cell = account_state.storage.state.x.data.value
+
+            # Parse data cell and dump to dict
+            parsed_obj = to_parse.cell_unpack(data_cell)
+            dump = parsed_obj.dump(with_types=storage.get('dump_with_types', False))
+
+            # Helper to traverse dump by dotted path
+            def _get_by_path(root, path_str):
+                cur = root
+                for part in path_str.split('.'):
+                    if isinstance(cur, dict) and part in cur:
+                        cur = cur[part]
+                    else:
+                        raise AssertionError(f"Test Case: {self.name} storage path not found: {path_str}, dump: {root}")
+                return cur
+
+            expected_map = self.parsed_info['__storage__']
+            parse_items = {item.get('path'): item for item in storage.get('parse', [])} if storage.get('parse') else {}
+
+            # Compare only provided expected keys; skip paths with skipParse label
+            for key, expected_value in expected_map.items():
+                labels = parse_items.get(key, {}).get('labels', {}) if parse_items else {}
+                if labels.get('skipParse', False):
+                    continue
+                actual_value = _get_by_path(dump, key)
+                assert expected_value == actual_value, \
+                    f"Test Case: {self.name} storage mismatch at '{key}': expected {expected_value}, got {actual_value}"
+
+            # If this test is storage-only, do not proceed with getters
+            if self.only_storage:
+                return
 
         for getter in contract['get_methods']:
             for instance in contract['get_methods'][getter]:
