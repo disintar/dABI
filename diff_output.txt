@@ -2,7 +2,7 @@
 
 | Change Type | Name | Description | Link |
 | ----------- | ---- | ----------- | ---- |
-| Added 📈 | DeDust x1000 storage | No name | No description | No link |
+| No changes | 😊 | | |
 
 
 
@@ -41,6 +41,7 @@
 | StonFi Pool v2 Weighted Const Product |  | by_methods | get_pool_data, get_lp_account_address, get_pool_type |
 | StonFi Pool v2 |  | by_methods | get_pool_data, get_lp_account_address, get_pool_type |
 | StonFi Router v2 |  | by_methods | get_router_data, get_pool_address, get_pool_address |
+| DeDust x1000 storage |  | by_code | No methods |
 | DeDust Pool get methods |  | by_methods | get_assets, get_reserves, is_stable, get_trade_fee, estimate_swap_out |
 | Ton Whales: Liquid Staking pool |  | by_code | get_pool_status |
 | Whales Nominators Interface |  | by_methods | get_proxy, get_owner, get_controller, get_unowned, get_available, get_staking_status, get_pool_status, get_params, get_members_raw, get_members, get_member, supported_interfaces |
