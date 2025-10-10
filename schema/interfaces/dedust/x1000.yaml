@@ -18,6 +18,7 @@ spec:
           dton_type: UInt32
       - path: "seqno_bitmap"
         labels:
+          skipParse: true
           dton_type: UInt256
       - path: "public_key"
         labels:
