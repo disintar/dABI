@@ -32,6 +32,7 @@ class TCaseType(dABIType):
         self.abi = abi
         self.name = None
         self.libs = []
+        self.only_storage = False
 
         self.block_cache = dict()
 
@@ -189,34 +190,45 @@ class TCaseType(dABIType):
         except Exception as e:
             raise ValueError(f'TestCaseType: address is invalid: {e}')
 
-        if 'parsed_info' not in data or not isinstance(data['parsed_info'], dict) or not 'get_methods' in data[
-            'parsed_info']:
-            raise ValueError('TestCaseType: parsed_info must contain get_methods as dict')
+        if 'parsed_info' not in data or not isinstance(data['parsed_info'], dict):
+            raise ValueError('TestCaseType: parsed_info must be a dict')
 
-        for getter in data['parsed_info']['get_methods']:
-            if not isinstance(data['parsed_info']['get_methods'][getter], dict):
-                raise ValueError(f'TestCaseType: {getter} is not a dict')
+        has_getters = 'get_methods' in data['parsed_info'] and isinstance(data['parsed_info']['get_methods'], dict)
+        has_storage = 'storage' in data['parsed_info'] and isinstance(data['parsed_info']['storage'], dict)
 
-            if getter not in self.parsed_info:
-                self.parsed_info[getter] = {}
+        if not has_getters and not has_storage:
+            raise ValueError('TestCaseType: parsed_info must contain get_methods or storage')
 
-                if 'result' not in data['parsed_info']['get_methods'][getter]:
-                    raise ValueError(f'TestCaseType: does not contain result for {getter}')
+        if has_getters:
+            for getter in data['parsed_info']['get_methods']:
+                if not isinstance(data['parsed_info']['get_methods'][getter], dict):
+                    raise ValueError(f'TestCaseType: {getter} is not a dict')
 
-                if not isinstance(data['parsed_info']['get_methods'][getter]['result'], list):
-                    if data['parsed_info']['get_methods'][getter]['result'] is None:
-                        data['parsed_info']['get_methods'][getter]['result'] = []
-                    else:
-                        raise ValueError(f'TestCaseType: {getter} must contain a list of results')
+                if getter not in self.parsed_info:
+                    self.parsed_info[getter] = {}
 
-                for i in data['parsed_info']['get_methods'][getter]['result']:
-                    if len(i) < 1:
-                        raise ValueError(f'TestCaseType: {getter} must contain at least one result in list of results')
-                    if not isinstance(i, dict):
-                        raise ValueError(f'TestCaseType: {getter} / {i} must be dict')
+                    if 'result' not in data['parsed_info']['get_methods'][getter]:
+                        raise ValueError(f'TestCaseType: does not contain result for {getter}')
 
-                    for j in i:
-                        self.parsed_info[getter][j] = i[j]
+                    if not isinstance(data['parsed_info']['get_methods'][getter]['result'], list):
+                        if data['parsed_info']['get_methods'][getter]['result'] is None:
+                            data['parsed_info']['get_methods'][getter]['result'] = []
+                        else:
+                            raise ValueError(f'TestCaseType: {getter} must contain a list of results')
+
+                    for i in data['parsed_info']['get_methods'][getter]['result']:
+                        if len(i) < 1:
+                            raise ValueError(f'TestCaseType: {getter} must contain at least one result in list of results')
+                        if not isinstance(i, dict):
+                            raise ValueError(f'TestCaseType: {getter} / {i} must be dict')
+
+                        for j in i:
+                            self.parsed_info[getter][j] = i[j]
+
+        if has_storage:
+            # Record storage expectations; may be storage-only test
+            self.parsed_info['__storage__'] = data['parsed_info']['storage']
+            self.only_storage = not has_getters
 
     def get_tvm(self):
 
@@ -271,6 +283,72 @@ class TCaseType(dABIType):
             raise ValueError(f"Test Case: Smart contract {self.name} not found")
 
         contract = self.abi['by_name'][self.name]
+
+        # Storage validation: if storage is requested in parsed_info, verify storage values against TLB-parsed data
+        if '__storage__' in self.parsed_info:
+            if 'storage' not in contract:
+                raise ValueError(f"Test Case: {self.name} has no storage in interface")
+            storage = contract['storage']
+            tlb_id = storage.get('id')
+            if not tlb_id or tlb_id not in self.abi['tlb_sources']:
+                raise ValueError(f"Test Case: storage TLB id not registered for {self.name}")
+
+            # Prepare TLB parser for storage
+            tlb_text = self.abi['tlb_sources'][tlb_id]['tlb']
+            if storage.get('use_block_tlb', False):
+                tlb_text = f"{tlb_text}\n\n{self.abi['tlb_sources']['block_tlb']}"
+            parsed_tlb = {}
+            add_tlb(tlb_text, parsed_tlb)
+            to_parse = parsed_tlb[storage['object']]()
+
+            # Load current account data cell
+            bid = BlockId(
+                workchain=self.smart_contract['workchain'],
+                shard=self.smart_contract['shard'],
+                seqno=self.smart_contract['seqno']
+            )
+            if bid not in self.block_cache:
+                not_loaded = True
+                while not_loaded:
+                    try:
+                        self.block_cache[bid] = self.client.lookup_block(workchain=bid.workchain, shard=bid.shard, seqno=bid.seqno).blk_id
+                        not_loaded = False
+                    except Exception:
+                        sleep(0.1)
+
+            block = self.block_cache[bid]
+            account_state = self.client.get_account_state(self.address, block).get_parsed()
+            data_cell = account_state.storage.state.x.data.value
+
+            # Parse data cell and dump to dict
+            parsed_obj = to_parse.cell_unpack(data_cell)
+            dump = parsed_obj.dump(with_types=storage.get('dump_with_types', False))
+
+            # Helper to traverse dump by dotted path
+            def _get_by_path(root, path_str):
+                cur = root
+                for part in path_str.split('.'):
+                    if isinstance(cur, dict) and part in cur:
+                        cur = cur[part]
+                    else:
+                        raise AssertionError(f"Test Case: {self.name} storage path not found: {path_str}, dump: {root}")
+                return cur
+
+            expected_map = self.parsed_info['__storage__']
+            parse_items = {item.get('path'): item for item in storage.get('parse', [])} if storage.get('parse') else {}
+
+            # Compare only provided expected keys; skip paths with skipParse label
+            for key, expected_value in expected_map.items():
+                labels = parse_items.get(key, {}).get('labels', {}) if parse_items else {}
+                if labels.get('skipParse', False):
+                    continue
+                actual_value = _get_by_path(dump, key)
+                assert expected_value == actual_value, \
+                    f"Test Case: {self.name} storage mismatch at '{key}': expected {expected_value}, got {actual_value}"
+
+            # If this test is storage-only, do not proceed with getters
+            if self.only_storage:
+                return
 
         for getter in contract['get_methods']:
             for instance in contract['get_methods'][getter]:

@@ -1,0 +1,2 @@
+_#_ seqno_offset:uint32 seqno_bitmap:bits256
+    public_key:uint256 revoked:(Maybe ^Cell) = Storage;

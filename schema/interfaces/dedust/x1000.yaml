@@ -1,0 +1,32 @@
+apiVersion: dabi/v0
+type: Interface
+metadata:
+  name: "DeDust x1000 storage"
+labels:
+  name: x1000_wallet
+  dton_parse_prefix: abi_x1000_wallet_
+spec:
+  storage:
+    version: tlb/v0
+    dump_with_types: false
+    file_path: "dedust/x1000.tlb"
+    object: "Storage"
+    use_block_tlb: true
+    parse:
+      - path: "seqno_offset"
+        labels:
+          dton_type: UInt32
+      - path: "seqno_bitmap"
+        labels:
+          dton_type: UInt256
+      - path: "public_key"
+        labels:
+          dton_type: FixedString(64)
+      - path: "revoked"
+        labels:
+          skipParse: true
+          dton_type: Int32
+
+  selector:
+    by_code:
+      - hash: "43D44716D326A832CED56A6B60A02CB67630E04F5785FE89F8784A110CF36151"
