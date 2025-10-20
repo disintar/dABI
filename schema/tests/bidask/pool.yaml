@@ -2,21 +2,21 @@ apiVersion: dabi/v0
 type: TestCase
 smart_contract:
   name: bidask_pool
-  address: "EQCsy_O1avgk0Fa-m43YQLe9EBZ2vU4_FmmK3bV53cfGc_vk"
+  address: "EQAAS3mks4oGKCfJ7VaTLITfqaWC5InGCw00g-b-k70IzLO2"
   block:
-    mc_seqno: 49640795
+    mc_seqno: 49856922
 parsed_info:
   get_methods:
     get_pool_info:
       result:
-        - jetton_wallet_x: "0:a76bdb92251bf6ac9119477fdf3e8d807648e17ea64b981770e2884b6f29cc39"
-        - jetton_wallet_y: "0:ad896b4387e617ed9c886dd5aa770f4c3a4a3780f9b88348cf711b4078b9f4a5"
+        - jetton_wallet_x: "EQAAtepDzT8KFsALLu0_YE4rtbkg-A3TkQ2VkB2JOYUWBc6Z"
+        - jetton_wallet_y: "EQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAM9c"
         - bin_step:
-        - lp_fee:
+        - lp_fee: 30
     get_sqrt_p:
       result:
-        - sqrt_price: 340354341880554360290898475798383972422
+        - sqrt_price: 6186295389732540055194361688444245576639
     get_tvl:
       result:
-        - reserve_x: 28434983484
-        - reserve_y: 131777862654
+        - reserve_x: 40472763345
+        - reserve_y: 19111058544132
