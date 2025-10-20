@@ -25,8 +25,7 @@ spec:
         - type: Int
           labels:
             name: lp_fee
-            dton_type: UInt32
-            skipParse: true
+            dton_type: UInt256
     - method_name: get_sqrt_p
       result:
         - type: Int

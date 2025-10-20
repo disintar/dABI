@@ -12,7 +12,7 @@ parsed_info:
         - jetton_wallet_x: "0:a76bdb92251bf6ac9119477fdf3e8d807648e17ea64b981770e2884b6f29cc39"
         - jetton_wallet_y: "0:ad896b4387e617ed9c886dd5aa770f4c3a4a3780f9b88348cf711b4078b9f4a5"
         - bin_step:
-        - lp_fee:
+        - lp_fee: 5
     get_sqrt_p:
       result:
         - sqrt_price: 340354341880554360290898475798383972422
