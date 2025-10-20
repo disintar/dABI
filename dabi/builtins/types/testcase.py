@@ -248,17 +248,12 @@ class TCaseType(dABIType):
                 except Exception as e:
                     sleep(0.1)
 
-                    # raise ValueError(f'TestCaseType: block {bid} not found: {e}')
+                    raise ValueError(f'TestCaseType: block {bid} not found: {e}')
 
 
         block = self.block_cache[bid]
 
-        for attempt in range(5):
-            account_state = self.client.get_account_state(self.address, block).get_parsed()
-            if account_state is not None:
-                break
-            if attempt < 4:
-                sleep(1)
+        account_state = self.client.get_account_state(self.address, block).get_parsed()
 
         code = account_state.storage.state.x.code.value
         data = account_state.storage.state.x.data.value
