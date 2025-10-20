@@ -253,18 +253,15 @@ class TCaseType(dABIType):
 
         block = self.block_cache[bid]
 
-        account_state = self.client.get_account_state(self.address, block).get_parsed()
-
         for attempt in range(5):
-            try:
-                code = account_state.storage.state.x.code.value
-                data = account_state.storage.state.x.data.value
+            account_state = self.client.get_account_state(self.address, block).get_parsed()
+            if account_state is not None:
                 break
-            except Exception as e:
-                if attempt < 4:
-                    sleep(1)
-                else:
-                    raise e
+            if attempt < 4:
+                sleep(1)
+
+        code = account_state.storage.state.x.code.value
+        data = account_state.storage.state.x.data.value
 
         tvm = TVM(data=data, code=code, allow_debug=True)
         tvm.set_gas_limit(5000000, 5000000)
