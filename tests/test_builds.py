@@ -22,7 +22,12 @@ def test_build():
                     smcs = list(yaml.safe_load_all(stream))
 
                     for smc in smcs:
-                        context.update_subcontext()
-                        tmp = TCaseType(context, abi)
-                        tmp.parse(smc)
-                        tmp.validate()
+                        try:
+                            context.update_subcontext()
+                            tmp = TCaseType(context, abi)
+                            tmp.parse(smc)
+                            tmp.validate()
+                        except Exception as e:
+                            name = smc.get('smart_contract', {}).get('name')
+                            addr = smc.get('smart_contract', {}).get('address')
+                            raise AssertionError(f"Error in test {file}, contract {name}, address {addr}: {e}\n") from e
