@@ -4,7 +4,7 @@ smart_contract:
   name: bidask_pool
   address: "EQCsy_O1avgk0Fa-m43YQLe9EBZ2vU4_FmmK3bV53cfGc_vk"
   block:
-    mc_seqno: 49640795
+    mc_seqno: 52967158
 parsed_info:
   get_methods:
     get_pool_info:
@@ -15,8 +15,8 @@ parsed_info:
         - lp_fee: 5
     get_sqrt_p:
       result:
-        - sqrt_price: 340354341880554360290898475798383972422
+        - sqrt_price: 340019105197040259166592570284227430807
     get_tvl:
       result:
-        - reserve_x: 28434983484
-        - reserve_y: 131777862654
+        - reserve_x: 19784234121
+        - reserve_y: 2487081076
