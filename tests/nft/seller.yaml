@@ -1,0 +1,12 @@
+apiVersion: dabi/v0
+type: TestCase
+smart_contract:
+  name: nft_seller
+  address: "EQAAAIJlmntbxSvuSnRYFkC5inQ9LRPDWG4qehlWy-qQ6R3m"
+  block:
+    mc_seqno: 52609321
+parsed_info:
+  get_methods:
+    get_sale_data:
+      result:
+        - nft_address: "EQDgOZFfgE3ZhdkZnzFccBOsNldYZI0SP29Ukd1BmNIC2rML"

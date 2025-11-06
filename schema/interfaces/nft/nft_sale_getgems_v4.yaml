@@ -1,19 +1,27 @@
 apiVersion: dabi/v0
 type: Interface
 metadata:
-  name: "NFT Seller"
+  name: "Getgems NFT Seller v4"
 labels:
   name: nft_seller
   dton_parse_prefix: abi_nft_seller_
 spec:
   get_methods:
-    - method_name: get_sale_data
+    - method_name: get_fix_price_data_v4
       result_strict_type_check: false
       result_length_strict_check: false
       result:
+        - type: Int
+          labels:
+            name: is_complete
+            skipParse: true
+        - type: Int
+          labels:
+            name: created_at
+            skipParse: true
         - type: Slice
           labels:
-            name: market_address
+            name: marketplace_address
             address: true
             skipParse: true
         - type: Slice
@@ -23,7 +31,7 @@ spec:
             skipParse: true
         - type: Slice
           labels:
-            name: nft_prev_owner_address
+            name: nft_owner_address
             address: true
             skipParse: true
         - type: Int
@@ -31,9 +39,14 @@ spec:
             name: full_price
             dton_type: UInt64
             skipParse: true
+        - type: Slice
+          labels:
+            name: fee_address
+            address: true
+            skipParse: true
         - type: Int
           labels:
-            name: market_fee
+            name: fee_percent
             dton_type: UInt64
             skipParse: true
         - type: Slice
@@ -43,8 +56,20 @@ spec:
             skipParse: true
         - type: Int
           labels:
-            name: royalty
+            name: royalty_percent
             dton_type: UInt64
+            skipParse: true
+        - type: Int
+          labels:
+            name: sold_at
+            skipParse: true
+        - type: Int
+          labels:
+            name: sold_query_id
+            skipParse: true
+        - type: Cell
+          labels:
+            name: jetton_price_dict
             skipParse: true
   selector:
     by_methods: true
