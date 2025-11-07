@@ -1,7 +1,7 @@
 apiVersion: dabi/v0
 type: TestCase
 smart_contract:
-  name: nft_seller
+  name: nft_seller_getgems_v4
   address: "EQCs5Nz0EOPlBwl83sBC--_cnxexc6hqdSUg4ElwOWCm2i9j"
   block:
     mc_seqno: 53253060

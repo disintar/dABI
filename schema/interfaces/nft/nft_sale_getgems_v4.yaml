@@ -2,8 +2,11 @@ apiVersion: dabi/v0
 type: Interface
 metadata:
   name: "Getgems NFT Seller v4"
+  link: "https://github.com/getgems-io/nft-contracts/blob/main/packages/contracts/sources/nft-fixprice-sale-v4r1.fc#L433C3-L433C24"
 labels:
-  name: nft_seller
+  name: nft_seller_getgems_v4
+  extra_names:
+    - nft_seller
   dton_parse_prefix: abi_nft_seller_
 spec:
   get_methods:

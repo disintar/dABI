@@ -53,6 +53,15 @@ class InterfaceType(dABIType):
         if self.labels.data is None or 'name' not in self.labels.data or not isinstance(self.labels.data['name'], str):
             raise ValueError('InterfaceType: labels must have "name" field unique for each SMC')
 
+        if self.labels.data and 'extra_names' in self.labels.data:
+            if (
+                not isinstance(self.labels.data['extra_names'], list)
+                or not isinstance(self.labels.data['extra_names'][0], str)
+            ):
+                raise ValueError('InterfaceType: "extra_names" field in labels must be a list of strings')
+            elif self.labels.data['name'] in self.labels.data['extra_names']:
+                raise ValueError('InterfaceType: "extra_names" field in labels must not contain "name"')
+
         pattern = r'^[A-Za-z_][A-Za-z0-9_]*$'
         if re.match(pattern, self.labels.data['name']) is None:
             raise ValueError("InterfaceType: name must match pattern '{}'".format(pattern))
