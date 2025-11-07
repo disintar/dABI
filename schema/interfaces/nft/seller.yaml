@@ -10,41 +10,49 @@ spec:
     - method_name: get_sale_data
       result_strict_type_check: false
       result_length_strict_check: false
+      labels:
+        skipLive: true
       result:
+        - type: Int
+          labels:
+            name: magic
+        - type: Int
+          labels:
+            name: is_complete
+        - type: Int
+          labels:
+            name: created_at
         - type: Slice
           labels:
-            name: market_address
+            name: marketplace
             address: true
-            skipParse: true
         - type: Slice
           labels:
-            name: nft_address
+            name: nft
             address: true
-            skipParse: true
         - type: Slice
           labels:
-            name: nft_prev_owner_address
+            name: owner
             address: true
-            skipParse: true
         - type: Int
           labels:
             name: full_price
             dton_type: UInt64
-            skipParse: true
+        - type: Slice
+          labels:
+            name: market_fee_address
+            address: true
         - type: Int
           labels:
             name: market_fee
             dton_type: UInt64
-            skipParse: true
         - type: Slice
           labels:
             name: royalty_address
             address: true
-            skipParse: true
         - type: Int
           labels:
-            name: royalty
+            name: royalty_amount
             dton_type: UInt64
-            skipParse: true
   selector:
     by_methods: true

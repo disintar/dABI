@@ -13,63 +13,53 @@ spec:
     - method_name: get_fix_price_data_v4
       result_strict_type_check: false
       result_length_strict_check: false
+      labels:
+        skipLive: true
       result:
         - type: Int
           labels:
             name: is_complete
-            skipParse: true
         - type: Int
           labels:
             name: created_at
-            skipParse: true
         - type: Slice
           labels:
             name: marketplace_address
             address: true
-            skipParse: true
         - type: Slice
           labels:
             name: nft_address
             address: true
-            skipParse: true
         - type: Slice
           labels:
             name: nft_owner_address
             address: true
-            skipParse: true
         - type: Int
           labels:
             name: full_price
             dton_type: UInt64
-            skipParse: true
         - type: Slice
           labels:
             name: fee_address
             address: true
-            skipParse: true
         - type: Int
           labels:
             name: fee_percent
             dton_type: UInt64
-            skipParse: true
         - type: Slice
           labels:
             name: royalty_address
             address: true
-            skipParse: true
         - type: Int
           labels:
             name: royalty_percent
             dton_type: UInt64
-            skipParse: true
         - type: Int
           labels:
             name: sold_at
-            skipParse: true
         - type: Int
           labels:
             name: sold_query_id
-            skipParse: true
         - type: Cell
           labels:
             name: jetton_price_dict

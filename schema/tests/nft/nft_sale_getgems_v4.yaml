@@ -9,4 +9,15 @@ parsed_info:
   get_methods:
     get_fix_price_data_v4:
       result:
+        - is_complete: 0
+        - created_at: 1760902769
+        - marketplace_address: "EQBYTuYbLf8INxFtD8tQeNk5ZLy-nAX9ahQbG_yl1qQ-GEMS"
         - nft_address: "EQAb4mBurQ6bEZt04MLw46Mk4utvwnvWVisFeDS7nnzypX1q"
+        - nft_owner_address: "UQDZX5Ij4FXQSNxs7zXYSWWb8QnWHqXYAs2hNy66YxLrq3ZM"
+        - full_price: 45000000000
+        - fee_address: "UQAXNIP4Crt2kp6YxVVe1ToKSk3aTjeiopSvLHSCbai2eAHx"
+        - fee_percent: 5000
+        - royalty_address: "UQC1_y6V2YIovPZX_2P6Q8QCUyjkfACygqmJeiIyPGDAVBMJ"
+        - royalty_percent: 10000
+        - sold_at: 0
+        - sold_query_id: 0
