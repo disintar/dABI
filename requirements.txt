@@ -1,4 +1,4 @@
-tonpy-dev==0.0.0.6.2a1
+tonpy-dev==0.0.0.6.2b1
 pytest
 PyYAML
 jinja2
