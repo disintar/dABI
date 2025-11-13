@@ -1,0 +1,58 @@
+apiVersion: dabi/v0
+type: Interface
+metadata:
+  name: "NFT Seller"
+labels:
+  name: nft_seller
+  dton_parse_prefix: abi_nft_seller_
+spec:
+  get_methods:
+    - method_name: get_sale_data
+      result_strict_type_check: false
+      result_length_strict_check: false
+      labels:
+        skipLive: true
+      result:
+        - type: Int
+          labels:
+            name: magic
+        - type: Int
+          labels:
+            name: is_complete
+        - type: Int
+          labels:
+            name: created_at
+        - type: Slice
+          labels:
+            name: marketplace
+            address: true
+        - type: Slice
+          labels:
+            name: nft
+            address: true
+        - type: Slice
+          labels:
+            name: owner
+            address: true
+        - type: Int
+          labels:
+            name: full_price
+            dton_type: UInt64
+        - type: Slice
+          labels:
+            name: market_fee_address
+            address: true
+        - type: Int
+          labels:
+            name: market_fee
+            dton_type: UInt64
+        - type: Slice
+          labels:
+            name: royalty_address
+            address: true
+        - type: Int
+          labels:
+            name: royalty_amount
+            dton_type: UInt64
+  selector:
+    by_methods: true

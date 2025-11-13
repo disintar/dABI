@@ -6,6 +6,8 @@ metadata:
 labels:
   dton_parse_prefix: parsed_smart_
   name: my_unique_smc
+  extra_names:
+    - my_unique_smc_v2
 spec:
   get_methods:
     - method_name: get_cool_smc

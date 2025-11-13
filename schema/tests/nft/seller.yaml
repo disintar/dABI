@@ -1,0 +1,22 @@
+apiVersion: dabi/v0
+type: TestCase
+smart_contract:
+  name: nft_seller
+  address: "EQAAJhlNcLn_XWTqDGYx-A2rvL0RdKjZO-nAISOofC8hEBM1"
+  block:
+    mc_seqno: 53076690
+parsed_info:
+  get_methods:
+    get_sale_data:
+      result:
+        - magic: 1179211856
+        - is_complete: 0
+        - created_at: 1747580492
+        - marketplace: "EQBYTuYbLf8INxFtD8tQeNk5ZLy-nAX9ahQbG_yl1qQ-GEMS"
+        - nft: "EQDnKKjg8sAj9_hUyhBjOHEontWRPl4eWlG5a_-eQiKr26Rm"
+        - owner: "UQB4uhRjSoeynPDrYfmSRIdSCtDXgDQ0norcDE24aiA1zMTv"
+        - full_price: 2000000000000
+        - market_fee_address: "UQCjk1hh952vWaE9bRguFkAhDAL5jj3xj9p0uPWrFBq_GB7X"
+        - market_fee: 100000000000
+        - royalty_address: "UQB4uhRjSoeynPDrYfmSRIdSCtDXgDQ0norcDE24aiA1zMTv"
+        - royalty_amount: 400000000000
