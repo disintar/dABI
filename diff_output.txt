@@ -2,8 +2,7 @@
 
 | Change Type | Name | Description | Link |
 | ----------- | ---- | ----------- | ---- |
-| Added 📈 | Getgems NFT Seller v4 | No name | No description | No link |
-| Added 📈 | NFT Seller | No name | No description | No link |
+| No changes | 😊 | | |
 
 
 
@@ -11,8 +10,7 @@
 
 | Change Type | Name | Description | Link |
 | ----------- | ---- | ----------- | ---- |
-| Added 📈 | get_fix_price_data_v4 |  |  | No link |
-| Added 📈 | get_sale_data |  |  | No link |
+| No changes | 😊 | | |
 
 ### Supported Smart Contracts
 
@@ -28,6 +26,8 @@
 | JVault Staking Pool get methods |  | by_methods | get_storage_data, get_stake_wallet_address |
 | JVault Stake Wallet |  | by_methods | get_wallet_data, get_storage_data |
 | tsUSDe Wallet |  | by_methods | get_wallet_data, get_status, get_timelock_data |
+| Getgems NFT Seller v4 |  | by_methods | get_fix_price_data_v4 |
+| NFT Seller |  | by_methods | get_sale_data |
 | STORM Vault |  | by_methods | get_executor_collection_address, get_referral_collection_address, get_vault_contract_data, get_vault_contract_data, get_lp_minter_address, get_vault_whitelisted_addresses, get_vault_data, get_vault_type |
 | TF Core: Payout NFT |  | by_methods | get_nft_data, get_bill_amount |
 | TF Core: Liquid Staking pool |  | by_methods | get_controller_address, get_controller_address_legacy, get_loan, get_controller_loan_position, get_pool_full_data |
