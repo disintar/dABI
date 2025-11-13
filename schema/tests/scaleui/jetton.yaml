@@ -2,13 +2,13 @@ apiVersion: dabi/v0
 type: TestCase
 smart_contract:
   name: scaled_jetton
-  address: "EQDsRxOvYyhOAi-zHBSN2NkHcjwFB1aaMSnqJG7Chm14x02P"
+  address: "EQAnmAKsa_mCXoefjzecmjXMnt5OqURjT-OFD5hyT1N3hKTy"
   block:
-    mc_seqno: 53926913
+    mc_seqno: 53949061
 parsed_info:
   get_methods:
     get_display_multiplier:
       result:
-        - numerator: 5003019001759
-        - denominator: 5000000000000
+        - numerator: 1
+        - denominator: 1
 
