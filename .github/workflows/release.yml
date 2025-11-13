@@ -26,11 +26,11 @@ jobs:
           pip install -r requirements.txt
 
       # Run pytest to ensure the code is passing
-#      - name: Run Pytest
-#        env:
-#          LITESERVER: '${{ secrets.LITESERVER }}'
-#        run: |
-#          pytest
+      - name: Run Pytest
+        env:
+          LITESERVER: '${{ secrets.LITESERVER }}'
+        run: |
+          pytest
 
       # Run build.py to generate the final JSON file and save artifact with run ID
       - name: Run Build Script
