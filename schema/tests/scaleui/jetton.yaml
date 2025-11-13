@@ -1,0 +1,14 @@
+apiVersion: dabi/v0
+type: TestCase
+smart_contract:
+  name: scaleui_jetton
+  address: "EQDsRxOvYyhOAi-zHBSN2NkHcjwFB1aaMSnqJG7Chm14x02P"
+  block:
+    mc_seqno: 53926913
+parsed_info:
+  get_methods:
+    conversionRatio:
+      result:
+        - numerator: 5003019001759
+        - denominator: 5000000000000
+
