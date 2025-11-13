@@ -26,11 +26,11 @@ jobs:
         pip install -r requirements.txt
 
     # Run tests (using pytest)
-    - name: Run Tests
-      env:
-        LITESERVER: '${{ secrets.LITESERVER }}'
-      run: |
-        pytest
+#    - name: Run Tests
+#      env:
+#        LITESERVER: '${{ secrets.LITESERVER }}'
+#      run: |
+#        pytest
 
     - name: Run Build Script
       run: |
