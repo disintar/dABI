@@ -7,7 +7,7 @@ smart_contract:
     mc_seqno: 53926913
 parsed_info:
   get_methods:
-    conversionRatio:
+    get_display_multiplier:
       result:
         - numerator: 5003019001759
         - denominator: 5000000000000
