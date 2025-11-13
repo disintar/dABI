@@ -4,7 +4,7 @@ smart_contract:
   name: royalty
   address: "EQAxises0-pgV_s572SFUZqwE-gdgXzdXVlspOT32aWIRHCR"
   block:
-    mc_seqno: 40948230
+    mc_seqno: 53926913
 parsed_info:
   get_methods:
     royalty_params:

@@ -1,0 +1,21 @@
+apiVersion: dabi/v0
+type: Interface
+metadata:
+  name: "Scaled UI Jetton"
+labels:
+  name: scaled_jetton
+  dton_parse_prefix: abi_scaled_jetton_
+spec:
+  get_methods:
+    - method_name: get_display_multiplier
+      result:
+        - type: Int
+          labels:
+            name: numerator
+            dton_type: UInt64
+        - type: Int
+          labels:
+            name: denominator
+            dton_type: UInt64
+  selector:
+    by_methods: true

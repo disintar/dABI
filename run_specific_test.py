@@ -44,5 +44,5 @@ def run(to_run: str = None):
 
 
 if __name__ == '__main__':
-    run("tac_jetton")
+    run("scaled_jetton")
 
