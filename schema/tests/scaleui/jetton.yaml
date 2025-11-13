@@ -1,7 +1,7 @@
 apiVersion: dabi/v0
 type: TestCase
 smart_contract:
-  name: scaleui_jetton
+  name: scaled_jetton
   address: "EQDsRxOvYyhOAi-zHBSN2NkHcjwFB1aaMSnqJG7Chm14x02P"
   block:
     mc_seqno: 53926913
