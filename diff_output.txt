@@ -2,7 +2,8 @@
 
 | Change Type | Name | Description | Link |
 | ----------- | ---- | ----------- | ---- |
-| No changes | 😊 | | |
+| Added 📈 | Getgems NFT Seller v4 | No name | No description | No link |
+| Added 📈 | NFT Seller | No name | No description | No link |
 
 
 
@@ -10,7 +11,8 @@
 
 | Change Type | Name | Description | Link |
 | ----------- | ---- | ----------- | ---- |
-| No changes | 😊 | | |
+| Added 📈 | get_fix_price_data_v4 |  |  | No link |
+| Added 📈 | get_sale_data |  |  | No link |
 
 ### Supported Smart Contracts
 
