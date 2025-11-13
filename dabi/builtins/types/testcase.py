@@ -10,6 +10,7 @@ from dabi.settings import supported_versions
 
 from time import sleep
 
+
 class TCaseType(dABIType):
     smart_contract = {
         'workchain': -1,
@@ -218,7 +219,8 @@ class TCaseType(dABIType):
 
                     for i in data['parsed_info']['get_methods'][getter]['result']:
                         if len(i) < 1:
-                            raise ValueError(f'TestCaseType: {getter} must contain at least one result in list of results')
+                            raise ValueError(
+                                f'TestCaseType: {getter} must contain at least one result in list of results')
                         if not isinstance(i, dict):
                             raise ValueError(f'TestCaseType: {getter} / {i} must be dict')
 
@@ -239,21 +241,31 @@ class TCaseType(dABIType):
         )
 
         if bid not in self.block_cache:
-            not_loaded=True
+            not_loaded = True
             while not_loaded:
 
                 try:
-                    self.block_cache[bid] = self.client.lookup_block(workchain=bid.workchain, shard=bid.shard, seqno=bid.seqno).blk_id
-                    not_loaded=False
+                    self.block_cache[bid] = self.client.lookup_block(workchain=bid.workchain, shard=bid.shard,
+                                                                     seqno=bid.seqno).blk_id
+                    not_loaded = False
                 except Exception as e:
                     sleep(0.1)
 
                     # raise ValueError(f'TestCaseType: block {bid} not found: {e}')
 
-
         block = self.block_cache[bid]
 
         account_state = self.client.get_account_state(self.address, block).get_parsed()
+        t = 0
+
+        while account_state is None:
+            print(f"Loading account state for {self.address}...")
+            sleep(0.1)
+            t += 1
+            if t > 20:
+                raise ValueError(f'TestCaseType: account state not found after 10 tries: {self.address}')
+
+            account_state = self.client.get_account_state(self.address, block).get_parsed()
 
         code = account_state.storage.state.x.code.value
         data = account_state.storage.state.x.data.value
@@ -311,7 +323,8 @@ class TCaseType(dABIType):
                 not_loaded = True
                 while not_loaded:
                     try:
-                        self.block_cache[bid] = self.client.lookup_block(workchain=bid.workchain, shard=bid.shard, seqno=bid.seqno).blk_id
+                        self.block_cache[bid] = self.client.lookup_block(workchain=bid.workchain, shard=bid.shard,
+                                                                         seqno=bid.seqno).blk_id
                         not_loaded = False
                     except Exception:
                         sleep(0.1)
@@ -397,8 +410,10 @@ class TCaseType(dABIType):
 
                     exp = expected_item['type']
 
-                    if expected_item['type'] == 'Int' and 'dton_type' not in expected_item['labels'] and 'required' not in expected_item:
-                        raise Exception(f'!!!!!!!!!!!! dton_type not found for {expected_item["labels"]["name"]} field, method {method_name}')
+                    if expected_item['type'] == 'Int' and 'dton_type' not in expected_item[
+                        'labels'] and 'required' not in expected_item:
+                        raise Exception(
+                            f'!!!!!!!!!!!! dton_type not found for {expected_item["labels"]["name"]} field, method {method_name}')
 
                     if exp == 'Bool':
                         exp = 'Int'
