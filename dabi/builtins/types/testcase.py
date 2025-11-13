@@ -23,12 +23,7 @@ class TCaseType(dABIType):
     def __init__(self, context, abi):
         super().__init__(context)
 
-        server = json.loads(os.getenv('LITESERVER'))
-        self.client = LiteClient(host=server['ip'],
-                                 port=server['port'],
-                                 pubkey_base64=server['id']['key'],
-                                 timeout=5,
-                                 num_try=100)
+        self.client = self.load_client()
         self.parsed_info = {}
         self.abi = abi
         self.name = None
@@ -36,6 +31,15 @@ class TCaseType(dABIType):
         self.only_storage = False
 
         self.block_cache = dict()
+
+    def load_client(self):
+        server = json.loads(os.getenv('LITESERVER'))
+
+        return LiteClient(host=server['ip'],
+                          port=server['port'],
+                          pubkey_base64=server['id']['key'],
+                          timeout=5,
+                          num_try=100)
 
     def process_tlb(self, expected, received: StackEntry, expected_item, my_error):
         received_tlb = {}
@@ -259,6 +263,8 @@ class TCaseType(dABIType):
         t = 0
 
         while account_state is None:
+            self.client = self.load_client()
+
             print(f"Loading account state for {self.address}...")
             sleep(0.1)
             t += 1
