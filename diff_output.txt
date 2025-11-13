@@ -2,7 +2,7 @@
 
 | Change Type | Name | Description | Link |
 | ----------- | ---- | ----------- | ---- |
-| No changes | 😊 | | |
+| Added 📈 | Scaled UI Jetton | No name | No description | No link |
 
 
 
@@ -10,7 +10,7 @@
 
 | Change Type | Name | Description | Link |
 | ----------- | ---- | ----------- | ---- |
-| No changes | 😊 | | |
+| Added 📈 | get_display_multiplier |  |  | No link |
 
 ### Supported Smart Contracts
 
