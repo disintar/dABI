@@ -247,7 +247,6 @@ class TCaseType(dABIType):
         if bid not in self.block_cache:
             not_loaded = True
             while not_loaded:
-
                 try:
                     self.block_cache[bid] = self.client.lookup_block(workchain=bid.workchain, shard=bid.shard,
                                                                      seqno=bid.seqno).blk_id
@@ -265,7 +264,7 @@ class TCaseType(dABIType):
         while account_state is None:
             self.client = self.load_client()
 
-            print(f"Loading account state for {self.address}...")
+            print(f"Loading account state for {self.address}, block {block}, bid: {bid}...")
             sleep(0.1)
             t += 1
             if t > 20:
