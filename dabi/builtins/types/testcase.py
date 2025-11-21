@@ -15,7 +15,8 @@ class TCaseType(dABIType):
     smart_contract = {
         'workchain': -1,
         'shard': MASTER_SHARD,
-        'seqno': None
+        'seqno': None,
+        'timestamp': None,
     }
 
     address = None
@@ -180,6 +181,7 @@ class TCaseType(dABIType):
             raise ValueError('TestCaseType: mc_seqno must be int')
 
         self.smart_contract['seqno'] = data['smart_contract']['block']['mc_seqno']
+        self.smart_contract['timestamp'] = data['smart_contract']['block'].get('timestamp', datetime.now())
 
         if 'name' not in data['smart_contract'] or not isinstance(data['smart_contract']['name'], str):
             raise ValueError('TestCaseType: name must be in smart_contract (name of label.smart_contract to test)')
@@ -285,7 +287,7 @@ class TCaseType(dABIType):
         config = self.client.get_config_all(block)
 
         c7 = C7(
-            time=datetime.now(),
+            time=self.smart_contract['timestamp'],
             balance_grams=account_state.storage.balance.grams.amount.value,
             address=self.address,
             my_code=code,

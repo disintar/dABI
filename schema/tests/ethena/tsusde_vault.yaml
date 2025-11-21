@@ -1,0 +1,22 @@
+apiVersion: dabi/v0
+type: TestCase
+smart_contract:
+  name: tsusde_vault
+  address: "EQChGuD1u0e7KUWHH5FaYh_ygcLXhsdG2nSHPXHW8qqnpZXW"
+  block:
+    mc_seqno: 54216500
+    timestamp: 1763721008
+parsed_info:
+  get_methods:
+    getMintNanos:
+      result:
+        - mint_nanos: 35000000
+    getUnvestedAmount:
+      result:
+        - unvested_amount: 1567273233
+    getTotalAssets:
+      result:
+        - total_assets: 8623626668626
+    getTotalShares:
+      result:
+        - total_shares: 6832825700362

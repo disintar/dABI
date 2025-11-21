@@ -1,0 +1,39 @@
+apiVersion: dabi/v0
+type: Interface
+metadata:
+  name: "tsUSDe Vault"
+labels:
+  name: tsusde_vault
+  dton_parse_prefix: abi_tsusde_vault_
+spec:
+  get_methods:
+    - method_name: getMintNanos
+      result:
+        - type: Int
+          labels:
+            name: mint_nanos
+            dton_type: UInt256
+
+    - method_name: getUnvestedAmount
+      result:
+        - type: Int
+          labels:
+            name: unvested_amount
+            dton_type: UInt256
+
+    - method_name: getTotalAssets
+      result:
+        - type: Int
+          labels:
+            name: total_assets
+            dton_type: UInt256
+
+    - method_name: getTotalShares
+      result:
+        - type: Int
+          labels:
+            name: total_shares
+            dton_type: UInt256
+
+  selector:
+    by_methods: true
