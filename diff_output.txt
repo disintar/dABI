@@ -2,7 +2,7 @@
 
 | Change Type | Name | Description | Link |
 | ----------- | ---- | ----------- | ---- |
-| Added 📈 | Scaled UI Jetton | No name | No description | No link |
+| Added 📈 | tsUSDe Vault | No name | No description | No link |
 
 
 
@@ -10,7 +10,10 @@
 
 | Change Type | Name | Description | Link |
 | ----------- | ---- | ----------- | ---- |
-| Added 📈 | get_display_multiplier |  |  | No link |
+| Added 📈 | getMintNanos |  |  | No link |
+| Added 📈 | getUnvestedAmount |  |  | No link |
+| Added 📈 | getTotalAssets |  |  | No link |
+| Added 📈 | getTotalShares |  |  | No link |
 
 ### Supported Smart Contracts
 
@@ -48,6 +51,7 @@
 | Ton Whales: Liquid Staking pool |  | by_code | get_pool_status |
 | Whales Nominators Interface |  | by_methods | get_proxy, get_owner, get_controller, get_unowned, get_available, get_staking_status, get_pool_status, get_params, get_members_raw, get_members, get_member, supported_interfaces |
 | tgUSD Liquid Staking |  | by_code | conversionRatio |
+| Scaled UI Jetton |  | by_methods | get_display_multiplier |
 | Hippo Liquid Staking |  | by_methods | get_max_burnable_tokens, get_surplus, get_treasury_fees, get_loan_address, get_bill_address, get_collection_address, get_treasury_state |
 | Bemo Liquid Staking |  | by_methods | get_jetton_data, get_full_data |
 | TONCO Pool |  | by_code | getPoolStateAndConfiguration |
