@@ -82,7 +82,9 @@ class dABIParser:
                     else:
                         old_hashes &= set(self.method_to_hash[str(method)])
 
-            if old_hashes is not None:
+            # If interface has explicit by_code selector, do NOT add mappings inferred from getters
+            has_explicit_code = bool(parsed_i['code_hashes'])
+            if old_hashes is not None and not has_explicit_code:
                 for code_hash in old_hashes:
                     if code_hash not in by_code_hash:
                         by_code_hash[code_hash] = []
@@ -90,12 +92,12 @@ class dABIParser:
                     by_code_hash[code_hash].append(name_of_i)
                     by_get_method_stats[name_of_i] += 1
 
+            # Always add explicit selector.by_code when present
             for code_hash in parsed_i['code_hashes']:
                 if code_hash['hash'] not in by_code_hash:
                     by_code_hash[code_hash['hash']] = []
 
                 by_code_hash[code_hash['hash']].append(name_of_i)
-
 
                 by_get_method_stats[name_of_i] += 1
 
